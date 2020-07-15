@@ -16,8 +16,6 @@ class VaidateAnnotation(object):
         if not valid_column_one:
             raise Exception(json.dumps(self.error_report))
 
-        
-
     def validate_annotation_column_one(self, df):
         valid_first_column = True
         if df.iloc[0, 0].strip().lower() != 'dataset':
@@ -30,23 +28,23 @@ class VaidateAnnotation(object):
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 2, 1, 'Second row in column 1 should be "role"'))
 
-        if df.iloc[0, 0].strip().lower() != 'type':
+        if df.iloc[2, 0].strip().lower() != 'type':
             valid_first_column = False
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 3, 1, 'Third row in column 1 should be "type"'))
 
-        if df.iloc[0, 0].strip().lower() != 'description':
+        if df.iloc[3, 0].strip().lower() != 'description':
             valid_first_column = False
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 4, 1,
                                'Fourth row in column 1 should be "description"'))
 
-        if df.iloc[0, 0].strip().lower() != 'name':
+        if df.iloc[4, 0].strip().lower() != 'name':
             valid_first_column = False
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 5, 1, 'Fifth row in column 1 should be "name"'))
 
-        if df.iloc[0, 0].strip().lower() != 'unit':
+        if df.iloc[5, 0].strip().lower() != 'unit':
             valid_first_column = False
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 6, 1, 'Sixth row in column 1 should be "unit"'))
