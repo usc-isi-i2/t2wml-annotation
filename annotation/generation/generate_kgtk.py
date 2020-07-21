@@ -12,7 +12,7 @@ from annotation_to_template import generate_template_from_df
 from wikify_datamart_units_and_atrributes import generate
 from generate_t2wml_files import execute_shell_code
 
-# currently this script only support t2wml > 2.0a19
+# currently this script only support t2wml == 2.0a19
 
 
 class GenerateKgtk:
@@ -74,7 +74,7 @@ class GenerateKgtk:
         temp_data_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".csv")
         data_filepath = "{}.csv".format(self.project_name)
 
-        if os.path.islink(data_filepath):
+        if os.path.islink(data_filepath) or os.path.exists(data_filepath):
             os.remove(data_filepath)
         os.symlink(temp_data_file.name, data_filepath)
 
