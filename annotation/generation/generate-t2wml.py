@@ -111,24 +111,25 @@ class ToT2WML:
         self.sheet = annotated_spreadsheet
 
         # category rows
-        self.role_index = get_index(self.sheet.loc[:, 0], Category.ROLE.value)
-        self.type_index = get_index(self.sheet.loc[:, 0], Category.TYPE.value)
-        self.header_index = get_index(self.sheet.loc[:, 0], Category.HEADER.value)
-        self.data_index = get_index(self.sheet.loc[:, 0], Category.DATA.value)
+        self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)
+        self.role_index = get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
+        self.type_index = get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
+        self.header_index = get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
+        self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
 
         # role
-        self.main_subject_index = get_index(self.sheet.loc[self.role_index, :], Role.MAIN_SUBJECT.value)
-        self.time_indcies = get_indices(self.sheet.loc[self.role_index, :], Role.TIME.value)
-        self.location_indices = get_indices(self.sheet.loc[self.role_index, :], Role.LOCATION.value)
-        self.variable_indices = get_indices(self.sheet.loc[self.role_index, :], Role.VARIABLE.value)
-        self.qualifier_indices = get_indices(self.sheet.loc[self.role_index, :], Role.QUALIFIER.value)
-        self.variable_columns = self.sheet.loc[1, :] == Role.VARIABLE.value
+        self.main_subject_index = get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
+        self.time_indcies = get_indices(self.sheet.iloc[self.role_index, :], Role.TIME.value)
+        self.location_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.LOCATION.value)
+        self.variable_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.VARIABLE.value)
+        self.qualifier_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.QUALIFIER.value)
+        self.variable_columns = self.sheet.iloc[1, :] == Role.VARIABLE.value
 
     def _get_region(self) -> dict:
         top = self.data_index
         bottom = self.sheet.shape[0]
-        left = get_index(self.sheet.loc[1, :], Role.VARIABLE.value)
-        right = get_index(self.sheet.loc[1, :], Role.VARIABLE.value, pos=-1)
+        left = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value)
+        right = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value, pos=-1)
         region = {
             'left': to_letter_column(left),
             'right': to_letter_column(right),
@@ -142,7 +143,7 @@ class ToT2WML:
         # Need to generalize
         if self.time_indcies.shape[0] == 0:
             raise RuntimeError('No column labeled with "time" role')
-        iso_indices = get_indices(self.sheet.loc[self.type_index, :], Type.ISO_DATE_TIME,
+        iso_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.ISO_DATE_TIME,
             within=self.time_indcies)
         if iso_indices.shape[0] > 0:
             time_index = iso_indices.shape[0]
@@ -160,19 +161,23 @@ class ToT2WML:
         time_formats = []
         precision = 'year'
         for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
-            col_indices = get_indices(self.sheet.loc[self.type_index, :],
+            col_indices = get_indices(self.sheet.iloc[self.type_index, :],
                 col_type.value, within=self.time_indcies)
             if col_indices.shape[0]:
-                col_index = get_index(self.sheet.loc[self.type_index, :], col_type.value)
+                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
                 time_cells.append(col_index)
                 time_formats.append(date_format[col_type])
                 if col_type == Type.MONTH:
                     precision = 'month'
                 elif col_type == Type.MONTH:
                     precision = 'day'
-        cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
-        value = f'=concat({cells}, "-")'
-        time_format = '-'.join(time_formats)
+        if len(time_cells) > 1:
+            cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
+            value = f'=concat({cells}, "-")'
+            time_format = '-'.join(time_formats)
+        else:
+            value = f'=value[{to_letter_column(time_cells[0])}, $row]'
+            time_format = time_formats[0]
         result = {
             'property': 'P585',
             'value': value,  # '=conat(value[C:E, $row], "-")',
@@ -183,24 +188,32 @@ class ToT2WML:
         }
         return result
 
+    def _get_dataset(self) -> dict:
+        dataset_id = self.sheet.iloc[self.dataset_index, 1]
+        result = {
+            'property': 'P2006020004',
+            'value': f'Q{dataset_id}'
+            }
+        return result
+
     def _get_admins(self) -> list:
         # country and admins
         qualifier = []
-        for col_type in [Type.COUNTRY, Type.ADMIN1, Type.ADMIN2, Type.ADMIN3, Type.ADMIN3]:
-            if get_indices(self.sheet.loc[self.type_index, :], col_type.value).shape[0]:
-                col_index = get_index(self.sheet.loc[self.type_index, :], col_type.value)
+        for col_type in [Type.COUNTRY, Type.ADMIN1, Type.ADMIN2, Type.ADMIN3]:
+            if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
+                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
                 entry = {
                     'property': f'{property_node[col_type]}',
-                    'value': f'=value[{to_letter_column(col_index)}, $row]',
+                    'value': f'=item[{to_letter_column(col_index)}, $row]',
                 }
                 qualifier.append(entry)
         return qualifier
 
-    def _get_coordinate(self) -> dict:
+    def _get_coordinate(self) -> list:
         # add coordinate
         # need to generalize
-        longitude_index = get_indices(self.sheet.loc[self.type_index, :], Type.LONGITUDE.value)
-        latitude_index = get_indices(self.sheet.loc[self.type_index, :], Type.LATITUDE.value)
+        longitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LONGITUDE.value)
+        latitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LATITUDE.value)
         if longitude_index.shape[0] and latitude_index.shape[0]:
             longitude_index = longitude_index[0]
             latitude_index = latitude_index[0]
@@ -209,7 +222,9 @@ class ToT2WML:
                 'value': '=concat("POINT(", value[' + to_letter_column(longitude_index) + ' , $row], value[' \
                     + to_letter_column(latitude_index) + ', $row], ")", " ")'
             }
-            return result
+            return [result]
+        else:
+            return []
 
     def _get_qualifiers(self) -> list:
         # add qualifiers
@@ -236,8 +251,9 @@ class ToT2WML:
 
         qualifier = []
         qualifier.append(self._get_time())
+        qualifier.append(self._get_dataset())
         qualifier += self._get_admins()
-        qualifier.append(self._get_coordinate())
+        qualifier += self._get_coordinate()
         qualifier += self._get_qualifiers()
         template['qualifier'] = qualifier
 
@@ -256,8 +272,9 @@ class ToT2WML:
         return output
 
 if __name__ == '__main__':
-    input_file = 'aid worker security_incidents2020-06-22.xlsx'
+    # input_file = '/home/kyao/Shared/Datamart/data/D3M/GDL-AreaData370-Ethiopia-description.xlsx'
+    input_file = '/home/kyao/dev/t2wml-projects/projects/aid/csv/aid worker security_incidents2020-06-22.xlsx'
     sheet = pd.read_excel(input_file, header=None)
-    sheet.loc[1, :] = sheet.loc[1, :].fillna(method='ffill')
+    sheet.iloc[1, :] = sheet.iloc[1, :].fillna(method='ffill')
     to_t2wml = ToT2WML(sheet)
     print(to_t2wml.get_yaml())
