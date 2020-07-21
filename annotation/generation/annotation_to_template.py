@@ -1,10 +1,25 @@
 import pandas as pd
 import os
+import logging
 
+_logger = logging.getLogger(__name__)
 type_mapper_dict = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
 
 
 def generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
+    """
+    A sample dataset file looks like: here {dataset_id} = "aid-security"
+    node1	        label	    node2	                id
+    Qaid-security	P31	        Q1172284	            aid-security-P31
+    Qaid-security	label	    aid-security dataset	aid-security-label
+    Qaid-security	P1476	    aid-security dataset	aid-security-P1476
+    Qaid-security	description	aid-security dataset	aid-security-description
+    Qaid-security	P2699	    aid-security	        aid-security-P2699
+    Qaid-security	P1813	    aid-security	        aid-security-P1813
+
+    :param dataset_id: input dataset id
+    :return:
+    """
     dataset_id_df_list = []
 
     dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
@@ -18,6 +33,11 @@ def generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
 
 
 def generate_template_from_df(input_df: pd.DataFrame) -> dict:
+    """
+    function used for datamart annotation batch mode, return a dict of dataFrame instead of output a xlsx file
+    :param input_df: input annotation DataFrame
+    :return:
+    """
     dataset_id = input_df.iloc[0, 0]
     annotation_part = input_df.iloc[1:7].fillna("")
     content_part = input_df.iloc[7:]
@@ -47,15 +67,25 @@ def generate_template_from_df(input_df: pd.DataFrame) -> dict:
     return output_df_dict
 
 
-def generate_template(input_path: str, output_path):
+def generate_template(input_path: str, output_path: str) -> None:
+    """
+    genearte the template xlsx file from the input xlsx file
+    :param input_path:
+    :param output_path:
+    :return:
+    """
     input_df = pd.read_excel(input_path, index_col=0, header=None)
     dataset_id = input_df.iloc[0, 0]
     annotation_part = input_df.iloc[1:7].fillna("")
     content_part = input_df.iloc[7:]
-    # fix condition is we have merged roles rows
+
+    # fix condition is we have merged roles rows, it may cause wrong things
     for i in range(1, annotation_part.shape[1]):
         if annotation_part.iloc[:, i]["role"] == "":
-            annotation_part.iloc[:, i]["role"] = annotation_part.iloc[:, i - 1]["role"]
+            previous_role = annotation_part.iloc[:, i - 1]["role"]
+            _logger.warning("No role detect on column No.{}, will assume from previous column as {}"
+                            .format(i, annotation_part.iloc[:, i - 1]["role"]))
+            annotation_part.iloc[:, i]["role"] = previous_role
 
     # start generate dataframe for templates
     dataset_df = generate_dataset_tab(dataset_id)
@@ -107,6 +137,12 @@ def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_pa
         codes used to generate the template unit tab
         1. list all the distinct units defined in the units row
         2. If there are columns with role == unit, also add them
+
+        The output will have 2 columns like:
+        Q-Node can be empty or user specified nodes, if automatically generated from this script,
+        it will always be empty and with be generated in wikify_datamart_units_and_attributes.py
+        Unit	    Q-Node
+        person	    ""
     """
     unit_df_list = []
     unit_cols = []
@@ -184,6 +220,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
 
 def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataFrame):
     # generate wikifier file for all columns that have type == country, admin1, admin2, or admin3
+    # TODO: set country wikifier and ethiopia wikifier to be a service
     wikifier_df_list = []
     target_cols = []
     run_ethiopia_wikifier = False
@@ -194,19 +231,18 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
         if each_col_info["role"] == "location":
             if each_col_info["type"] == "country":
                 # use country wikifier
-                # os.chdir("/Users/minazuki/Desktop/studies/master/2018Summer/DSBOX_2019/t2wml-projects/scipts")
-                from country_wikifier import DatamartCountryWikifier
+                from annotation.generation.country_wikifier import DatamartCountryWikifier
                 wikified_result = DatamartCountryWikifier().wikify(content_part.iloc[:, i].dropna().unique().tolist())
                 for label, node in wikified_result.items():
                     wikifier_df_list.append(
-                        {"column": "", "row": "", "value": label, "context": "main subject", "item": node})
+                        {"column": "", "row": "", "value": label, "context": "", "item": node})
                 if "ethiopia" in [each.lower() for each in content_part.iloc[:, i].dropna().unique()]:
                     run_ethiopia_wikifier = True
             if each_col_info["type"] in {"admin1", "admin2", "admin3"}:
                 target_cols.append(i)
 
     if run_ethiopia_wikifier:
-        from ethiopia_wikifier import EthiopiaWikifier
+        from annotation.generation.ethiopia_wikifier import EthiopiaWikifier
         wikifier = EthiopiaWikifier()
         # get target columns to run with wikifier
         target_df = content_part.iloc[:, target_cols].reset_index().drop(columns=[0])
@@ -223,7 +259,7 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
                     # to prevent duplicate names with different nodes, we need to create column and row number here
                     wikifier_df_list.append(
                         {"column": target_cols[i] + col_offset, "row": row_number + row_offset, "value": label,
-                         "context": "main subject", "item": node})
+                         "context": "", "item": node})
     if len(wikifier_df_list) == 0:
         wikifier_df = pd.DataFrame(columns=['column', 'row', 'value', 'context', "item"])
     else:

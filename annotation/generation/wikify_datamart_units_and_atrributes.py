@@ -10,7 +10,6 @@ from collections import defaultdict
 """
 How to use:
 Step 1: load file
-a. call "load_csvs" send with the 3 file's path
 b. call "load_xlsx" send with one file path
 
 Step 2: generate file
@@ -22,27 +21,6 @@ if column name config not given or partial not given the system will use:
 Example file:
 https://docs.google.com/spreadsheets/d/1NuTmRIxpy460S4CRdP6XORKFILssOby_RxiFbONXwv0/edit#gid=756069733
 
-
-column_name_config = {
-    "attributes_file_node_column_name": "Property",
-    "attributes_file_node_label_column_name": "Attribute",
-    "unit_file_node_column_name": "Q-Node",
-    "unit_file_node_label_column_name": "Unit"
-}
-from wikify_datamart_units_and_atrributes import generate, load_xlsx
-# first method
-dataset_file = "./Dataset.csv"
-attributes_file = "./Attributes.csv"
-units_file = "./Units.csv"
-loaded_file = load_csvs(dataset_file, attributes_file, units_file)
-generate(loaded_file , ".", column_name_config)
-
-# second method:
-# specify the sheet name if needed
-sheet_name_config = {"dataset_file": "Dataset", "attributes_file": "Attributes", "units_file": "Units"}
-all_file = "../oecd/OECD T2WML Template.xlsx"
-loaded_file = load_xlsx(all_file)
-generate(loaded_file , ".", column_name_config)
 
 For attribute file:
 Assume "Property" column exist and it is the node column
@@ -56,6 +34,7 @@ stop_punctuation = string.punctuation
 TRANSLATOR = str.maketrans(stop_punctuation, ' ' * len(stop_punctuation))
 
 
+# deprecated! not use
 def load_csvs(dataset_file: str, attributes_file: str, units_file: str):
     loaded_file = {}
     files = [dataset_file, attributes_file, units_file]
@@ -95,7 +74,8 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
     return loaded_file
 
 
-def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True) -> typing.Optional[dict]:
+def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True,
+             datamart_properties_file: str = None) -> typing.Optional[dict]:
     """
     The main entry function for generating datamart files from template input,
     base on input parameter `to_disk`, the output can be None or dict of dataframe
@@ -103,6 +83,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     :param output_path:
     :param column_name_config:
     :param to_disk:
+    :param datamart_properties_file
     :return:
     """
     if not os.path.exists(output_path):
@@ -130,7 +111,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
     # generate files
     memo = defaultdict(dict)
-    kgtk_properties_df = generate_KGTK_properties_file(loaded_file["attributes_file"], loaded_file["qualifiers"], dataset_id,
+    kgtk_properties_df = generate_KGTK_properties_file(loaded_file["attributes_file"], loaded_file["qualifiers"],
+                                                       dataset_id,
                                                        memo, column_name_config["attributes_file_node_column_name"],
                                                        column_name_config["attributes_file_node_label_column_name"])
     kgtk_variables_df = generate_KGTK_variables_file(loaded_file["attributes_file"], dataset_id, memo,
@@ -142,11 +124,17 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     wikifier_df = generate_wikifier_file(memo, extra_wikifier_dict)
     if loaded_file["Wikifier_t2wml"] is not None:
         wikifier_df = pd.concat([wikifier_df, loaded_file["Wikifier_t2wml"]])
+
     # save output
     generate_and_save_dataset_file(loaded_file["dataset_file"], output_path)
     generate_extra_edges_file(loaded_file["extra_edges"], output_path, memo)
+
     # combine datamart-schema part's property files
-    kgtk_properties_df = pd.concat([pd.read_csv("datamart_schema_properties.tsv", sep='\t'), kgtk_properties_df])
+    if datamart_properties_file is None:
+        datamart_properties_file = __file__[:__file__.rfind("/")] + "/datamart_schema_properties.tsv"
+    if not os.path.exists(datamart_properties_file):
+        raise ValueError("Datamart schema properties tsv file not exist at {}!".format(datamart_properties_file))
+    kgtk_properties_df = pd.concat([pd.read_csv(datamart_properties_file, sep='\t'), kgtk_properties_df])
 
     output_files = [kgtk_properties_df, kgtk_variables_df, kgtk_units_df, wikifier_df]
     output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv"]
@@ -169,7 +157,17 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
 
 def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame, dataset_id: str, memo: dict,
                                   node_column_name="Property", node_label_column_name="Attribute",
-                                  qualifier_column_name="Qualifiers"):
+                                  qualifier_column_name="Qualifiers") -> pd.DataFrame:
+    """
+    sample format for each property (totally 3 rows)
+    Please note that data type may change (to String, Date) base on the given input template file
+        id	                            node1	            label	    node2
+	0   Paid-security-002-data_type	    Paid-security-002	data_type	Quantity
+    1   Paid-security-002-P31	        Paid-security-002	P31	        Q18616576
+    2   Paid-security-002-label	        Paid-security-002	label	    UN
+
+    :return:
+    """
     node_number = 1
     output_df_list = []
     input_df = input_df.fillna("")
@@ -179,6 +177,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
             node_id = "P{}-{:03}".format(dataset_id, node_number)
             memo["property"][node_id] = each_row[node_label_column_name]
             memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
+            # get type if specified
             if "type" in each_row:
                 value_type = each_row["type"]
             else:
@@ -282,7 +281,15 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
 
 
 def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Q-Node",
-                             node_label_column_name="Unit"):
+                             node_label_column_name="Unit") -> pd.DataFrame:
+    """
+        sample format for each unit (totally 2 rows)
+        id	                        node1	            label	node2
+    0   Qaid-security-U002-label	Qaid-security-U002	label	person
+    1   Qaid-security-U002-P31	    Qaid-security-U002	P31	    Q47574
+
+    :return:
+    """
     node_number = 1
     count = 0
     output_df_dict = {}
@@ -309,6 +316,18 @@ def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict
 
 
 def generate_wikifier_file(memo, extra_wikifier_dict):
+    """
+    generate the wikifier part from template(those properties, variables, units generated in above functions)
+    Sample file looks like:
+        column	row	value	    context	    item
+	0	            UN	        property	Paid-security-002
+	1	            INGO	    property	Paid-security-003
+	2	            LNGO/NRCS	property	Paid-security-004
+	3	            ICRC	    property	Paid-security-005
+	4		        UN	        variable	Qaid-security-002
+	5	            INGO	    variable	Qaid-security-003
+    6               person	    unit	    Qaid-security-U002
+    """
     output_df_list = []
     for memo_type, each_memo in memo.items():
         if memo_type in {"property", "unit", "variable"}:
@@ -317,8 +336,9 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
                 # for those specific alias of wikifier names
                 combo = (label, memo_type)
                 if combo in extra_wikifier_dict:
-                    output_df_list.append({"column": "", "row": "", "value": extra_wikifier_dict[combo], "context": memo_type,
-                                           "item": node})
+                    output_df_list.append(
+                        {"column": "", "row": "", "value": extra_wikifier_dict[combo], "context": memo_type,
+                         "item": node})
 
     # get output
     output_df = pd.DataFrame(output_df_list)
@@ -326,6 +346,19 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
 
 
 def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str):
+    """
+    A sample dataset file looks like:
+    node1	        label	    node2	                id
+    Qaid-security	P31	        Q1172284	            aid-security-P31
+    Qaid-security	label	    aid-security dataset	aid-security-label
+    Qaid-security	P1476	    aid-security dataset	aid-security-P1476
+    Qaid-security	description	aid-security dataset	aid-security-description
+    Qaid-security	P2699	    aid-security	        aid-security-P2699
+    Qaid-security	P1813	    aid-security	        aid-security-P1813
+    :param input_df:
+    :param output_path:
+    :return:
+    """
     output_df = copy.deepcopy(input_df)
     ids = []
     for _, each_row in output_df.iterrows():
@@ -375,13 +408,15 @@ def _update_double_quotes(each_series):
     each_series["node2"] = to_kgtk_format_string(each_series["node2"])
     return each_series
 
-def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_startswith:bool = False):
+
+def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_startswith: bool = False):
     output_df = input_df.copy()
     if label_types is not None:
         output_df = output_df.apply(lambda x: _update_double_quotes(x) if x["label"] in set(label_types) else x, axis=1)
 
     if check_content_startswith:
-        output_df["node2"] = output_df['node2'].apply(lambda x: to_kgtk_format_string(x) if not x.startswith("Q") and not x.startswith("P") else x)
+        output_df["node2"] = output_df['node2'].apply(
+            lambda x: to_kgtk_format_string(x) if not x.startswith("Q") and not x.startswith("P") else x)
     return output_df
 
 

@@ -3,6 +3,7 @@ import logging
 import numpy as np
 from functools import partial
 import rltk.similarity as sim
+import os
 from abc import ABC, abstractmethod
 
 
@@ -83,17 +84,22 @@ class HybridJaccardSimilarity(StringSimilarityModule):
 
 
 class DatamartCountryWikifier:
-    def __init__(self, cache_file: str = "country_wikifier_cache.json"):
+    def __init__(self, cache_file: str = None):
         self.similarity_unit = HybridJaccardSimilarity(tl_args={"ignore_case": True}, tokenizer="word")
         self._logger = logging.getLogger(__name__)
-
+        if cache_file is None:
+            cache_file = __file__[:__file__.rfind("/")] + "/country_wikifier_cache.json"
+        if not os.path.exists(cache_file):
+            raise ValueError("Country wikifier cache file not exist at {}!".format(cache_file))
         with open(cache_file, "r") as f:
             self.memo = json.load(f)
 
-    def save(self, loc: str = "country_wikifier_cache.json") -> None:
+    def save(self, loc: str = None) -> None:
         """
             save current wikifier file for further using
         """
+        if loc is None:
+            loc = __file__[:__file__.rfind("/")] + "/country_wikifier_cache.json"
         with open(loc, "r") as f:
             json.dump(self.memo, f)
 

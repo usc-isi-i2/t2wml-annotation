@@ -8,9 +8,9 @@ from pathlib import Path
 
 from t2wml.api import add_properties_from_file, KnowledgeGraph
 
-from annotation_to_template import generate_template_from_df
-from wikify_datamart_units_and_atrributes import generate
-from generate_t2wml_files import execute_shell_code
+from annotation.generation.annotation_to_template import generate_template_from_df
+from annotation.generation.wikify_datamart_units_and_atrributes import generate
+from annotation.generation.generate_t2wml_files import execute_shell_code
 
 # currently this script only support t2wml == 2.0a19
 
@@ -39,7 +39,7 @@ class GenerateKgtk:
         template_df_dict = generate_template_from_df(annotated_spreadsheet)
 
         # generate template output files
-        self.output_df_dict = generate(template_df_dict, to_disk=False)
+        self.output_df_dict = generate(template_df_dict, to_disk=False, datamart_properties_file=property_file)
 
     def generate_edges(self, directory: str) -> str:
         """
@@ -141,10 +141,10 @@ class GenerateKgtk:
 
         # add id
         _ = exploded_file.seek(0)
+        final_output_path = "{}/{}-datamart-kgtk-exploded-uniq-ids.tsv".format(directory, self.project_name)
         shell_code = """
-        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} \
-         > {}/{}-datamart-kgtk-exploded-uniq-ids.tsv
-        """.format(exploded_file.name, directory, self.project_name)
+        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
+        """.format(exploded_file.name, final_output_path)
         return_res = execute_shell_code(shell_code)
         if return_res != "":
             print(return_res)
@@ -159,6 +159,8 @@ class GenerateKgtk:
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk add-id failed! Please check!")
+
+        return final_output_path
 
     @staticmethod
     def get_sheet_names(file_path):
