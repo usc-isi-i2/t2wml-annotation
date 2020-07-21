@@ -75,10 +75,8 @@ class VaidateAnnotation(object):
                     'Missing type for role: {}'.format(r),
                     TYPE_ROW,
                     utility.xl_col_to_name(i),
-                    'Please specify a valid type. Valid type for role: {} is one of the following: [{}]'.format(r,
-                                                                                                                ','.join(
-                                                                                                                    self.valid_types[
-                                                                                                                        r]))
+                    'Please specify a valid type. Valid type for role: {} is one of the following: [{}]'.
+                        format(r, ','.join(self.valid_types[r]))
                 ))
                 valid_types = False
 
