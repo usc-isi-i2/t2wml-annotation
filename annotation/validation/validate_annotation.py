@@ -19,7 +19,7 @@ class VaidateAnnotation(object):
         }
         self.valid_types = {
             'main subject': ['string', 'entity'],
-            'time': ['year', 'month', 'day'],
+            'time': ['year', 'month', 'day', 'iso'],
             'location': ['admin1', 'admin2', 'admin3', 'longitude', 'latitude', 'country', 'city'],
             'variable': ['number'],
             'qualifier': ['string'],
@@ -157,3 +157,6 @@ class VaidateAnnotation(object):
             'Column': column,
             'Description': description
         }
+
+va = VaidateAnnotation()
+va.validate(file_path='sample_annotation_2.xlsx')
