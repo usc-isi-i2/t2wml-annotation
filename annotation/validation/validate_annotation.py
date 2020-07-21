@@ -60,23 +60,26 @@ class VaidateAnnotation(object):
                                'Valid roles are one of the following: {}'.format(','.join(self.valid_roles))))
             return False
 
-        prev_role = None
         valid_types = True
         for i in range(1, len(types)):
             r = roles[i].strip().split(';')[0]
             t = types[i].strip()
 
-            if r != '':
-                prev_role = r
-            if r == '':
-                r = prev_role
             if t == '' and r != '':
                 self.error_report.append(self.error_row(
-                    'Missing type for role: {}'.format(r),
+                    'Missing TYPE for role: {}'.format(r),
                     TYPE_ROW,
                     utility.xl_col_to_name(i),
                     'Please specify a valid type. Valid type for role: {} is one of the following: [{}]'.
                         format(r, ','.join(self.valid_types[r]))
+                ))
+                valid_types = False
+            elif t != '' and r == '':
+                self.error_report.append(self.error_row(
+                    'Missing ROLE for type: {}'.format(t),
+                    ROLE_ROW,
+                    utility.xl_col_to_name(i),
+                    'Specifying TYPE without a ROLE is invalid'
                 ))
                 valid_types = False
 
@@ -147,6 +150,3 @@ class VaidateAnnotation(object):
             'Column': column,
             'Description': description
         }
-
-va = VaidateAnnotation()
-va.validate(file_path='sample_annotation.xlsx')
