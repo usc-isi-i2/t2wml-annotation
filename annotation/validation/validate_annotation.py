@@ -50,7 +50,7 @@ class VaidateAnnotation(object):
         invalid_roles = []
 
         for i in range(1, len(roles)):
-            if roles[i].strip() not in self.valid_roles and roles[i] != '':
+            if roles[i].strip().split(';')[0] not in self.valid_roles and roles[i] != '':
                 invalid_roles.append(utility.xl_col_to_name(i))
 
         if invalid_roles:
@@ -63,7 +63,7 @@ class VaidateAnnotation(object):
         prev_role = None
         valid_types = True
         for i in range(1, len(types)):
-            r = roles[i].strip()
+            r = roles[i].strip().split(';')[0]
             t = types[i].strip()
 
             if r != '':
@@ -147,3 +147,6 @@ class VaidateAnnotation(object):
             'Column': column,
             'Description': description
         }
+
+va = VaidateAnnotation()
+va.validate(file_path='sample_annotation.xlsx')
