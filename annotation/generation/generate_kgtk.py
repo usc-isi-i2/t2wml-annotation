@@ -19,7 +19,7 @@ class GenerateKgtk:
 
         pass
 
-    def generate_edges(self, directory: str) -> str:
+    def generate_edges(self, directory: str) -> pd.DataFrame:
         '''
         Returns file containing exploded KGTK edges.
 
