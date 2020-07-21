@@ -26,8 +26,11 @@ class VaidateAnnotation(object):
             'unit': ['string']
         }
 
-    def validate(self, file_path):
-        df = pd.read_excel(file_path, header=None).fillna('')
+    def validate(self, file_path=None, df=None):
+        if file_path is None and df is None:
+            raise Exception('Please specify a file path or a pandas DataFrame')
+        if file_path is not None:
+            df = pd.read_excel(file_path, header=None).fillna('')
 
         valid_column_one = self.validate_annotation_column_one(df)
         if not valid_column_one:
