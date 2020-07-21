@@ -157,6 +157,3 @@ class VaidateAnnotation(object):
             'Column': column,
             'Description': description
         }
-
-va = VaidateAnnotation()
-va.validate(file_path='sample_annotation_2.xlsx')
