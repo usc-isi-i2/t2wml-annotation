@@ -109,36 +109,47 @@ class VaidateAnnotation(object):
 
     def validate_annotation_column_one(self, df):
         valid_first_column = True
+
+        if df.iloc[0, 1].strip() == '':
+            valid_first_column = False
+            self.error_report.append(
+                self.error_row('Please specify the dataset', 1, utility.xl_col_to_name(1), 'dataset can not be blank'))
+
         if df.iloc[0, 0].strip().lower() != 'dataset':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 1, 1, 'First row in column 1 should be "dataset"'))
+                self.error_row('Incorrect annotation: First Column', 1, utility.xl_col_to_name(0),
+                               'First row in column 1 should be "dataset"'))
 
         if df.iloc[1, 0].strip().lower() != 'role':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 2, 1, 'Second row in column 1 should be "role"'))
+                self.error_row('Incorrect annotation: First Column', 2, utility.xl_col_to_name(0),
+                               'Second row in column 1 should be "role"'))
 
         if df.iloc[2, 0].strip().lower() != 'type':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 3, 1, 'Third row in column 1 should be "type"'))
+                self.error_row('Incorrect annotation: First Column', 3, utility.xl_col_to_name(0),
+                               'Third row in column 1 should be "type"'))
 
         if df.iloc[3, 0].strip().lower() != 'description':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 4, 1,
+                self.error_row('Incorrect annotation: First Column', 4, utility.xl_col_to_name(0),
                                'Fourth row in column 1 should be "description"'))
 
         if df.iloc[4, 0].strip().lower() != 'name':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 5, 1, 'Fifth row in column 1 should be "name"'))
+                self.error_row('Incorrect annotation: First Column', 5, utility.xl_col_to_name(0),
+                               'Fifth row in column 1 should be "name"'))
 
         if df.iloc[5, 0].strip().lower() != 'unit':
             valid_first_column = False
             self.error_report.append(
-                self.error_row('Incorrect annotation: First Column', 6, 1, 'Sixth row in column 1 should be "unit"'))
+                self.error_row('Incorrect annotation: First Column', 6, utility.xl_col_to_name(0),
+                               'Sixth row in column 1 should be "unit"'))
 
         return valid_first_column
 
