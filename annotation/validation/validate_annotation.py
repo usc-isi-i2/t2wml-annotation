@@ -33,16 +33,12 @@ class VaidateAnnotation(object):
             df = pd.read_excel(file_path, header=None).fillna('')
 
         valid_column_one = self.validate_annotation_column_one(df)
-        if not valid_column_one:
-            raise Exception(json.dumps(self.error_report))
-
-        valid_roles = self.validate_roles_types(df)
-        if not valid_roles:
-            raise Exception(json.dumps(self.error_report))
 
         valid_role_and_type = self.validate_roles_types(df)
-        if not valid_role_and_type:
-            raise Exception(json.dumps(self.error_report))
+
+        if not valid_role_and_type or not valid_column_one:
+            return json.dumps(self.error_report), False
+        return "", True
 
     def validate_roles_types(self, df):
         roles = list(df.iloc[1])
