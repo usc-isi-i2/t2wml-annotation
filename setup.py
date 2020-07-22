@@ -29,6 +29,6 @@ setuptools.setup(
     ],
     install_requires=install_requires,
     dependency_links=[
-        'https://pypi.fury.io/theresearchsoftwarecompany/'
+        'https://pypi.fury.io/theresearchsoftwarecompany/t2wml-standalone==2.0a19'
     ]
 )
