@@ -51,6 +51,9 @@ class GenerateKgtk:
         # generate template output files
         self.output_df_dict = generate(template_df_dict, to_disk=False, datamart_properties_file=property_file)
 
+        # update 2020.7.22: not add dataset edges
+        _ = self.output_df_dict.pop("dataset.tsv")
+
         # memory all nodes2 from P1813 of variables
         variables_df = self.output_df_dict['kgtk_variables.tsv']
         self.variables_ids = variables_df[variables_df["label"] == "P1813"]["node2"].tolist()
