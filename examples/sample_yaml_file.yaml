@@ -1,0 +1,43 @@
+statementMapping:
+  region:
+  - bottom: 41
+    left: J
+    right: AD
+    top: 8
+  template:
+    item: =item[B, $row, "main subject"]
+    property: =item[$col, 7, "property"]
+    qualifier:
+    - calendar: Q1985727
+      format: '%Y-%m-%d'
+      precision: month
+      property: P585
+      time_zone: 0
+      value: =concat(value[C, $row], value[D, $row], value[E, $row], "-")
+    - property: P2006020004
+      value: Qawsd
+    - property: P17
+      value: =item[F, $row]
+    - property: P2006190001
+      value: =item[G, $row]
+    - property: P2006190003
+      value: =item[H, $row]
+    - property: P276
+      value: =concat("POINT(", value[AI , $row], value[AH, $row], ")", " ")
+    - property: =item[AE, 7, "property"]
+      value: =value[AE, $row]
+    - property: =item[AF, 7, "property"]
+      value: =value[AF, $row]
+    - property: =item[AG, 7, "property"]
+      value: =value[AG, $row]
+    - property: =item[AJ, 7, "property"]
+      value: =value[AJ, $row]
+    - property: =item[AK, 7, "property"]
+      value: =value[AK, $row]
+    - property: =item[AL, 7, "property"]
+      value: =value[AL, $row]
+    - property: =item[AM, 7, "property"]
+      value: =value[AM, $row]
+    - property: =item[AN, 7, "property"]
+      value: =value[AN, $row]
+    value: =value[$col, $row]

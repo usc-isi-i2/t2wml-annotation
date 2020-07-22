@@ -132,6 +132,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     # combine datamart-schema part's property files
     if datamart_properties_file is None:
         datamart_properties_file = __file__[:__file__.rfind("/")] + "/datamart_schema_properties.tsv"
+
     if not os.path.exists(datamart_properties_file):
         raise ValueError("Datamart schema properties tsv file not exist at {}!".format(datamart_properties_file))
     kgtk_properties_df = pd.concat([pd.read_csv(datamart_properties_file, sep='\t'), kgtk_properties_df])

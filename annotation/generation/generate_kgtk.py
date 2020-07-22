@@ -3,11 +3,11 @@ import tempfile
 import yaml
 import csv
 import os
+import typing
 import traceback
+
 from pathlib import Path
-
 from t2wml.api import add_properties_from_file, KnowledgeGraph
-
 from annotation.generation.annotation_to_template import generate_template_from_df
 from annotation.generation.wikify_datamart_units_and_atrributes import generate
 from annotation.generation.generate_t2wml_files import execute_shell_code
@@ -17,7 +17,7 @@ from annotation.generation.generate_t2wml_files import execute_shell_code
 
 class GenerateKgtk:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict,
-                 wikifier_file: str, property_file: str):
+                 wikifier_file: str = None, property_file: str = None):
         """
         Parameters
         ----------
@@ -33,6 +33,15 @@ class GenerateKgtk:
         self.t2wml_script = t2wml_script
         self.annotated_spreadsheet = annotated_spreadsheet
         self.property_file = property_file
+        if __file__.rfind("/") != -1:
+            base_pos = __file__[:__file__.rfind("/")]
+        else:
+            base_pos = "."
+        if wikifier_file is None:
+            wikifier_file = base_pos + "/country-wikifier.csv"
+        if property_file is None:
+            property_file = base_pos + "/datamart_schema_properties.tsv"
+
         self.wikifier_file = wikifier_file
         self.project_name = self.annotated_spreadsheet.iloc[0,0]
         # generate the template files
@@ -40,6 +49,13 @@ class GenerateKgtk:
 
         # generate template output files
         self.output_df_dict = generate(template_df_dict, to_disk=False, datamart_properties_file=property_file)
+
+        # memory all nodes2 from P1813 of variables
+        variables_df = self.output_df_dict['kgtk_variables.tsv']
+        self.variables_ids = variables_df[variables_df["label"] == "P1813"]["node2"].tolist()
+
+    def get_variable_ids(self) -> typing.List[str]:
+        return self.variables_ids
 
     def generate_edges(self, directory: str) -> str:
         """
@@ -49,6 +65,57 @@ class GenerateKgtk:
         ----------
         directory: str
             Directory folder to store result edge file
+        """
+        exploded_file, metadata_file = self._make_preparations()
+        # add id
+        _ = exploded_file.seek(0)
+        final_output_path = "{}/{}-datamart-kgtk-exploded-uniq-ids.tsv".format(directory, self.project_name)
+        shell_code = """
+        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
+        """.format(exploded_file.name, final_output_path)
+        return_res = execute_shell_code(shell_code)
+        if return_res != "":
+            print(return_res)
+            raise ValueError("Running kgtk add-id failed! Please check!")
+
+        # create metadata file
+        shell_code = """
+        kgtk explode {} --allow-lax-qnodes True --overwrite True \
+        > {}/{}-datamart-kgtk-exploded_metadata.tsv
+        """.format(metadata_file.name, directory, self.project_name)
+        return_res = execute_shell_code(shell_code)
+        if return_res != "":
+            print(return_res)
+            raise ValueError("Running kgtk add-id failed! Please check!")
+
+        return final_output_path
+
+    def generate_edges_df(self) -> pd.DataFrame:
+        """
+        Returns dataframe of the output from kgtk
+        """
+        exploded_file, metadata_file = self._make_preparations()
+
+        # add id
+        _ = exploded_file.seek(0)
+        final_output_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
+        final_output_path = final_output_file.name
+        shell_code = """
+        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
+        """.format(exploded_file.name, final_output_path)
+        return_res = execute_shell_code(shell_code)
+        if return_res != "":
+            print(return_res)
+            raise ValueError("Running kgtk add-id failed! Please check!")
+        _ = final_output_file.seek(0)
+
+        final_output_df = pd.read_csv(final_output_file, sep="\t")
+        return final_output_df
+
+    def _make_preparations(self):
+        """
+        do the preparation steps for generate_edges and generate_edges_df
+        :return:
         """
         # concat the input wikifier file with generated wikifier file from output_df_dict
         wikifier_df = pd.concat([pd.read_csv(self.wikifier_file), self.output_df_dict["wikifier.csv"]])
@@ -91,6 +158,9 @@ class GenerateKgtk:
         except:
             traceback.print_exc()
             raise ValueError("Generating kgtk knowledge graph file failed!")
+        finally:
+            os.remove(data_filepath)
+
         _ = output_kgtk_main_content.seek(0)
 
         # generate imploded file
@@ -139,28 +209,7 @@ class GenerateKgtk:
             print(res)
             raise ValueError("The output kgtk file is invalid!")
 
-        # add id
-        _ = exploded_file.seek(0)
-        final_output_path = "{}/{}-datamart-kgtk-exploded-uniq-ids.tsv".format(directory, self.project_name)
-        shell_code = """
-        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
-        """.format(exploded_file.name, final_output_path)
-        return_res = execute_shell_code(shell_code)
-        if return_res != "":
-            print(return_res)
-            raise ValueError("Running kgtk add-id failed! Please check!")
-
-        # create metadata file
-        shell_code = """
-        kgtk explode {} --allow-lax-qnodes True --overwrite True \
-        > {}/{}-datamart-kgtk-exploded_metadata.tsv
-        """.format(metadata_file_name, directory, self.project_name)
-        return_res = execute_shell_code(shell_code)
-        if return_res != "":
-            print(return_res)
-            raise ValueError("Running kgtk add-id failed! Please check!")
-
-        return final_output_path
+        return exploded_file, metadata_file
 
     @staticmethod
     def get_sheet_names(file_path):
@@ -176,19 +225,3 @@ class GenerateKgtk:
         xl = pd.ExcelFile(file_path)
         return xl.sheet_names
 
-
-def main():
-    input_base_path = "/Users/minazuki/Desktop/studies/master/2018Summer/dsbox_2019/t2wml-projects/projects/"
-    input_path = os.path.join(input_base_path, "aid/csv/aid worker security_incidents2020-06-22.xlsx")
-    wikifier_file = "/Users/minazuki/Desktop/studies/master/2018Summer/dsbox_2019/t2wml-projects/country-wikifier.csv"
-    property_file = "/Users/minazuki/Desktop/studies/master/2018Summer/dsbox_2019/t2wml-projects/scipts/datamart_schema_properties.tsv"
-    yaml_path = os.path.join(input_base_path, "aid/aid.yaml")
-    input_df = pd.read_excel(input_path, index_col=0, header=None)
-    with open(yaml_path, "r") as f:
-        t2wml_script = yaml.load(f, Loader=yaml.FullLoader)
-    test = GenerateKgtk(annotated_spreadsheet=input_df, t2wml_script=t2wml_script, wikifier_file=wikifier_file, property_file=property_file)
-    test.generate_edges("/Users/minazuki/Desktop")
-
-
-if __name__ == "__main__":
-    main()

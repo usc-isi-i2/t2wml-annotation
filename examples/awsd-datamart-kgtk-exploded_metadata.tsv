@@ -1,0 +1,463 @@
+node1	label	node2	id	node2;kgtk:data_type	node2;kgtk:valid	node2;kgtk:list_len	node2;kgtk:number	node2;kgtk:low_tolerance	node2;kgtk:high_tolerance	node2;kgtk:si_units	node2;kgtk:units_node	node2;kgtk:text	node2;kgtk:language	node2;kgtk:language_suffix	node2;kgtk:latitude	node2;kgtk:longitude	node2;kgtk:date_and_time	node2;kgtk:precision	node2;kgtk:truth	node2;kgtk:symbol
+P2006020001	label	column index	P2006020001-label-1	symbol	True	0														column index
+P2006020001	data_type	Quantity	P2006020001-data_type-1	symbol	True	0														Quantity
+P2006020001	description	Column number that corresponds to a variable	P2006020001-description-1	symbol	True	0														Column number that corresponds to a variable
+P2006020002	label	qualifier	P2006020002-label-1	symbol	True	0														qualifier
+P2006020002	description	Qualifiers used to describe a variable. E.g., FertilizerType, Source, etc.	P2006020002-description-1	symbol	True	0														Qualifiers used to describe a variable. E.g., FertilizerType, Source, etc.
+P2006020002	data_type	WikibaseProperty	P2006020002-data_type-1	symbol	True	0														WikibaseProperty
+P2006020003	label	variable measured	P2006020003-label-1	symbol	True	0														variable measured
+P2006020003	data_type	WikibaseItem	P2006020003-data_type-1	symbol	True	0														WikibaseItem
+P2006020003	description	Variables that are measured in a Dataset	P2006020003-description-1	symbol	True	0														Variables that are measured in a Dataset
+P2006020004	label	dataset	P2006020004-label-1	symbol	True	0														dataset
+P2006020004	data_type	WikibaseItem	P2006020004-data_type-1	symbol	True	0														WikibaseItem
+P2006020004	description	Id of the dataset this variable is included in	P2006020004-description-1	symbol	True	0														Id of the dataset this variable is included in
+P2006020005	label	mapping file	P2006020005-label-1	symbol	True	0														mapping file
+P2006020005	data_type	String	P2006020005-data_type-1	symbol	True	0														String
+P2006020006	label	keywords	P2006020006-label-1	symbol	True	0														keywords
+P2006020006	description	Keywords describing the dataset. Multiple entries are delimited by commas	P2006020006-description-1	symbol	True	0														Keywords describing the dataset. Multiple entries are delimited by commas
+P2006020006	data_type	String	P2006020006-data-type-1	symbol	True	0														String
+P2006020007	label	version	P2006020007-label-1	symbol	True	0														version
+P2006020007	description	Version number of the Dataset. Semantic versioning in the form of X.Y.Z is preferred (where X indicates a major version, Y a minor version and Z indicates a patch or bug fixes)	P2006020007-description-1	symbol	True	0														Version number of the Dataset. Semantic versioning in the form of X.Y.Z is preferred (where X indicates a major version, Y a minor version and Z indicates a patch or bug fixes)
+P2006020007	data_type	String	P2006020007-data-type-1	symbol	True	0														String
+P2006020008	label	date created	P2006020008-label-1	symbol	True	0														date created
+P2006020008	description	Creation date of the Dataset in ISO 8601 format (YYYY-MM-DD)	P2006020008-description-1	symbol	True	0														Creation date of the Dataset in ISO 8601 format (YYYY-MM-DD)
+P2006020008	data_type	String	P2006020008-data-type-1	symbol	True	0														String
+P2006020009	label	included in data catalog	P2006020009-label-1	symbol	True	0														included in data catalog
+P2006020009	description	Catalog where the Dataset is included	P2006020009-description-1	symbol	True	0														Catalog where the Dataset is included
+P2006020009	data_type	String	P2006020009-data-type-1	symbol	True	0														String
+P2006180001	label	geospatial granularity	P2006180001-label-1	symbol	True	0														geospatial granularity
+P2006180001	description	Administrative area (admin 1, admin 2 or admin 3) the variable or dataset corresponds to	P2006180001-description-1	symbol	True	0														Administrative area (admin 1, admin 2 or admin 3) the variable or dataset corresponds to
+P2006180001	data_type	String	P2006180001-data-type-1	symbol	True	0														String
+P2006190001	label	located in the first-level administrative country subdivision	P2006190001-label-1	symbol	True	0														located in the first-level administrative country subdivision
+P2006190001	description	The item is located in the first-level administrative country subdivision. A first-level adminstrative country subdivision is located within itself	P2006190001-description-1	symbol	True	0														The item is located in the first-level administrative country subdivision. A first-level adminstrative country subdivision is located within itself
+P2006190001	data_type	WikibaseItem	P2006190001-data-type-1	symbol	True	0														WikibaseItem
+P2006190002	label	located in the second-level administrative country subdivision	P2006190002-label-1	symbol	True	0														located in the second-level administrative country subdivision
+P2006190002	description	The item is located in the second-level administrative country subdivision. A second-level adminstrative country subdivision is located within itself	P2006190002-description-1	symbol	True	0														The item is located in the second-level administrative country subdivision. A second-level adminstrative country subdivision is located within itself
+P2006190002	data_type	WikibaseItem	P2006190002-data-type-1	symbol	True	0														WikibaseItem
+P2006190003	label	located in the third-level administrative country subdivision	P2006190003-label-1	symbol	True	0														located in the third-level administrative country subdivision
+P2006190003	description	The item is located in the third-level administrative country subdivision. A third-level adminstrative country subdivision is located within itself	P2006190003-description-1	symbol	True	0														The item is located in the third-level administrative country subdivision. A third-level adminstrative country subdivision is located within itself
+P2006190003	data_type	WikibaseItem	P2006190003-data-type-1	symbol	True	0														WikibaseItem
+P248	label	stated in	P248-label-1	symbol	True	0														stated in
+P1687	label	corresponds to property	P1687-label-1	symbol	True	0														corresponds to property
+P1687	data_type	WikibaseProperty	P1687-data_type-1	symbol	True	0														WikibaseProperty
+P1476	label	title	P1476-label-1	symbol	True	0														title
+P1476	data_type	String	P1476-data_type-1	symbol	True	0														String
+P2699	label	String	P2699-label-1	symbol	True	0														String
+P2699	data_type	String	P2699-data_type-1	symbol	True	0														String
+P1813	data_type	String	P1813-data-type-1	symbol	True	0														String
+P170	label	creator	P170-label-1	symbol	True	0														creator
+P170	data_type	WikibaseItem	P170-data-type-1	symbol	True	0														WikibaseItem
+P767	label	contributor	P767-label-1	symbol	True	0														contributor
+P767	data_type	WikibaseItem	P767-data-type-1	symbol	True	0														WikibaseItem
+P2860	label	cites work	P2860-label-1	symbol	True	0														cites work
+P2860	data_type	String	P2860-data-type-1	symbol	True	0														String
+P275	label	copyright license	P275-label-1	symbol	True	0														copyright license
+P275	data_type	String	P275-data-type-1	symbol	True	0														String
+P356	label	doi	P356-label-1	symbol	True	0														doi
+P356	data_type	String	P356-data-type-1	symbol	True	0														String
+P921	label	main subject	P921-label-1	symbol	True	0														main subject
+P921	data_type	WikibaseItem	P921-data-type-1	symbol	True	0														WikibaseItem
+P625	label	coordinate location	P625-label-1	symbol	True	0														coordinate location
+P625	data_type	GlobeCoordinate	P625-data-type-1	symbol	True	0														GlobeCoordinate
+P3896	label	geoshape	P3896-label-1	symbol	True	0														geoshape
+P3896	data_type	String	P3896-data-type-1	symbol	True	0														String
+P17	label	country	P17-label-1	symbol	True	0														country
+P17	data_type	String	P17-data-type-1	symbol	True	0														String
+P276	label	location	P276-label-1	symbol	True	0														location
+P276	data_type	String	P276-data-type-1	symbol	True	0														String
+P580	label	start time	P580-label-1	symbol	True	0														start time
+P580	data_type	Time	P580-data-type-1	symbol	True	0														Time
+P582	label	end time	P582-label-1	symbol	True	0														end time
+P582	data_type	Time	P582-data-type-1	symbol	True	0														Time
+P6339	label	data interval	P6339-label-1	symbol	True	0														data interval
+P6339	data_type	WikibaseItem	P6339-data-type-1	symbol	True	0														WikibaseItem
+P856	label	official website	P856-label-1	symbol	True	0														official website
+P856	data_type	String	P856-data-type-1	symbol	True	0														String
+P6269	label	api endpoint	P6269-label-1	symbol	True	0														api endpoint
+P6269	data_type	String	P6269-data-type-1	symbol	True	0														String
+P527	label	has part	P527-label-1	symbol	True	0														has part
+P527	data_type	String	P527-data-type-1	symbol	True	0														String
+P1813	label	short name	P1813-label-1	symbol	True	0														short name
+P1880	label	unit of measure	P1880-label-1	symbol	True	0														unit of measure
+P1880	data_type	String	P1880-data-type-1	symbol	True	0														String
+P1114	label	count	P1114-label-1	symbol	True	0														count
+P1114	data_type	Quantity	P1114-data-type-1	symbol	True	0														Quantity
+Pawsd-002	data_type	Quantity	Pawsd-002-data_type	symbol	True	0														Quantity
+Pawsd-002	P31	Q18616576	Pawsd-002-P31	symbol	True	0														Q18616576
+Pawsd-002	label	"UN"	Pawsd-002-label	string	True	0						"UN"								
+Pawsd-003	data_type	Quantity	Pawsd-003-data_type	symbol	True	0														Quantity
+Pawsd-003	P31	Q18616576	Pawsd-003-P31	symbol	True	0														Q18616576
+Pawsd-003	label	"INGO"	Pawsd-003-label	string	True	0						"INGO"								
+Pawsd-004	data_type	Quantity	Pawsd-004-data_type	symbol	True	0														Quantity
+Pawsd-004	P31	Q18616576	Pawsd-004-P31	symbol	True	0														Q18616576
+Pawsd-004	label	"LNGO/NRCS"	Pawsd-004-label	string	True	0						"LNGO/NRCS"								
+Pawsd-005	data_type	Quantity	Pawsd-005-data_type	symbol	True	0														Quantity
+Pawsd-005	P31	Q18616576	Pawsd-005-P31	symbol	True	0														Q18616576
+Pawsd-005	label	"ICRC"	Pawsd-005-label	string	True	0						"ICRC"								
+Pawsd-006	data_type	Quantity	Pawsd-006-data_type	symbol	True	0														Quantity
+Pawsd-006	P31	Q18616576	Pawsd-006-P31	symbol	True	0														Q18616576
+Pawsd-006	label	"IFRC"	Pawsd-006-label	string	True	0						"IFRC"								
+Pawsd-007	data_type	Quantity	Pawsd-007-data_type	symbol	True	0														Quantity
+Pawsd-007	P31	Q18616576	Pawsd-007-P31	symbol	True	0														Q18616576
+Pawsd-007	label	"Other"	Pawsd-007-label	string	True	0						"Other"								
+Pawsd-008	data_type	Quantity	Pawsd-008-data_type	symbol	True	0														Quantity
+Pawsd-008	P31	Q18616576	Pawsd-008-P31	symbol	True	0														Q18616576
+Pawsd-008	label	"Nationals killed"	Pawsd-008-label	string	True	0						"Nationals killed"								
+Pawsd-009	data_type	Quantity	Pawsd-009-data_type	symbol	True	0														Quantity
+Pawsd-009	P31	Q18616576	Pawsd-009-P31	symbol	True	0														Q18616576
+Pawsd-009	label	"Nationals wounded"	Pawsd-009-label	string	True	0						"Nationals wounded"								
+Pawsd-010	data_type	Quantity	Pawsd-010-data_type	symbol	True	0														Quantity
+Pawsd-010	P31	Q18616576	Pawsd-010-P31	symbol	True	0														Q18616576
+Pawsd-010	label	"Nationals kidnapped"	Pawsd-010-label	string	True	0						"Nationals kidnapped"								
+Pawsd-011	data_type	Quantity	Pawsd-011-data_type	symbol	True	0														Quantity
+Pawsd-011	P31	Q18616576	Pawsd-011-P31	symbol	True	0														Q18616576
+Pawsd-011	label	"Total nationals"	Pawsd-011-label	string	True	0						"Total nationals"								
+Pawsd-012	data_type	Quantity	Pawsd-012-data_type	symbol	True	0														Quantity
+Pawsd-012	P31	Q18616576	Pawsd-012-P31	symbol	True	0														Q18616576
+Pawsd-012	label	"Internationals killed"	Pawsd-012-label	string	True	0						"Internationals killed"								
+Pawsd-013	data_type	Quantity	Pawsd-013-data_type	symbol	True	0														Quantity
+Pawsd-013	P31	Q18616576	Pawsd-013-P31	symbol	True	0														Q18616576
+Pawsd-013	label	"Internationals wounded"	Pawsd-013-label	string	True	0						"Internationals wounded"								
+Pawsd-014	data_type	Quantity	Pawsd-014-data_type	symbol	True	0														Quantity
+Pawsd-014	P31	Q18616576	Pawsd-014-P31	symbol	True	0														Q18616576
+Pawsd-014	label	"Internationals kidnapped"	Pawsd-014-label	string	True	0						"Internationals kidnapped"								
+Pawsd-015	data_type	Quantity	Pawsd-015-data_type	symbol	True	0														Quantity
+Pawsd-015	P31	Q18616576	Pawsd-015-P31	symbol	True	0														Q18616576
+Pawsd-015	label	"Total internationals"	Pawsd-015-label	string	True	0						"Total internationals"								
+Pawsd-016	data_type	Quantity	Pawsd-016-data_type	symbol	True	0														Quantity
+Pawsd-016	P31	Q18616576	Pawsd-016-P31	symbol	True	0														Q18616576
+Pawsd-016	label	"Total killed"	Pawsd-016-label	string	True	0						"Total killed"								
+Pawsd-017	data_type	Quantity	Pawsd-017-data_type	symbol	True	0														Quantity
+Pawsd-017	P31	Q18616576	Pawsd-017-P31	symbol	True	0														Q18616576
+Pawsd-017	label	"Total wounded"	Pawsd-017-label	string	True	0						"Total wounded"								
+Pawsd-018	data_type	Quantity	Pawsd-018-data_type	symbol	True	0														Quantity
+Pawsd-018	P31	Q18616576	Pawsd-018-P31	symbol	True	0														Q18616576
+Pawsd-018	label	"Total kidnapped"	Pawsd-018-label	string	True	0						"Total kidnapped"								
+Pawsd-019	data_type	Quantity	Pawsd-019-data_type	symbol	True	0														Quantity
+Pawsd-019	P31	Q18616576	Pawsd-019-P31	symbol	True	0														Q18616576
+Pawsd-019	label	"Total affected"	Pawsd-019-label	string	True	0						"Total affected"								
+Pawsd-020	data_type	Quantity	Pawsd-020-data_type	symbol	True	0														Quantity
+Pawsd-020	P31	Q18616576	Pawsd-020-P31	symbol	True	0														Q18616576
+Pawsd-020	label	"Gender Male"	Pawsd-020-label	string	True	0						"Gender Male"								
+Pawsd-021	data_type	Quantity	Pawsd-021-data_type	symbol	True	0														Quantity
+Pawsd-021	P31	Q18616576	Pawsd-021-P31	symbol	True	0														Q18616576
+Pawsd-021	label	"Gender Female"	Pawsd-021-label	string	True	0						"Gender Female"								
+Pawsd-022	data_type	Quantity	Pawsd-022-data_type	symbol	True	0														Quantity
+Pawsd-022	P31	Q18616576	Pawsd-022-P31	symbol	True	0														Q18616576
+Pawsd-022	label	"Gender Unknown"	Pawsd-022-label	string	True	0						"Gender Unknown"								
+Pawsd-023	data_type	String	Pawsd-023-data_type	symbol	True	0														String
+Pawsd-023	P31	Q18616576	Pawsd-023-P31	symbol	True	0														Q18616576
+Pawsd-023	label	"Means of attack"	Pawsd-023-label	string	True	0						"Means of attack"								
+Pawsd-024	data_type	String	Pawsd-024-data_type	symbol	True	0														String
+Pawsd-024	P31	Q18616576	Pawsd-024-P31	symbol	True	0														Q18616576
+Pawsd-024	label	"Attack context"	Pawsd-024-label	string	True	0						"Attack context"								
+Pawsd-025	data_type	String	Pawsd-025-data_type	symbol	True	0														String
+Pawsd-025	P31	Q18616576	Pawsd-025-P31	symbol	True	0														Q18616576
+Pawsd-025	label	"Location"	Pawsd-025-label	string	True	0						"Location"								
+Pawsd-026	data_type	String	Pawsd-026-data_type	symbol	True	0														String
+Pawsd-026	P31	Q18616576	Pawsd-026-P31	symbol	True	0														Q18616576
+Pawsd-026	label	"Actor type"	Pawsd-026-label	string	True	0						"Actor type"								
+Pawsd-027	data_type	String	Pawsd-027-data_type	symbol	True	0														String
+Pawsd-027	P31	Q18616576	Pawsd-027-P31	symbol	True	0														Q18616576
+Pawsd-027	label	"Actor name"	Pawsd-027-label	string	True	0						"Actor name"								
+Pawsd-028	data_type	String	Pawsd-028-data_type	symbol	True	0														String
+Pawsd-028	P31	Q18616576	Pawsd-028-P31	symbol	True	0														Q18616576
+Pawsd-028	label	"Details"	Pawsd-028-label	string	True	0						"Details"								
+Pawsd-029	data_type	String	Pawsd-029-data_type	symbol	True	0														String
+Pawsd-029	P31	Q18616576	Pawsd-029-P31	symbol	True	0														Q18616576
+Pawsd-029	label	"Verified"	Pawsd-029-label	string	True	0						"Verified"								
+Pawsd-030	data_type	String	Pawsd-030-data_type	symbol	True	0														String
+Pawsd-030	P31	Q18616576	Pawsd-030-P31	symbol	True	0														Q18616576
+Pawsd-030	label	"Source"	Pawsd-030-label	string	True	0						"Source"								
+Qawsd-002	label	"UN"	Qawsd-002-label	string	True	0						"UN"								
+Qawsd-002	P1476	"UN"	Qawsd-002-P1476	string	True	0						"UN"								
+Qawsd-002	description	"UN in awsd"	Qawsd-002-description	string	True	0						"UN in awsd"								
+Qawsd-002	P31	Q50701	Qawsd-002-P31-1	symbol	True	0														Q50701
+Qawsd-002	P1687	Pawsd-002	Qawsd-002-P1687-1	symbol	True	0														Pawsd-002
+Qawsd-002	P2006020002	P585	Qawsd-002-P2006020002-P585	symbol	True	0														P585
+Qawsd-002	P2006020002	P248	Qawsd-002-P2006020002-P248	symbol	True	0														P248
+Qawsd-002	P2006020004	Qawsd	Qawsd-002-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-002	P1813	un	Qawsd-002-P1813	symbol	True	0														un
+Qawsd	P2006020003	Qawsd-002	Qawsd-P2006020003-Qawsd-002	symbol	True	0														Qawsd-002
+Qawsd-003	label	"INGO"	Qawsd-003-label	string	True	0						"INGO"								
+Qawsd-003	P1476	"INGO"	Qawsd-003-P1476	string	True	0						"INGO"								
+Qawsd-003	description	"INGO in awsd"	Qawsd-003-description	string	True	0						"INGO in awsd"								
+Qawsd-003	P31	Q50701	Qawsd-003-P31-1	symbol	True	0														Q50701
+Qawsd-003	P1687	Pawsd-003	Qawsd-003-P1687-1	symbol	True	0														Pawsd-003
+Qawsd-003	P2006020002	P585	Qawsd-003-P2006020002-P585	symbol	True	0														P585
+Qawsd-003	P2006020002	P248	Qawsd-003-P2006020002-P248	symbol	True	0														P248
+Qawsd-003	P2006020004	Qawsd	Qawsd-003-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-003	P1813	ingo	Qawsd-003-P1813	symbol	True	0														ingo
+Qawsd	P2006020003	Qawsd-003	Qawsd-P2006020003-Qawsd-003	symbol	True	0														Qawsd-003
+Qawsd-004	label	"LNGO/NRCS"	Qawsd-004-label	string	True	0						"LNGO/NRCS"								
+Qawsd-004	P1476	"LNGO/NRCS"	Qawsd-004-P1476	string	True	0						"LNGO/NRCS"								
+Qawsd-004	description	"LNGO/NRCS in awsd"	Qawsd-004-description	string	True	0						"LNGO/NRCS in awsd"								
+Qawsd-004	P31	Q50701	Qawsd-004-P31-1	symbol	True	0														Q50701
+Qawsd-004	P1687	Pawsd-004	Qawsd-004-P1687-1	symbol	True	0														Pawsd-004
+Qawsd-004	P2006020002	P585	Qawsd-004-P2006020002-P585	symbol	True	0														P585
+Qawsd-004	P2006020002	P248	Qawsd-004-P2006020002-P248	symbol	True	0														P248
+Qawsd-004	P2006020004	Qawsd	Qawsd-004-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-004	P1813	lngo_nrcs	Qawsd-004-P1813	symbol	True	0														lngo_nrcs
+Qawsd	P2006020003	Qawsd-004	Qawsd-P2006020003-Qawsd-004	symbol	True	0														Qawsd-004
+Qawsd-005	label	"ICRC"	Qawsd-005-label	string	True	0						"ICRC"								
+Qawsd-005	P1476	"ICRC"	Qawsd-005-P1476	string	True	0						"ICRC"								
+Qawsd-005	description	"ICRC in awsd"	Qawsd-005-description	string	True	0						"ICRC in awsd"								
+Qawsd-005	P31	Q50701	Qawsd-005-P31-1	symbol	True	0														Q50701
+Qawsd-005	P1687	Pawsd-005	Qawsd-005-P1687-1	symbol	True	0														Pawsd-005
+Qawsd-005	P2006020002	P585	Qawsd-005-P2006020002-P585	symbol	True	0														P585
+Qawsd-005	P2006020002	P248	Qawsd-005-P2006020002-P248	symbol	True	0														P248
+Qawsd-005	P2006020004	Qawsd	Qawsd-005-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-005	P1813	icrc	Qawsd-005-P1813	symbol	True	0														icrc
+Qawsd	P2006020003	Qawsd-005	Qawsd-P2006020003-Qawsd-005	symbol	True	0														Qawsd-005
+Qawsd-006	label	"IFRC"	Qawsd-006-label	string	True	0						"IFRC"								
+Qawsd-006	P1476	"IFRC"	Qawsd-006-P1476	string	True	0						"IFRC"								
+Qawsd-006	description	"IFRC in awsd"	Qawsd-006-description	string	True	0						"IFRC in awsd"								
+Qawsd-006	P31	Q50701	Qawsd-006-P31-1	symbol	True	0														Q50701
+Qawsd-006	P1687	Pawsd-006	Qawsd-006-P1687-1	symbol	True	0														Pawsd-006
+Qawsd-006	P2006020002	P585	Qawsd-006-P2006020002-P585	symbol	True	0														P585
+Qawsd-006	P2006020002	P248	Qawsd-006-P2006020002-P248	symbol	True	0														P248
+Qawsd-006	P2006020004	Qawsd	Qawsd-006-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-006	P1813	ifrc	Qawsd-006-P1813	symbol	True	0														ifrc
+Qawsd	P2006020003	Qawsd-006	Qawsd-P2006020003-Qawsd-006	symbol	True	0														Qawsd-006
+Qawsd-007	label	"Other"	Qawsd-007-label	string	True	0						"Other"								
+Qawsd-007	P1476	"Other"	Qawsd-007-P1476	string	True	0						"Other"								
+Qawsd-007	description	"Other in awsd"	Qawsd-007-description	string	True	0						"Other in awsd"								
+Qawsd-007	P31	Q50701	Qawsd-007-P31-1	symbol	True	0														Q50701
+Qawsd-007	P1687	Pawsd-007	Qawsd-007-P1687-1	symbol	True	0														Pawsd-007
+Qawsd-007	P2006020002	P585	Qawsd-007-P2006020002-P585	symbol	True	0														P585
+Qawsd-007	P2006020002	P248	Qawsd-007-P2006020002-P248	symbol	True	0														P248
+Qawsd-007	P2006020004	Qawsd	Qawsd-007-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-007	P1813	other	Qawsd-007-P1813	symbol	True	0														other
+Qawsd	P2006020003	Qawsd-007	Qawsd-P2006020003-Qawsd-007	symbol	True	0														Qawsd-007
+Qawsd-008	label	"Nationals killed"	Qawsd-008-label	string	True	0						"Nationals killed"								
+Qawsd-008	P1476	"Nationals killed"	Qawsd-008-P1476	string	True	0						"Nationals killed"								
+Qawsd-008	description	"Nationals killed in awsd"	Qawsd-008-description	string	True	0						"Nationals killed in awsd"								
+Qawsd-008	P31	Q50701	Qawsd-008-P31-1	symbol	True	0														Q50701
+Qawsd-008	P1687	Pawsd-008	Qawsd-008-P1687-1	symbol	True	0														Pawsd-008
+Qawsd-008	P2006020002	P585	Qawsd-008-P2006020002-P585	symbol	True	0														P585
+Qawsd-008	P2006020002	P248	Qawsd-008-P2006020002-P248	symbol	True	0														P248
+Qawsd-008	P2006020004	Qawsd	Qawsd-008-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-008	P1813	nationals_killed	Qawsd-008-P1813	symbol	True	0														nationals_killed
+Qawsd	P2006020003	Qawsd-008	Qawsd-P2006020003-Qawsd-008	symbol	True	0														Qawsd-008
+Qawsd-009	label	"Nationals wounded"	Qawsd-009-label	string	True	0						"Nationals wounded"								
+Qawsd-009	P1476	"Nationals wounded"	Qawsd-009-P1476	string	True	0						"Nationals wounded"								
+Qawsd-009	description	"Nationals wounded in awsd"	Qawsd-009-description	string	True	0						"Nationals wounded in awsd"								
+Qawsd-009	P31	Q50701	Qawsd-009-P31-1	symbol	True	0														Q50701
+Qawsd-009	P1687	Pawsd-009	Qawsd-009-P1687-1	symbol	True	0														Pawsd-009
+Qawsd-009	P2006020002	P585	Qawsd-009-P2006020002-P585	symbol	True	0														P585
+Qawsd-009	P2006020002	P248	Qawsd-009-P2006020002-P248	symbol	True	0														P248
+Qawsd-009	P2006020004	Qawsd	Qawsd-009-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-009	P1813	nationals_wounded	Qawsd-009-P1813	symbol	True	0														nationals_wounded
+Qawsd	P2006020003	Qawsd-009	Qawsd-P2006020003-Qawsd-009	symbol	True	0														Qawsd-009
+Qawsd-010	label	"Nationals kidnapped"	Qawsd-010-label	string	True	0						"Nationals kidnapped"								
+Qawsd-010	P1476	"Nationals kidnapped"	Qawsd-010-P1476	string	True	0						"Nationals kidnapped"								
+Qawsd-010	description	"Nationals kidnapped in awsd"	Qawsd-010-description	string	True	0						"Nationals kidnapped in awsd"								
+Qawsd-010	P31	Q50701	Qawsd-010-P31-1	symbol	True	0														Q50701
+Qawsd-010	P1687	Pawsd-010	Qawsd-010-P1687-1	symbol	True	0														Pawsd-010
+Qawsd-010	P2006020002	P585	Qawsd-010-P2006020002-P585	symbol	True	0														P585
+Qawsd-010	P2006020002	P248	Qawsd-010-P2006020002-P248	symbol	True	0														P248
+Qawsd-010	P2006020004	Qawsd	Qawsd-010-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-010	P1813	nationals_kidnapped	Qawsd-010-P1813	symbol	True	0														nationals_kidnapped
+Qawsd	P2006020003	Qawsd-010	Qawsd-P2006020003-Qawsd-010	symbol	True	0														Qawsd-010
+Qawsd-011	label	"Total nationals"	Qawsd-011-label	string	True	0						"Total nationals"								
+Qawsd-011	P1476	"Total nationals"	Qawsd-011-P1476	string	True	0						"Total nationals"								
+Qawsd-011	description	"Total nationals in awsd"	Qawsd-011-description	string	True	0						"Total nationals in awsd"								
+Qawsd-011	P31	Q50701	Qawsd-011-P31-1	symbol	True	0														Q50701
+Qawsd-011	P1687	Pawsd-011	Qawsd-011-P1687-1	symbol	True	0														Pawsd-011
+Qawsd-011	P2006020002	P585	Qawsd-011-P2006020002-P585	symbol	True	0														P585
+Qawsd-011	P2006020002	P248	Qawsd-011-P2006020002-P248	symbol	True	0														P248
+Qawsd-011	P2006020004	Qawsd	Qawsd-011-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-011	P1813	total_nationals	Qawsd-011-P1813	symbol	True	0														total_nationals
+Qawsd	P2006020003	Qawsd-011	Qawsd-P2006020003-Qawsd-011	symbol	True	0														Qawsd-011
+Qawsd-012	label	"Internationals killed"	Qawsd-012-label	string	True	0						"Internationals killed"								
+Qawsd-012	P1476	"Internationals killed"	Qawsd-012-P1476	string	True	0						"Internationals killed"								
+Qawsd-012	description	"Internationals killed in awsd"	Qawsd-012-description	string	True	0						"Internationals killed in awsd"								
+Qawsd-012	P31	Q50701	Qawsd-012-P31-1	symbol	True	0														Q50701
+Qawsd-012	P1687	Pawsd-012	Qawsd-012-P1687-1	symbol	True	0														Pawsd-012
+Qawsd-012	P2006020002	P585	Qawsd-012-P2006020002-P585	symbol	True	0														P585
+Qawsd-012	P2006020002	P248	Qawsd-012-P2006020002-P248	symbol	True	0														P248
+Qawsd-012	P2006020004	Qawsd	Qawsd-012-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-012	P1813	internationals_killed	Qawsd-012-P1813	symbol	True	0														internationals_killed
+Qawsd	P2006020003	Qawsd-012	Qawsd-P2006020003-Qawsd-012	symbol	True	0														Qawsd-012
+Qawsd-013	label	"Internationals wounded"	Qawsd-013-label	string	True	0						"Internationals wounded"								
+Qawsd-013	P1476	"Internationals wounded"	Qawsd-013-P1476	string	True	0						"Internationals wounded"								
+Qawsd-013	description	"Internationals wounded in awsd"	Qawsd-013-description	string	True	0						"Internationals wounded in awsd"								
+Qawsd-013	P31	Q50701	Qawsd-013-P31-1	symbol	True	0														Q50701
+Qawsd-013	P1687	Pawsd-013	Qawsd-013-P1687-1	symbol	True	0														Pawsd-013
+Qawsd-013	P2006020002	P585	Qawsd-013-P2006020002-P585	symbol	True	0														P585
+Qawsd-013	P2006020002	P248	Qawsd-013-P2006020002-P248	symbol	True	0														P248
+Qawsd-013	P2006020004	Qawsd	Qawsd-013-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-013	P1813	internationals_wounded	Qawsd-013-P1813	symbol	True	0														internationals_wounded
+Qawsd	P2006020003	Qawsd-013	Qawsd-P2006020003-Qawsd-013	symbol	True	0														Qawsd-013
+Qawsd-014	label	"Internationals kidnapped"	Qawsd-014-label	string	True	0						"Internationals kidnapped"								
+Qawsd-014	P1476	"Internationals kidnapped"	Qawsd-014-P1476	string	True	0						"Internationals kidnapped"								
+Qawsd-014	description	"Internationals kidnapped in awsd"	Qawsd-014-description	string	True	0						"Internationals kidnapped in awsd"								
+Qawsd-014	P31	Q50701	Qawsd-014-P31-1	symbol	True	0														Q50701
+Qawsd-014	P1687	Pawsd-014	Qawsd-014-P1687-1	symbol	True	0														Pawsd-014
+Qawsd-014	P2006020002	P585	Qawsd-014-P2006020002-P585	symbol	True	0														P585
+Qawsd-014	P2006020002	P248	Qawsd-014-P2006020002-P248	symbol	True	0														P248
+Qawsd-014	P2006020004	Qawsd	Qawsd-014-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-014	P1813	internationals_kidnapped	Qawsd-014-P1813	symbol	True	0														internationals_kidnapped
+Qawsd	P2006020003	Qawsd-014	Qawsd-P2006020003-Qawsd-014	symbol	True	0														Qawsd-014
+Qawsd-015	label	"Total internationals"	Qawsd-015-label	string	True	0						"Total internationals"								
+Qawsd-015	P1476	"Total internationals"	Qawsd-015-P1476	string	True	0						"Total internationals"								
+Qawsd-015	description	"Total internationals in awsd"	Qawsd-015-description	string	True	0						"Total internationals in awsd"								
+Qawsd-015	P31	Q50701	Qawsd-015-P31-1	symbol	True	0														Q50701
+Qawsd-015	P1687	Pawsd-015	Qawsd-015-P1687-1	symbol	True	0														Pawsd-015
+Qawsd-015	P2006020002	P585	Qawsd-015-P2006020002-P585	symbol	True	0														P585
+Qawsd-015	P2006020002	P248	Qawsd-015-P2006020002-P248	symbol	True	0														P248
+Qawsd-015	P2006020004	Qawsd	Qawsd-015-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-015	P1813	total_internationals	Qawsd-015-P1813	symbol	True	0														total_internationals
+Qawsd	P2006020003	Qawsd-015	Qawsd-P2006020003-Qawsd-015	symbol	True	0														Qawsd-015
+Qawsd-016	label	"Total killed"	Qawsd-016-label	string	True	0						"Total killed"								
+Qawsd-016	P1476	"Total killed"	Qawsd-016-P1476	string	True	0						"Total killed"								
+Qawsd-016	description	"Total killed in awsd"	Qawsd-016-description	string	True	0						"Total killed in awsd"								
+Qawsd-016	P31	Q50701	Qawsd-016-P31-1	symbol	True	0														Q50701
+Qawsd-016	P1687	Pawsd-016	Qawsd-016-P1687-1	symbol	True	0														Pawsd-016
+Qawsd-016	P2006020002	P585	Qawsd-016-P2006020002-P585	symbol	True	0														P585
+Qawsd-016	P2006020002	P248	Qawsd-016-P2006020002-P248	symbol	True	0														P248
+Qawsd-016	P2006020004	Qawsd	Qawsd-016-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-016	P1813	total_killed	Qawsd-016-P1813	symbol	True	0														total_killed
+Qawsd	P2006020003	Qawsd-016	Qawsd-P2006020003-Qawsd-016	symbol	True	0														Qawsd-016
+Qawsd-017	label	"Total wounded"	Qawsd-017-label	string	True	0						"Total wounded"								
+Qawsd-017	P1476	"Total wounded"	Qawsd-017-P1476	string	True	0						"Total wounded"								
+Qawsd-017	description	"Total wounded in awsd"	Qawsd-017-description	string	True	0						"Total wounded in awsd"								
+Qawsd-017	P31	Q50701	Qawsd-017-P31-1	symbol	True	0														Q50701
+Qawsd-017	P1687	Pawsd-017	Qawsd-017-P1687-1	symbol	True	0														Pawsd-017
+Qawsd-017	P2006020002	P585	Qawsd-017-P2006020002-P585	symbol	True	0														P585
+Qawsd-017	P2006020002	P248	Qawsd-017-P2006020002-P248	symbol	True	0														P248
+Qawsd-017	P2006020004	Qawsd	Qawsd-017-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-017	P1813	total_wounded	Qawsd-017-P1813	symbol	True	0														total_wounded
+Qawsd	P2006020003	Qawsd-017	Qawsd-P2006020003-Qawsd-017	symbol	True	0														Qawsd-017
+Qawsd-018	label	"Total kidnapped"	Qawsd-018-label	string	True	0						"Total kidnapped"								
+Qawsd-018	P1476	"Total kidnapped"	Qawsd-018-P1476	string	True	0						"Total kidnapped"								
+Qawsd-018	description	"Total kidnapped in awsd"	Qawsd-018-description	string	True	0						"Total kidnapped in awsd"								
+Qawsd-018	P31	Q50701	Qawsd-018-P31-1	symbol	True	0														Q50701
+Qawsd-018	P1687	Pawsd-018	Qawsd-018-P1687-1	symbol	True	0														Pawsd-018
+Qawsd-018	P2006020002	P585	Qawsd-018-P2006020002-P585	symbol	True	0														P585
+Qawsd-018	P2006020002	P248	Qawsd-018-P2006020002-P248	symbol	True	0														P248
+Qawsd-018	P2006020004	Qawsd	Qawsd-018-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-018	P1813	total_kidnapped	Qawsd-018-P1813	symbol	True	0														total_kidnapped
+Qawsd	P2006020003	Qawsd-018	Qawsd-P2006020003-Qawsd-018	symbol	True	0														Qawsd-018
+Qawsd-019	label	"Total affected"	Qawsd-019-label	string	True	0						"Total affected"								
+Qawsd-019	P1476	"Total affected"	Qawsd-019-P1476	string	True	0						"Total affected"								
+Qawsd-019	description	"Total affected in awsd"	Qawsd-019-description	string	True	0						"Total affected in awsd"								
+Qawsd-019	P31	Q50701	Qawsd-019-P31-1	symbol	True	0														Q50701
+Qawsd-019	P1687	Pawsd-019	Qawsd-019-P1687-1	symbol	True	0														Pawsd-019
+Qawsd-019	P2006020002	P585	Qawsd-019-P2006020002-P585	symbol	True	0														P585
+Qawsd-019	P2006020002	P248	Qawsd-019-P2006020002-P248	symbol	True	0														P248
+Qawsd-019	P2006020004	Qawsd	Qawsd-019-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-019	P1813	total_affected	Qawsd-019-P1813	symbol	True	0														total_affected
+Qawsd	P2006020003	Qawsd-019	Qawsd-P2006020003-Qawsd-019	symbol	True	0														Qawsd-019
+Qawsd-020	label	"Gender Male"	Qawsd-020-label	string	True	0						"Gender Male"								
+Qawsd-020	P1476	"Gender Male"	Qawsd-020-P1476	string	True	0						"Gender Male"								
+Qawsd-020	description	"Gender Male in awsd"	Qawsd-020-description	string	True	0						"Gender Male in awsd"								
+Qawsd-020	P31	Q50701	Qawsd-020-P31-1	symbol	True	0														Q50701
+Qawsd-020	P1687	Pawsd-020	Qawsd-020-P1687-1	symbol	True	0														Pawsd-020
+Qawsd-020	P2006020002	P585	Qawsd-020-P2006020002-P585	symbol	True	0														P585
+Qawsd-020	P2006020002	P248	Qawsd-020-P2006020002-P248	symbol	True	0														P248
+Qawsd-020	P2006020004	Qawsd	Qawsd-020-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-020	P1813	gender_male	Qawsd-020-P1813	symbol	True	0														gender_male
+Qawsd	P2006020003	Qawsd-020	Qawsd-P2006020003-Qawsd-020	symbol	True	0														Qawsd-020
+Qawsd-021	label	"Gender Female"	Qawsd-021-label	string	True	0						"Gender Female"								
+Qawsd-021	P1476	"Gender Female"	Qawsd-021-P1476	string	True	0						"Gender Female"								
+Qawsd-021	description	"Gender Female in awsd"	Qawsd-021-description	string	True	0						"Gender Female in awsd"								
+Qawsd-021	P31	Q50701	Qawsd-021-P31-1	symbol	True	0														Q50701
+Qawsd-021	P1687	Pawsd-021	Qawsd-021-P1687-1	symbol	True	0														Pawsd-021
+Qawsd-021	P2006020002	P585	Qawsd-021-P2006020002-P585	symbol	True	0														P585
+Qawsd-021	P2006020002	P248	Qawsd-021-P2006020002-P248	symbol	True	0														P248
+Qawsd-021	P2006020004	Qawsd	Qawsd-021-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-021	P1813	gender_female	Qawsd-021-P1813	symbol	True	0														gender_female
+Qawsd	P2006020003	Qawsd-021	Qawsd-P2006020003-Qawsd-021	symbol	True	0														Qawsd-021
+Qawsd-022	label	"Gender Unknown"	Qawsd-022-label	string	True	0						"Gender Unknown"								
+Qawsd-022	P1476	"Gender Unknown"	Qawsd-022-P1476	string	True	0						"Gender Unknown"								
+Qawsd-022	description	"Gender Unknown in awsd"	Qawsd-022-description	string	True	0						"Gender Unknown in awsd"								
+Qawsd-022	P31	Q50701	Qawsd-022-P31-1	symbol	True	0														Q50701
+Qawsd-022	P1687	Pawsd-022	Qawsd-022-P1687-1	symbol	True	0														Pawsd-022
+Qawsd-022	P2006020002	P585	Qawsd-022-P2006020002-P585	symbol	True	0														P585
+Qawsd-022	P2006020002	P248	Qawsd-022-P2006020002-P248	symbol	True	0														P248
+Qawsd-022	P2006020004	Qawsd	Qawsd-022-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-022	P1813	gender_unknown	Qawsd-022-P1813	symbol	True	0														gender_unknown
+Qawsd	P2006020003	Qawsd-022	Qawsd-P2006020003-Qawsd-022	symbol	True	0														Qawsd-022
+Qawsd-023	label	"Means of attack"	Qawsd-023-label	string	True	0						"Means of attack"								
+Qawsd-023	P1476	"Means of attack"	Qawsd-023-P1476	string	True	0						"Means of attack"								
+Qawsd-023	description	"Means of attack in awsd"	Qawsd-023-description	string	True	0						"Means of attack in awsd"								
+Qawsd-023	P31	Q50701	Qawsd-023-P31-1	symbol	True	0														Q50701
+Qawsd-023	P1687	Pawsd-023	Qawsd-023-P1687-1	symbol	True	0														Pawsd-023
+Qawsd-023	P2006020002	P585	Qawsd-023-P2006020002-P585	symbol	True	0														P585
+Qawsd-023	P2006020002	P248	Qawsd-023-P2006020002-P248	symbol	True	0														P248
+Qawsd-023	P2006020004	Qawsd	Qawsd-023-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-023	P1813	means_of_attack	Qawsd-023-P1813	symbol	True	0														means_of_attack
+Qawsd	P2006020003	Qawsd-023	Qawsd-P2006020003-Qawsd-023	symbol	True	0														Qawsd-023
+Qawsd-024	label	"Attack context"	Qawsd-024-label	string	True	0						"Attack context"								
+Qawsd-024	P1476	"Attack context"	Qawsd-024-P1476	string	True	0						"Attack context"								
+Qawsd-024	description	"Attack context in awsd"	Qawsd-024-description	string	True	0						"Attack context in awsd"								
+Qawsd-024	P31	Q50701	Qawsd-024-P31-1	symbol	True	0														Q50701
+Qawsd-024	P1687	Pawsd-024	Qawsd-024-P1687-1	symbol	True	0														Pawsd-024
+Qawsd-024	P2006020002	P585	Qawsd-024-P2006020002-P585	symbol	True	0														P585
+Qawsd-024	P2006020002	P248	Qawsd-024-P2006020002-P248	symbol	True	0														P248
+Qawsd-024	P2006020004	Qawsd	Qawsd-024-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-024	P1813	attack_context	Qawsd-024-P1813	symbol	True	0														attack_context
+Qawsd	P2006020003	Qawsd-024	Qawsd-P2006020003-Qawsd-024	symbol	True	0														Qawsd-024
+Qawsd-025	label	"Location"	Qawsd-025-label	string	True	0						"Location"								
+Qawsd-025	P1476	"Location"	Qawsd-025-P1476	string	True	0						"Location"								
+Qawsd-025	description	"Location in awsd"	Qawsd-025-description	string	True	0						"Location in awsd"								
+Qawsd-025	P31	Q50701	Qawsd-025-P31-1	symbol	True	0														Q50701
+Qawsd-025	P1687	Pawsd-025	Qawsd-025-P1687-1	symbol	True	0														Pawsd-025
+Qawsd-025	P2006020002	P585	Qawsd-025-P2006020002-P585	symbol	True	0														P585
+Qawsd-025	P2006020002	P248	Qawsd-025-P2006020002-P248	symbol	True	0														P248
+Qawsd-025	P2006020004	Qawsd	Qawsd-025-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-025	P1813	location	Qawsd-025-P1813	symbol	True	0														location
+Qawsd	P2006020003	Qawsd-025	Qawsd-P2006020003-Qawsd-025	symbol	True	0														Qawsd-025
+Qawsd-026	label	"Actor type"	Qawsd-026-label	string	True	0						"Actor type"								
+Qawsd-026	P1476	"Actor type"	Qawsd-026-P1476	string	True	0						"Actor type"								
+Qawsd-026	description	"Actor type in awsd"	Qawsd-026-description	string	True	0						"Actor type in awsd"								
+Qawsd-026	P31	Q50701	Qawsd-026-P31-1	symbol	True	0														Q50701
+Qawsd-026	P1687	Pawsd-026	Qawsd-026-P1687-1	symbol	True	0														Pawsd-026
+Qawsd-026	P2006020002	P585	Qawsd-026-P2006020002-P585	symbol	True	0														P585
+Qawsd-026	P2006020002	P248	Qawsd-026-P2006020002-P248	symbol	True	0														P248
+Qawsd-026	P2006020004	Qawsd	Qawsd-026-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-026	P1813	actor_type	Qawsd-026-P1813	symbol	True	0														actor_type
+Qawsd	P2006020003	Qawsd-026	Qawsd-P2006020003-Qawsd-026	symbol	True	0														Qawsd-026
+Qawsd-027	label	"Actor name"	Qawsd-027-label	string	True	0						"Actor name"								
+Qawsd-027	P1476	"Actor name"	Qawsd-027-P1476	string	True	0						"Actor name"								
+Qawsd-027	description	"Actor name in awsd"	Qawsd-027-description	string	True	0						"Actor name in awsd"								
+Qawsd-027	P31	Q50701	Qawsd-027-P31-1	symbol	True	0														Q50701
+Qawsd-027	P1687	Pawsd-027	Qawsd-027-P1687-1	symbol	True	0														Pawsd-027
+Qawsd-027	P2006020002	P585	Qawsd-027-P2006020002-P585	symbol	True	0														P585
+Qawsd-027	P2006020002	P248	Qawsd-027-P2006020002-P248	symbol	True	0														P248
+Qawsd-027	P2006020004	Qawsd	Qawsd-027-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-027	P1813	actor_name	Qawsd-027-P1813	symbol	True	0														actor_name
+Qawsd	P2006020003	Qawsd-027	Qawsd-P2006020003-Qawsd-027	symbol	True	0														Qawsd-027
+Qawsd-028	label	"Details"	Qawsd-028-label	string	True	0						"Details"								
+Qawsd-028	P1476	"Details"	Qawsd-028-P1476	string	True	0						"Details"								
+Qawsd-028	description	"Details in awsd"	Qawsd-028-description	string	True	0						"Details in awsd"								
+Qawsd-028	P31	Q50701	Qawsd-028-P31-1	symbol	True	0														Q50701
+Qawsd-028	P1687	Pawsd-028	Qawsd-028-P1687-1	symbol	True	0														Pawsd-028
+Qawsd-028	P2006020002	P585	Qawsd-028-P2006020002-P585	symbol	True	0														P585
+Qawsd-028	P2006020002	P248	Qawsd-028-P2006020002-P248	symbol	True	0														P248
+Qawsd-028	P2006020004	Qawsd	Qawsd-028-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-028	P1813	details	Qawsd-028-P1813	symbol	True	0														details
+Qawsd	P2006020003	Qawsd-028	Qawsd-P2006020003-Qawsd-028	symbol	True	0														Qawsd-028
+Qawsd-029	label	"Verified"	Qawsd-029-label	string	True	0						"Verified"								
+Qawsd-029	P1476	"Verified"	Qawsd-029-P1476	string	True	0						"Verified"								
+Qawsd-029	description	"Verified in awsd"	Qawsd-029-description	string	True	0						"Verified in awsd"								
+Qawsd-029	P31	Q50701	Qawsd-029-P31-1	symbol	True	0														Q50701
+Qawsd-029	P1687	Pawsd-029	Qawsd-029-P1687-1	symbol	True	0														Pawsd-029
+Qawsd-029	P2006020002	P585	Qawsd-029-P2006020002-P585	symbol	True	0														P585
+Qawsd-029	P2006020002	P248	Qawsd-029-P2006020002-P248	symbol	True	0														P248
+Qawsd-029	P2006020004	Qawsd	Qawsd-029-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-029	P1813	verified	Qawsd-029-P1813	symbol	True	0														verified
+Qawsd	P2006020003	Qawsd-029	Qawsd-P2006020003-Qawsd-029	symbol	True	0														Qawsd-029
+Qawsd-030	label	"Source"	Qawsd-030-label	string	True	0						"Source"								
+Qawsd-030	P1476	"Source"	Qawsd-030-P1476	string	True	0						"Source"								
+Qawsd-030	description	"Source in awsd"	Qawsd-030-description	string	True	0						"Source in awsd"								
+Qawsd-030	P31	Q50701	Qawsd-030-P31-1	symbol	True	0														Q50701
+Qawsd-030	P1687	Pawsd-030	Qawsd-030-P1687-1	symbol	True	0														Pawsd-030
+Qawsd-030	P2006020002	P585	Qawsd-030-P2006020002-P585	symbol	True	0														P585
+Qawsd-030	P2006020002	P248	Qawsd-030-P2006020002-P248	symbol	True	0														P248
+Qawsd-030	P2006020004	Qawsd	Qawsd-030-P2006020004-1	symbol	True	0														Qawsd
+Qawsd-030	P1813	source	Qawsd-030-P1813	symbol	True	0														source
+Qawsd	P2006020003	Qawsd-030	Qawsd-P2006020003-Qawsd-030	symbol	True	0														Qawsd-030
+Qawsd-U002	label	"person"	Qawsd-U002-label	string	True	0						"person"								
+Qawsd-U002	P31	Q47574	Qawsd-U002-P31	symbol	True	0														Q47574
