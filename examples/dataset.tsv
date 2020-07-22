@@ -1,7 +1,0 @@
-node1	label	node2	id
-Qawsd	P31	Q1172284	awsd-P31
-Qawsd	label	"awsd dataset"	awsd-label
-Qawsd	P1476	"awsd dataset"	awsd-P1476
-Qawsd	description	"awsd dataset"	awsd-description
-Qawsd	P2699	"awsd"	awsd-P2699
-Qawsd	P1813	"awsd"	awsd-P1813

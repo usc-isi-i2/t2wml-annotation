@@ -126,8 +126,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
         wikifier_df = pd.concat([wikifier_df, loaded_file["Wikifier_t2wml"]])
 
     # save output
-    generate_and_save_dataset_file(loaded_file["dataset_file"], output_path)
-    generate_extra_edges_file(loaded_file["extra_edges"], output_path, memo)
+    generate_and_save_dataset_file(loaded_file["dataset_file"], output_path, to_disk)
+    generate_extra_edges_file(loaded_file["extra_edges"], output_path, memo, to_disk)
 
     # combine datamart-schema part's property files
     if datamart_properties_file is None:
@@ -346,7 +346,7 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
     return output_df
 
 
-def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str):
+def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str, to_disk=True):
     """
     A sample dataset file looks like:
     node1	        label	    node2	                id
@@ -356,8 +356,6 @@ def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str):
     Qaid-security	description	aid-security dataset	aid-security-description
     Qaid-security	P2699	    aid-security	        aid-security-P2699
     Qaid-security	P1813	    aid-security	        aid-security-P1813
-    :param input_df:
-    :param output_path:
     :return:
     """
     output_df = copy.deepcopy(input_df)
@@ -369,10 +367,11 @@ def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str):
     output_df = output_df.rename(columns={"dataset": "node1"})
     # check double quotes
     output_df = check_double_quotes(output_df, check_content_startswith=True)
-    output_df.to_csv(os.path.join(output_path, "dataset.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
+    if to_disk:
+        output_df.to_csv(os.path.join(output_path, "dataset.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
 
 
-def generate_extra_edges_file(input_df: pd.DataFrame, output_path: str, memo: dict):
+def generate_extra_edges_file(input_df: pd.DataFrame, output_path: str, memo: dict, to_disk=True):
     qualifier_extra_edges_list = []
     if "qualifier_target_nodes" in memo:
         for k, v in memo['qualifier_target_nodes'].items():
@@ -382,7 +381,8 @@ def generate_extra_edges_file(input_df: pd.DataFrame, output_path: str, memo: di
     input_df = pd.concat([input_df, pd.DataFrame(qualifier_extra_edges_list)])
     # check double quotes
     input_df = check_double_quotes(input_df, label_types={"label", "description"})
-    input_df.to_csv(os.path.join(output_path, "extra_edges.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
+    if to_disk:
+        input_df.to_csv(os.path.join(output_path, "extra_edges.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
 
 
 def get_short_name(short_name_memo, input_str):

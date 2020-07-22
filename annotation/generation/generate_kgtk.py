@@ -43,7 +43,8 @@ class GenerateKgtk:
             property_file = base_pos + "/datamart_schema_properties.tsv"
 
         self.wikifier_file = wikifier_file
-        self.project_name = self.annotated_spreadsheet.iloc[0,0]
+        self.project_name = self.annotated_spreadsheet.iloc[0, 0]
+
         # generate the template files
         template_df_dict = generate_template_from_df(annotated_spreadsheet)
 
@@ -53,6 +54,7 @@ class GenerateKgtk:
         # memory all nodes2 from P1813 of variables
         variables_df = self.output_df_dict['kgtk_variables.tsv']
         self.variables_ids = variables_df[variables_df["label"] == "P1813"]["node2"].tolist()
+
 
     def get_variable_ids(self) -> typing.List[str]:
         return self.variables_ids
