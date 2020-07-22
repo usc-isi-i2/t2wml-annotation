@@ -182,7 +182,8 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
 
             # add to memo for future use
             memo["property"][node_id] = each_row[node_label_column_name]
-            memo["property_role"][node_id] = each_row["Role"].lower()
+            if "Role" in each_row:
+                memo["property_role"][node_id] = each_row["Role"].lower()
             memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
 
             # get type if specified
@@ -258,19 +259,22 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
         if role == "qualifier":
             all_qualifier_properties.append(node)
 
-    for _, each_row in input_df.iterrows():
-        relations = each_row['Relationship']
-        target_properties = []
+    has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
 
-        # qualifier should not have qualifier properties
-        if each_row['Role'].lower() != "qualifier":
-            if relations == "":
-                target_properties = all_qualifier_properties
-            else:
-                for each_relation in relations.slipt("|"):
-                    if each_relation not in memo["property_name_to_id"]:
-                        raise ValueError("Annotation specify variable {} not exist in input data.".format(each_relation))
-                    target_properties.append(memo["property_name_to_id"][each_relation])
+    for _, each_row in input_df.iterrows():
+        target_properties = []
+        # update 2020.7.22: consider role and relationship for new template file
+        if has_relationship:
+            relations = each_row['Relationship']
+            # qualifier should not have qualifier properties
+            if each_row['Role'].lower() != "qualifier":
+                if relations == "":
+                    target_properties = all_qualifier_properties
+                else:
+                    for each_relation in relations.slipt("|"):
+                        if each_relation not in memo["property_name_to_id"]:
+                            raise ValueError("Annotation specify variable {} not exist in input data.".format(each_relation))
+                        target_properties.append(memo["property_name_to_id"][each_relation])
 
         node_number += 1
         if each_row[node_column_name] == "":

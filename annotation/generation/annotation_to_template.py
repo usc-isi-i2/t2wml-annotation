@@ -195,7 +195,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
             if type_ == "string":
                 for row, each in enumerate(content_part.iloc[:, i]):
                     label = str(each).strip()
-                    node = "{}_{}_{}".format(dataset_id, each_col_info["header"], label).replace(" ", "_").replace("-", "_")
+                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label).replace(" ", "_").replace("-", "_")
                     wikifier_df_list.append(
                         {"column": i + col_offset, "row": row + row_offset, "value": label, "context": "main subject",
                          "item": node})
