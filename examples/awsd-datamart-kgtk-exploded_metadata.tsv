@@ -62,7 +62,7 @@ P625	data_type	GlobeCoordinate	P625-data-type-1	symbol	True	0														Globe
 P3896	label	geoshape	P3896-label-1	symbol	True	0														geoshape
 P3896	data_type	String	P3896-data-type-1	symbol	True	0														String
 P17	label	country	P17-label-1	symbol	True	0														country
-P17	data_type	String	P17-data-type-1	symbol	True	0														String
+P17	data_type	WikibaseItem	P17-data-type-1	symbol	True	0														WikibaseItem
 P276	label	location	P276-label-1	symbol	True	0														location
 P276	data_type	String	P276-data-type-1	symbol	True	0														String
 P580	label	start time	P580-label-1	symbol	True	0														start time

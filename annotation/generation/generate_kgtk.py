@@ -9,7 +9,7 @@ import traceback
 from pathlib import Path
 from t2wml.api import add_properties_from_file, KnowledgeGraph
 from annotation.generation.annotation_to_template import generate_template_from_df
-from annotation.generation.wikify_datamart_units_and_atributes import generate
+from annotation.generation.wikify_datamart_units_and_attributes import generate
 from annotation.generation.generate_t2wml_files import execute_shell_code
 
 # currently this script only support t2wml == 2.0a19
