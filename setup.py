@@ -3,14 +3,13 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-with open('requirements.txt', 'r') as f:
-    install_requires = list()
-    for line in f:
-        re = line.strip()
-        if re:
-            install_requires.append(re)
+# with open('requirements.txt', 'r') as f:
+#     install_requires = list()
+#     for line in f:
+#         re = line.strip()
+#         if re:
+#             install_requires.append(re)
 
-print(install_requires)
 
 setuptools.setup(
     name="t2wml-annotation",
@@ -27,8 +26,10 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent"
     ],
-    install_requires=install_requires,
-    dependency_links=[
-        'https://pypi.fury.io/theresearchsoftwarecompany/'
-    ]
+    include_package_data=True,
+    package_data={'datamart': ['resources/*.json','resources/*.csv', 'resources/*.xlsx', 'resources/*.yaml', 'resources/*.tsv']},
+    # install_requires=install_requires,
+    # dependency_links=[
+    #     'https://pypi.fury.io/theresearchsoftwarecompany/'
+    # ]
 )

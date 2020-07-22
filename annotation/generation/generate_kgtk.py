@@ -55,7 +55,6 @@ class GenerateKgtk:
         variables_df = self.output_df_dict['kgtk_variables.tsv']
         self.variables_ids = variables_df[variables_df["label"] == "P1813"]["node2"].tolist()
 
-
     def get_variable_ids(self) -> typing.List[str]:
         return self.variables_ids
 

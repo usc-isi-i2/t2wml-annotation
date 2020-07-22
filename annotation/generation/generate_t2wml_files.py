@@ -70,8 +70,10 @@ def execute_shell_code(shell_command: str, debug=False):
         print("Error!!")
         print(stderr)
         print("-" * 50)
+        raise
+
     if debug:
-        print("Running finshed!!!!!!")
+        print("Running finished!!!!!!")
     return stdout
 
 

@@ -115,19 +115,21 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                                                        dataset_id,
                                                        memo, column_name_config["attributes_file_node_column_name"],
                                                        column_name_config["attributes_file_node_label_column_name"])
+
     kgtk_variables_df = generate_KGTK_variables_file(loaded_file["attributes_file"], dataset_id, memo,
                                                      column_name_config["attributes_file_node_column_name"],
                                                      column_name_config["attributes_file_node_label_column_name"])
+
     kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_id, memo,
                                              column_name_config["unit_file_node_column_name"],
                                              column_name_config["unit_file_node_label_column_name"])
+
     wikifier_df = generate_wikifier_file(memo, extra_wikifier_dict)
     if loaded_file["Wikifier_t2wml"] is not None:
         wikifier_df = pd.concat([wikifier_df, loaded_file["Wikifier_t2wml"]])
 
-    # save output
-    generate_and_save_dataset_file(loaded_file["dataset_file"], output_path, to_disk)
-    generate_extra_edges_file(loaded_file["extra_edges"], output_path, memo, to_disk)
+    dataset_df = generate_and_save_dataset_file(loaded_file["dataset_file"])
+    extra_edges_df = generate_extra_edges_file(loaded_file["extra_edges"], memo)
 
     # combine datamart-schema part's property files
     if datamart_properties_file is None:
@@ -137,8 +139,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
         raise ValueError("Datamart schema properties tsv file not exist at {}!".format(datamart_properties_file))
     kgtk_properties_df = pd.concat([pd.read_csv(datamart_properties_file, sep='\t'), kgtk_properties_df])
 
-    output_files = [kgtk_properties_df, kgtk_variables_df, kgtk_units_df, wikifier_df]
-    output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv"]
+    output_files = [kgtk_properties_df, kgtk_variables_df, kgtk_units_df, wikifier_df, extra_edges_df, dataset_df]
+    output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv", "extra_edges.tsv", "dataset.tsv"]
     if not to_disk:
         result_dict = {}
         for each_file, each_file_name in zip(output_files, output_file_names):
@@ -175,16 +177,22 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
     for _, each_row in input_df.iterrows():
         node_number += 1
         if each_row[node_column_name] == "":
+            node_label = to_kgtk_format_string(each_row[node_label_column_name])
             node_id = "P{}-{:03}".format(dataset_id, node_number)
+
+            # add to memo for future use
             memo["property"][node_id] = each_row[node_label_column_name]
+            memo["property_role"][node_id] = each_row["Role"].lower()
             memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
+
             # get type if specified
             if "type" in each_row:
                 value_type = each_row["type"]
             else:
                 value_type = "Quantity"
+
             labels = ["data_type", "P31", "label"]
-            node2s = [value_type, "Q18616576", to_kgtk_format_string(each_row[node_label_column_name])]
+            node2s = [value_type, "Q18616576", node_label]
             for i in range(3):
                 id_ = "{}-{}".format(node_id, labels[i])
                 output_df_list.append({"id": id_, "node1": node_id, "label": labels[i], "node2": node2s[i]})
@@ -223,25 +231,47 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
 def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Property",
                                  node_label_column_name="Attribute"):
     """
-    sample format for each variable (totally 10 rows)
+    sample format for each variable (totally 9 rows)
         "id"                        "node1"    "label"          "node2"
     0   QOECD-002-label             QOECD-002   label           "GDP per capita"
     1   QOECD-002-P1476             QOECD-002   P1476           "GDP per capita"
     2   QOECD-002-description       QOECD-002   description     "GDP per capita variable in OECD"
     3   QOECD-002-P31-1             QOECD-002   P31             Q50701
     4   QOECD-002-P1687-1           QOECD-002   P1687           POECD-002
-    5   QOECD-002-P2006020002-P585  QOECD-002   P2006020002     P585
-    6   QOECD-002-P2006020002-P248  QOECD-002   P2006020002     P248
-    7   QOECD-002-P2006020004-1     QOECD-002   P2006020004     QOECD
-    8   QOECD-002-P1813             QOECD-002   P1813           "gdp_per_capita"
-    9   QOECD-P2006020003-QOECD002  QOECD       P2006020003     QOECD-002
+    5   QOECD-002-P2006020002-P248  QOECD-002   P2006020002     P248
+    6   QOECD-002-P2006020004-1     QOECD-002   P2006020004     QOECD
+    7   QOECD-002-P1813             QOECD-002   P1813           "gdp_per_capita"
+    8   QOECD-P2006020003-QOECD002  QOECD       P2006020003     QOECD-002
+
+    following part length will change depending on the properties amount
+
+
+
     """
     node_number = 1
-    count = 0
-    output_df_dict = {}
+    output_df_list = []
     short_name_memo = set()
     input_df = input_df.fillna("")
+
+    all_qualifier_properties = []
+    for node, role in memo["property_role"].items():
+        if role == "qualifier":
+            all_qualifier_properties.append(node)
+
     for _, each_row in input_df.iterrows():
+        relations = each_row['Relationship']
+        target_properties = []
+
+        # qualifier should not have qualifier properties
+        if each_row['Role'].lower() != "qualifier":
+            if relations == "":
+                target_properties = all_qualifier_properties
+            else:
+                for each_relation in relations.slipt("|"):
+                    if each_relation not in memo["property_name_to_id"]:
+                        raise ValueError("Annotation specify variable {} not exist in input data.".format(each_relation))
+                    target_properties.append(memo["property_name_to_id"][each_relation])
+
         node_number += 1
         if each_row[node_column_name] == "":
             p_node_id = "P{}-{:03}".format(dataset_id, node_number)
@@ -251,30 +281,32 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
         memo["variable"][q_node_id] = each_row[node_label_column_name]
 
         labels = ["label", "P1476", "description",
-                  "P31", "P1687", "P2006020002",
+                  "P31", "P1687",
                   "P2006020002", "P2006020004", "P1813",
-                  "P2006020003"]
+                  "P2006020003"] + len(target_properties) * ["P2006020002"]
         node2s = [to_kgtk_format_string(each_row[node_label_column_name]),  # 1
                   to_kgtk_format_string(each_row[node_label_column_name]),  # 2
                   to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
                   "Q50701", p_node_id,  # 4-5
-                  "P585", "P248",  # 6-7
-                  "Q" + dataset_id,  # 8
-                  get_short_name(short_name_memo, each_row[node_label_column_name]),  # 9
-                  q_node_id  # 10
-                  ]
-        node1s = [q_node_id] * 9 + ["Q" + dataset_id]
-        for i in range(len(labels)):
-            if i in {3, 4, 7}:
+                  "P248",  # 6
+                  "Q" + dataset_id,  # 7
+                  get_short_name(short_name_memo, each_row[node_label_column_name]),  # 8
+                  q_node_id  # 9
+                  ] + target_properties
+        node1s = [q_node_id] * 9 + ["Q" + dataset_id] + [q_node_id] * len(target_properties)
+
+        # add those nodes
+        for i, each_label in enumerate(labels):
+            if each_label in {"P31", "P1687", "P2006020004"}:
                 id_ = "{}-{}-1".format(node1s[i], labels[i])
-            elif i in {5, 6, 9}:
-                id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
-            else:
+            elif each_label in {"label", "P1476", "description",  "P1813"}:
                 id_ = "{}-{}".format(node1s[i], labels[i])
-            output_df_dict[count] = {"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]}
-            count += 1
+            else:
+                id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
+            output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
+
     # get output
-    output_df = pd.DataFrame.from_dict(output_df_dict, orient="index")
+    output_df = pd.DataFrame(output_df_list)
     # in case of empty df
     if output_df.shape == (0, 0):
         output_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
@@ -346,7 +378,7 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
     return output_df
 
 
-def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str, to_disk=True):
+def generate_and_save_dataset_file(input_df: pd.DataFrame):
     """
     A sample dataset file looks like:
     node1	        label	    node2	                id
@@ -367,22 +399,20 @@ def generate_and_save_dataset_file(input_df: pd.DataFrame, output_path: str, to_
     output_df = output_df.rename(columns={"dataset": "node1"})
     # check double quotes
     output_df = check_double_quotes(output_df, check_content_startswith=True)
-    if to_disk:
-        output_df.to_csv(os.path.join(output_path, "dataset.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
+    return output_df
 
 
-def generate_extra_edges_file(input_df: pd.DataFrame, output_path: str, memo: dict, to_disk=True):
+def generate_extra_edges_file(input_df: pd.DataFrame, memo: dict):
     qualifier_extra_edges_list = []
     if "qualifier_target_nodes" in memo:
         for k, v in memo['qualifier_target_nodes'].items():
             qualifier_extra_edges_list.append({"id": "", "node1": v, "label": "P2006020002",
                                                "node2": memo["qualifier_name_to_id"][k]})
 
-    input_df = pd.concat([input_df, pd.DataFrame(qualifier_extra_edges_list)])
+    output_df = pd.concat([input_df, pd.DataFrame(qualifier_extra_edges_list)])
     # check double quotes
-    input_df = check_double_quotes(input_df, label_types={"label", "description"})
-    if to_disk:
-        input_df.to_csv(os.path.join(output_path, "extra_edges.tsv"), sep='\t', index=False, quoting=csv.QUOTE_NONE)
+    output_df = check_double_quotes(output_df, label_types={"label", "description"})
+    return output_df
 
 
 def get_short_name(short_name_memo, input_str):

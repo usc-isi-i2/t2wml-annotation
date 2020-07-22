@@ -39,12 +39,25 @@ def generate_template_from_df(input_df: pd.DataFrame) -> dict:
     :return:
     """
     dataset_id = input_df.iloc[0, 0]
-    annotation_part = input_df.iloc[1:7].fillna("")
-    content_part = input_df.iloc[7:]
-    # fix condition is we have merged roles rows
-    for i in range(1, annotation_part.shape[1]):
-        if annotation_part.iloc[:, i]["role"] == "":
-            annotation_part.iloc[:, i]["role"] = annotation_part.iloc[:, i - 1]["role"]
+    # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
+    if "header" in input_df.index:
+        header_row = input_df.index.tolist().index("header")
+        annotation_rows = list(range(1, 6)) + [header_row]
+        content_rows = list(range(6, len(input_df)))
+        content_rows.remove(header_row)
+    # when not present, row 7 is assumed to contain the headers
+    else:
+        annotation_rows = list(range(1, 7))
+        content_rows = list(range(7, len(input_df)))
+
+    annotation_part = input_df.iloc[annotation_rows].fillna("")
+    content_part = input_df.iloc[content_rows]
+
+    # updated 2020.7.22: no need to check this anymore, it will be checked on datamart api side
+    # fix condition if we have merged roles rows
+    # for i in range(1, annotation_part.shape[1]):
+    #     if annotation_part.iloc[:, i]["role"] == "":
+    #         annotation_part.iloc[:, i]["role"] = annotation_part.iloc[:, i - 1]["role"]
 
     # start generate dataframe for templates
     dataset_df = generate_dataset_tab(dataset_id)
@@ -58,49 +71,30 @@ def generate_template_from_df(input_df: pd.DataFrame) -> dict:
         'dataset_file': dataset_df,
         'attributes_file': attribute_df,
         'units_file': unit_df,
-        "Extra extra_edges": extra_df,
+        "extra_edges": extra_df,
         "Wikifier_t2wml": wikifier_df,
         "wikifier": None,
         "qualifiers": None,
-        "extra_edges": None,
     }
     return output_df_dict
 
 
 def generate_template(input_path: str, output_path: str) -> None:
     """
-    genearte the template xlsx file from the input xlsx file
+    generate the template xlsx file from the input xlsx file
     :param input_path:
     :param output_path:
     :return:
     """
     input_df = pd.read_excel(input_path, index_col=0, header=None)
-    dataset_id = input_df.iloc[0, 0]
-    annotation_part = input_df.iloc[1:7].fillna("")
-    content_part = input_df.iloc[7:]
-
-    # fix condition is we have merged roles rows, it may cause wrong things
-    for i in range(1, annotation_part.shape[1]):
-        if annotation_part.iloc[:, i]["role"] == "":
-            previous_role = annotation_part.iloc[:, i - 1]["role"]
-            _logger.warning("No role detect on column No.{}, will assume from previous column as {}"
-                            .format(i, annotation_part.iloc[:, i - 1]["role"]))
-            annotation_part.iloc[:, i]["role"] = previous_role
-
-    # start generate dataframe for templates
-    dataset_df = generate_dataset_tab(dataset_id)
-    attribute_df = generate_attributes_tab(dataset_id, annotation_part)
-    unit_df = generate_unit_tab(dataset_id, content_part, annotation_part)
-    extra_df, wikifier_df1 = process_main_subject(dataset_id, content_part, annotation_part)
-    wikifier_df2 = generate_wikifier_part(content_part, annotation_part)
-    wikifier_df = pd.concat([wikifier_df1, wikifier_df2])
+    output_df_dict = generate_template_from_df(input_df)
 
     with pd.ExcelWriter(output_path) as writer:
-        dataset_df.to_excel(writer, sheet_name='Dataset', index=False)
-        attribute_df.to_excel(writer, sheet_name='Attributes', index=False)
-        unit_df.to_excel(writer, sheet_name='Units', index=False)
-        extra_df.to_excel(writer, sheet_name="Extra Edges", index=False)
-        wikifier_df.to_excel(writer, sheet_name="Wikifier_t2wml", index=False)
+        output_df_dict["dataset_file"].to_excel(writer, sheet_name='Dataset', index=False)
+        output_df_dict["attributes_file"].to_excel(writer, sheet_name='Attributes', index=False)
+        output_df_dict["units_file"].to_excel(writer, sheet_name='Units', index=False)
+        output_df_dict["extra_edges"].to_excel(writer, sheet_name="Extra Edges", index=False)
+        output_df_dict["Wikifier_t2wml"].to_excel(writer, sheet_name="Wikifier_t2wml", index=False)
 
 
 def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
@@ -112,18 +106,28 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
 
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
-        role = each_col_info["role"].lower()
-        if role in {"variable", "qualifier"}:
+        role_info = each_col_info["role"].split(";")
+        role_lower = role_info[0].lower()
+
+        if role_lower in {"variable", "qualifier"}:
+            # if ";" exists, we need to use those details on variables
+            if len(role_info) > 1:
+                relationship = role_info[1]
+            # otherwise apply this variable / qualifier for all by give empty cell
+            else:
+                relationship = ""
             attribute = each_col_info["header"]
             role_type = each_col_info["type"].lower()
             if role_type not in type_mapper_dict:
                 raise ValueError("Column type {} for column {} is not valid!".format(role_type, i))
             data_type = type_mapper_dict[each_col_info["type"]]
             label = "{}".format(attribute) if not each_col_info['name'] else each_col_info['name']
-            description = "{} column in {}".format(role, dataset_id) if not each_col_info['description'] \
+            description = "{} column in {}".format(role_lower, dataset_id) if not each_col_info['description'] \
                 else each_col_info['description']
-            attributes_df_list.append(
-                {"Attribute": attribute, "Property": "", "type": data_type, "label": label, "description": description})
+
+            attributes_df_list.append({"Attribute": attribute, "Property": "", "Role": role_lower,
+                                       "Relationship": relationship, "type": data_type,
+                                       "label": label, "description": description})
 
     if len(attributes_df_list) == 0:
         attributes_df = pd.DataFrame(columns=['Attribute', 'Property', 'label', 'description'])
@@ -191,7 +195,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
             if type_ == "string":
                 for row, each in enumerate(content_part.iloc[:, i]):
                     label = str(each).strip()
-                    node = "{}-{}".format(dataset_id, label)
+                    node = "{}_{}_{}".format(dataset_id, each_col_info["header"], label).replace(" ", "_").replace("-", "_")
                     wikifier_df_list.append(
                         {"column": i + col_offset, "row": row + row_offset, "value": label, "context": "main subject",
                          "item": node})
