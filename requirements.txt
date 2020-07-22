@@ -1,4 +1,4 @@
-t2wml-standalone==2.0a19
+# --extra-index-url https://pypi.fury.io/theresearchsoftwarecompany/t2wml-standalone==2.0a19
 pandas
 xlsxwriter
 pyyaml
