@@ -106,8 +106,9 @@ def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None) -> pd
         return series[series == value].index
 
 class ToT2WML:
-    def __init__(self, annotated_spreadsheet: pd.DataFrame):
+    def __init__(self, annotated_spreadsheet: pd.DataFrame, dataset_qnode: str):
         self.sheet = annotated_spreadsheet
+        self.dataset_qnode = dataset_qnode
 
         # category rows
         self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)
@@ -142,8 +143,10 @@ class ToT2WML:
         # Need to generalize
         if self.time_indcies.shape[0] == 0:
             raise RuntimeError('No column labeled with "time" role')
+
+        # Check if type is iso
         iso_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.ISO_DATE_TIME,
-            within=self.time_indcies)
+                                  within=self.time_indcies)
         if iso_indices.shape[0] > 0:
             time_index = iso_indices.shape[0]
             result = {
@@ -152,16 +155,31 @@ class ToT2WML:
                 'calendar': 'Q1985727',
                 'precision': 'day',
                 'time_zone': 0,
-                'format': '%Y-%m-%dT%H:%M:%S%Z'
+                'format': date_format[Type.ISO_DATE_TIME]
             }
             return result
+
+        # Check if type is a format string
+        cell_value = self.sheet.iloc[self.type_index, self.time_indcies[0]]
+        if cell_value.startswith('%'):
+            result = {
+                'property': 'P585',
+                'value': f'=value[{to_letter_column(self.time_indcies[0])}, $row]',
+                'calendar': 'Q1985727',
+                # 'precision': 'day',
+                'time_zone': 0,
+                'format': cell_value
+            }
+            return result
+
+
         # over multiple columns
         time_cells = []
         time_formats = []
         precision = 'year'
         for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
             col_indices = get_indices(self.sheet.iloc[self.type_index, :],
-                col_type.value, within=self.time_indcies)
+                                      col_type.value, within=self.time_indcies)
             if col_indices.shape[0]:
                 col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
                 time_cells.append(col_index)
@@ -191,7 +209,7 @@ class ToT2WML:
         dataset_id = self.sheet.iloc[self.dataset_index, 1]
         result = {
             'property': 'P2006020004',
-            'value': f'Q{dataset_id}'
+            'value': self.dataset_qnode
             }
         return result
 
@@ -275,5 +293,5 @@ if __name__ == '__main__':
     input_file = '/home/kyao/dev/t2wml-projects/projects/aid/csv/aid worker security_incidents2020-06-22.xlsx'
     sheet = pd.read_excel(input_file, header=None)
     sheet.iloc[1, :] = sheet.iloc[1, :].fillna(method='ffill')
-    to_t2wml = ToT2WML(sheet)
+    to_t2wml = ToT2WML(sheet, 'Qawsd')
     print(to_t2wml.get_yaml())
