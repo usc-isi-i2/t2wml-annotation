@@ -138,6 +138,77 @@ class ToT2WML:
         }
         return region
 
+    def _get_time_single_format(self) -> dict:
+        # over multiple columns
+        time_cells = []
+        time_formats = []
+        precision = 'year'
+        for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
+            col_indices = get_indices(self.sheet.iloc[self.type_index, :],
+                                      col_type.value, within=self.time_indcies)
+            if col_indices.shape[0]:
+                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                time_cells.append(col_index)
+                time_formats.append(date_format[col_type])
+                if col_type == Type.MONTH:
+                    precision = 'month'
+                elif col_type == Type.DAY:
+                    precision = 'day'
+        if len(time_cells) > 1:
+            cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
+            value = f'=concat({cells}, "-")'
+            time_format = '-'.join(time_formats)
+        else:
+            value = f'=value[{to_letter_column(time_cells[0])}, $row]'
+            time_format = time_formats[0]
+        result = {
+            'property': 'P585',
+            'value': value,  # '=conat(value[C:E, $row], "-")',
+            'calendar': 'Q1985727',
+            'precision': precision,
+            'time_zone': 0,
+            'format': time_format
+        }
+        return result
+
+    def _get_time_multiple_formats(self) -> dict:
+        # over multiple columns
+        format_list = []
+        precision_list = []
+        for col_types in [[Type.YEAR, Type.MONTH, Type.DAY], [Type.YEAR, Type.MONTH], [Type.YEAR]]:
+            time_cells = []
+            time_formats = []
+            precision = 'year'
+            for col_type in col_types:
+                col_indices = get_indices(self.sheet.iloc[self.type_index, :],
+                                          col_type.value, within=self.time_indcies)
+                if col_indices.shape[0]:
+                    col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                    time_cells.append(col_index)
+                    time_formats.append(date_format[col_type])
+                    if col_type == Type.MONTH:
+                        precision = 'month'
+                    elif col_type == Type.DAY:
+                        precision = 'day'
+            if len(time_cells) > 1:
+                cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
+                value = f'=concat({cells}, "-")'
+                time_format = '-'.join(time_formats)
+            else:
+                value = f'=value[{to_letter_column(time_cells[0])}, $row]'
+                time_format = time_formats[0]
+            format_list.append(time_format)
+            precision_list.append(precision)
+        result = {
+            'property': 'P585',
+            'value': value,  # '=conat(value[C:E, $row], "-")',
+            'calendar': 'Q1985727',
+            'format': format_list,
+            'precision': precision_list[0],  # Until precision list is supported, just return first item
+            'time_zone': 0,
+        }
+        return result
+
     def _get_time(self) -> dict:
         # add point in time
         # Need to generalize
@@ -174,36 +245,8 @@ class ToT2WML:
 
 
         # over multiple columns
-        time_cells = []
-        time_formats = []
-        precision = 'year'
-        for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
-            col_indices = get_indices(self.sheet.iloc[self.type_index, :],
-                                      col_type.value, within=self.time_indcies)
-            if col_indices.shape[0]:
-                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
-                time_cells.append(col_index)
-                time_formats.append(date_format[col_type])
-                if col_type == Type.MONTH:
-                    precision = 'month'
-                elif col_type == Type.MONTH:
-                    precision = 'day'
-        if len(time_cells) > 1:
-            cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
-            value = f'=concat({cells}, "-")'
-            time_format = '-'.join(time_formats)
-        else:
-            value = f'=value[{to_letter_column(time_cells[0])}, $row]'
-            time_format = time_formats[0]
-        result = {
-            'property': 'P585',
-            'value': value,  # '=conat(value[C:E, $row], "-")',
-            'calendar': 'Q1985727',
-            'precision': precision,
-            'time_zone': 0,
-            'format': time_format
-        }
-        return result
+        # return self._get_time_multiple_formats()
+        return self._get_time_single_format()
 
     def _get_dataset(self) -> dict:
         dataset_id = self.sheet.iloc[self.dataset_index, 1]
