@@ -26,7 +26,7 @@ class VaidateAnnotation(object):
             'unit': ['string']
         }
 
-    def validate(self, file_path=None, df=None):
+    def validate(self, dataset_id, file_path=None, df=None):
         if file_path is None and df is None:
             raise Exception('Please specify a file path or a pandas DataFrame')
         if file_path is not None:
@@ -103,13 +103,21 @@ class VaidateAnnotation(object):
 
         return valid_types
 
-    def validate_annotation_column_one(self, df):
+    def validate_annotation_column_one(self, df, dataset_id):
         valid_first_column = True
+        dataset = df.iloc[0, 1].strip()
 
-        if df.iloc[0, 1].strip() == '':
+        if dataset == '':
             valid_first_column = False
             self.error_report.append(
                 self.error_row('Please specify the dataset', 1, utility.xl_col_to_name(1), 'dataset can not be blank'))
+
+        if dataset != dataset_id:
+            valid_first_column = False
+            self.error_report.append(
+                self.error_row('Dataset ID in the file is not same as the Dataset ID in the URL', 1,
+                               utility.xl_col_to_name(1),
+                               'Expected: {} but got:{}'.format(dataset_id, dataset)))
 
         if df.iloc[0, 0].strip().lower() != 'dataset':
             valid_first_column = False
