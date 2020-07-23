@@ -105,7 +105,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
 
     # update 2020.7.22: accept user specified dataset id if given
     if dataset_qnode is None:
-        dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
+        dataset_id = "Q" + loaded_file["dataset_file"]["dataset"].iloc[0]
     else:
         dataset_id = dataset_qnode
 
@@ -120,6 +120,10 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                                                      column_name_config["attributes_file_node_column_name"],
                                                      column_name_config["attributes_file_node_label_column_name"])
 
+    kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_id, memo,
+                                                       column_name_config["attributes_file_node_column_name"],
+                                                       column_name_config["attributes_file_node_label_column_name"])
+
     kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_id, memo,
                                              column_name_config["unit_file_node_column_name"],
                                              column_name_config["unit_file_node_label_column_name"])
@@ -131,19 +135,20 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     dataset_df = generate_and_save_dataset_file(loaded_file["dataset_file"])
     extra_edges_df = generate_extra_edges_file(loaded_file["extra_edges"], memo)
 
-    output_files = [kgtk_properties_df, kgtk_variables_df, kgtk_units_df, wikifier_df, extra_edges_df, dataset_df]
-    output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv",
-                         "extra_edges.tsv", "dataset.tsv"]
+    output_files = {"kgtk_properties.tsv": kgtk_properties_df,
+                    "kgtk_variables.tsv": kgtk_variables_df,
+                    "kgtk_units.tsv": kgtk_units_df,
+                    "kgtk_qualifiers.tsv": kgtk_qualifiers_df,
+                    "wikifier.csv": wikifier_df,
+                    "extra_edges.tsv": extra_edges_df,
+                    "dataset.tsv": dataset_df}
+
     if not to_disk:
-        result_dict = {}
-        for each_file, each_file_name in zip(output_files, output_file_names):
-            result_dict[each_file_name] = each_file
-        return result_dict
+        return output_files
 
     else:
-        if not os.path.exists(output_path):
-            os.mkdir(output_path)
-        for each_file, each_file_name in zip(output_files, output_file_names):
+        os.mkdirs(output_path, exist_ok=True)
+        for each_file_name, each_file in output_files.items():
             output_file_path = os.path.join(output_path, each_file_name)
             if each_file_name.endswith(".csv"):
                 each_file.to_csv(output_file_path, index=False)
@@ -225,22 +230,21 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
 def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Property",
                                  node_label_column_name="Attribute"):
     """
-    sample format for each variable (totally 9 rows)
-        "id"                        "node1"    "label"          "node2"
-    0   QOECD-002-label             QOECD-002   label           "GDP per capita"
-    1   QOECD-002-P1476             QOECD-002   P1476           "GDP per capita"
-    2   QOECD-002-description       QOECD-002   description     "GDP per capita variable in OECD"
-    3   QOECD-002-P31-1             QOECD-002   P31             Q50701
-    4   QOECD-002-P1687-1           QOECD-002   P1687           POECD-002
-    5   QOECD-002-P2006020002-P248  QOECD-002   P2006020002     P248
-    6   QOECD-002-P2006020004-1     QOECD-002   P2006020004     QOECD
-    7   QOECD-002-P1813             QOECD-002   P1813           "gdp_per_capita"
-    8   QOECD-P2006020003-QOECD002  QOECD       P2006020003     QOECD-002
-
-    following part length will change depending on the properties amount
-
-
-
+    sample format for each variable, totally 10 + n (n is the count of related qualifiers) rows
+        "id"                                 "node1"        "label"          "node2"
+    0   QVARIABLE-OECD-002-label             QVARIABLE-002   label           "GDP per capita"
+    1   QVARIABLE-OECD-002-P1476             QVARIABLE-002   P1476           "GDP per capita"
+    2   QVARIABLE-OECD-002-description       QVARIABLE-002   description     "GDP per capita variable in OECD"
+    3   QVARIABLE-OECD-002-P31-1             QVARIABLE-002   P31             Q50701
+    4   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P585
+    5   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P248
+    6   QVARIABLE-OECD-002-P1687-1           QVARIABLE-002   P1687           PVARIABLE-OECD-002
+    7   QVARIABLE-OECD-002-P2006020004-1     QVARIABLE-002   P2006020004     QOECD
+    8   QVARIABLE-OECD-002-P1813             QVARIABLE-002   P1813           "gdp_per_capita"
+    9   QVARIABLE-OECD-P2006020003-QOECD002  QVARIABLE       P2006020003     QOECD-002
+    -------------------------------------------------
+    10   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-101  QVARIABLE       P2006020003     PQUALIFIER-OECD-101
+    11   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-102  QVARIABLE       P2006020003     PQUALIFIER-OECD-102
     """
     node_number = 1
     output_df_list = []
@@ -255,6 +259,15 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
     has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
 
     for _, each_row in input_df.iterrows():
+        if has_relationship:
+            role = each_row["Role"].upper()
+        else:
+            role = ""
+
+        # not add QUALIFIER to here
+        if has_relationship and role == "QUALIFIER":
+            continue
+
         target_properties = []
         # update 2020.7.22: consider role and relationship for new template file
         if has_relationship:
@@ -270,14 +283,10 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
                                 "Annotation specify variable {} not exist in input data.".format(each_relation))
                         target_properties.append(memo["property_name_to_id"][each_relation])
 
-        if has_relationship:
-            role = each_row["Role"].upper()
-        else:
-            role = ""
-
         node_number += 1
         if each_row[node_column_name] == "":
-            p_node_id = "P{}-{:03}".format(dataset_id, node_number)
+            # update 2020.7.23, also add role for P nodes
+            p_node_id = "P{}-{}-{:03}".format(role, dataset_id, node_number)
         else:
             p_node_id = each_row[node_column_name]
 
@@ -285,21 +294,21 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
         q_node_id = "Q{}-{}-{:03}".format(role, dataset_id, node_number)
         memo["variable"][q_node_id] = each_row[node_label_column_name]
 
-        fixed_labels = ["label", "P1476", "description",
-                        "P31", "P1687",
-                        "P2006020002", "P2006020004", "P1813",
+        fixed_labels = ["label", "P1476", "description",  # 1-3
+                        "P31", "P2006020002", "P2006020002",  # 4-6
+                        "P1687", "P2006020004", "P1813",  # 7-9
                         "P2006020003"]
         labels = fixed_labels + len(target_properties) * ["P2006020002"]
         node2s = [to_kgtk_format_string(each_row[node_label_column_name]),  # 1
                   to_kgtk_format_string(each_row[node_label_column_name]),  # 2
                   to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
-                  "Q50701", p_node_id,  # 4-5
-                  "P248",  # 6
-                  "Q" + dataset_id,  # 7
-                  get_short_name(short_name_memo, each_row[node_label_column_name]),  # 8
-                  q_node_id  # 9
+                  "Q50701", "P585", "P248",  # 4(Q50701 = variable), 5(P585 = Point in time), 6(P249 = stated in)
+                  p_node_id,  # 7
+                  dataset_id,  # 8
+                  get_short_name(short_name_memo, each_row[node_label_column_name]),  # 9
+                  q_node_id  # 10
                   ] + target_properties
-        node1s = [q_node_id] * (len(fixed_labels) - 1) + ["Q" + dataset_id] + [q_node_id] * len(target_properties)
+        node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_id] + [q_node_id] * len(target_properties)
 
         # add those nodes
         for i, each_label in enumerate(labels):
@@ -310,6 +319,64 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
             else:
                 id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
             output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
+
+    # get output
+    output_df = pd.DataFrame(output_df_list)
+    # in case of empty df
+    if output_df.shape == (0, 0):
+        output_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
+    return output_df
+
+
+def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Property",
+                                  node_label_column_name="Attribute"):
+    """
+    sample format for each qualifier (totally 9 rows)
+        "id"             "node1"                "label"          "node2"
+                        QQUALIFIER-QOECD-22	    label	        "some qualifier for QOECD"
+        	            QQUALIFIER-OECD-34	    P2006020002	    PQUALIFIER-QOECD-22
+
+    following part length will change depending on the properties amount
+    """
+    node_number = 1
+    output_df_list = []
+    input_df = input_df.fillna("")
+
+    has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
+
+    if has_relationship:
+        for _, each_row in input_df.iterrows():
+            role = each_row["Role"].upper()
+
+            # only do for qualifier role
+            if role == "QUALIFIER":
+                # update 2020.7.22: change to add role in Q node id
+                q_node_id = "Q{}-{}-{:03}".format(role, dataset_id, node_number)
+                memo["variable"][q_node_id] = each_row[node_label_column_name]
+                node_number += 1
+                if each_row[node_column_name] == "":
+                    # update 2020.7.23, also add role for P nodes
+                    p_node_id = "P{}-{}-{:03}".format(role, dataset_id, node_number)
+                    labels = ["label", "P2006020002"]
+                    node2s = [to_kgtk_format_string(each_row[node_label_column_name]),
+                              p_node_id]
+                else:
+                    # update 2020.7.23, if this qualifier is a given node already, not add label
+                    p_node_id = each_row[node_column_name]
+                    labels = ["P2006020002"]
+                    node2s = [p_node_id]
+
+                node1s = [q_node_id] * (len(labels))
+
+                # add those nodes
+                for i, each_label in enumerate(labels):
+                    if each_label in {"P31", "P1687", "P2006020004"}:
+                        id_ = "{}-{}-1".format(node1s[i], labels[i])
+                    elif each_label in {"label", "P1476", "description", "P1813"}:
+                        id_ = "{}-{}".format(node1s[i], labels[i])
+                    else:
+                        id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
+                    output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
 
     # get output
     output_df = pd.DataFrame(output_df_list)
@@ -360,14 +427,14 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
     """
     generate the wikifier part from template(those properties, variables, units generated in above functions)
     Sample file looks like:
-        column	row	value	    context	    item
-	0	            UN	        property	Paid-security-002
-	1	            INGO	    property	Paid-security-003
-	2	            LNGO/NRCS	property	Paid-security-004
-	3	            ICRC	    property	Paid-security-005
-	4		        UN	        variable	Qaid-security-002
-	5	            INGO	    variable	Qaid-security-003
-    6               person	    unit	    Qaid-security-U002
+        column	row	    value	    context	    item
+	0	  ""     ""     UN	        property	Paid-security-002
+	1	  ""     ""     INGO	    property	Paid-security-003
+	2	  ""     ""          LNGO/NRCS	property	Paid-security-004
+	3	  ""     ""          ICRC	    property	Paid-security-005
+	4	  ""     ""        UN	        variable	Qaid-security-002
+	5	  ""     ""          INGO	    variable	Qaid-security-003
+    6     ""     ""          person	    unit	    Qaid-security-U002
     """
     output_df_list = []
     for memo_type, each_memo in memo.items():
