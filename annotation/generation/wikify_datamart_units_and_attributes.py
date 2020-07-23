@@ -75,7 +75,7 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
 
 
 def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True,
-             datamart_properties_file: str = None, dataset_qnode: str = None,
+             datamart_properties_file: str = None, dataset_qnode: str = None, dataset_id: str = None,
              ) -> typing.Optional[dict]:
     """
     The main entry function for generating datamart files from template input,
@@ -105,26 +105,27 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
 
     # update 2020.7.22: accept user specified dataset id if given
     if dataset_qnode is None:
-        dataset_id = "Q" + loaded_file["dataset_file"]["dataset"].iloc[0]
-    else:
-        dataset_id = dataset_qnode
+        dataset_qnode = loaded_file["dataset_file"]["dataset"].iloc[0]
+
+    if dataset_id is None:
+        dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
 
     # generate files
     memo = defaultdict(dict)
     kgtk_properties_df = generate_KGTK_properties_file(loaded_file["attributes_file"], loaded_file["qualifiers"],
-                                                       dataset_id,
+                                                       dataset_qnode, dataset_id,
                                                        memo, column_name_config["attributes_file_node_column_name"],
                                                        column_name_config["attributes_file_node_label_column_name"])
 
-    kgtk_variables_df = generate_KGTK_variables_file(loaded_file["attributes_file"], dataset_id, memo,
+    kgtk_variables_df = generate_KGTK_variables_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
                                                      column_name_config["attributes_file_node_column_name"],
                                                      column_name_config["attributes_file_node_label_column_name"])
 
-    kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_id, memo,
+    kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
                                                        column_name_config["attributes_file_node_column_name"],
                                                        column_name_config["attributes_file_node_label_column_name"])
 
-    kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_id, memo,
+    kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_qnode, memo,
                                              column_name_config["unit_file_node_column_name"],
                                              column_name_config["unit_file_node_label_column_name"])
 
@@ -156,7 +157,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                 each_file.to_csv(output_file_path, sep='\t', index=False, quoting=csv.QUOTE_NONE)
 
 
-def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame, dataset_id: str, memo: dict,
+def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame,
+                                  dataset_q_node: str, dataset_id: str, memo: dict,
                                   node_column_name="Property", node_label_column_name="Attribute",
                                   qualifier_column_name="Qualifiers") -> pd.DataFrame:
     """
@@ -172,11 +174,17 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
     node_number = 1
     output_df_list = []
     input_df = input_df.fillna("")
+    has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
+
     for _, each_row in input_df.iterrows():
         node_number += 1
+        if has_relationship:
+            role = each_row["Role"].upper()
+        else:
+            role = ""
         if each_row[node_column_name] == "":
             node_label = to_kgtk_format_string(each_row[node_label_column_name])
-            node_id = "P{}-{:03}".format(dataset_id, node_number)
+            node_id = _generate_p_nodes(role, dataset_q_node, node_number)
 
             # add to memo for future use
             memo["property"][node_id] = each_row[node_label_column_name]
@@ -204,7 +212,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
         for _, each_row in qualifier_df.iterrows():
             node_number += 1
             if each_row[node_column_name] == "":
-                node_id = "P{}-{:03}".format(dataset_id, node_number)
+                node_id = _generate_p_nodes("QUALIFIER", dataset_q_node, node_number)
                 memo["qualifier_target_nodes"][each_row[qualifier_column_name]] = memo["property_name_to_id"][
                     each_row[node_label_column_name]]
                 memo["qualifier_name_to_id"][each_row[qualifier_column_name]] = node_id
@@ -227,8 +235,8 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
     return output_df
 
 
-def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Property",
-                                 node_label_column_name="Attribute"):
+def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str, memo: dict,
+                                 node_column_name="Property", node_label_column_name="Attribute"):
     """
     sample format for each variable, totally 10 + n (n is the count of related qualifiers) rows
         "id"                                 "node1"        "label"          "node2"
@@ -286,12 +294,12 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
         node_number += 1
         if each_row[node_column_name] == "":
             # update 2020.7.23, also add role for P nodes
-            p_node_id = "P{}-{}-{:03}".format(role, dataset_id, node_number)
+            p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
         else:
             p_node_id = each_row[node_column_name]
 
         # update 2020.7.22: change to add role in Q node id
-        q_node_id = "Q{}-{}-{:03}".format(role, dataset_id, node_number)
+        q_node_id = _generate_q_nodes(role, dataset_q_node, node_number)
         memo["variable"][q_node_id] = each_row[node_label_column_name]
 
         fixed_labels = ["label", "P1476", "description",  # 1-3
@@ -304,20 +312,15 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
                   to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
                   "Q50701", "P585", "P248",  # 4(Q50701 = variable), 5(P585 = Point in time), 6(P249 = stated in)
                   p_node_id,  # 7
-                  dataset_id,  # 8
+                  dataset_q_node,  # 8
                   get_short_name(short_name_memo, each_row[node_label_column_name]),  # 9
                   q_node_id  # 10
                   ] + target_properties
-        node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_id] + [q_node_id] * len(target_properties)
+        node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_q_node] + [q_node_id] * len(target_properties)
 
         # add those nodes
         for i, each_label in enumerate(labels):
-            if each_label in {"P31", "P1687", "P2006020004"}:
-                id_ = "{}-{}-1".format(node1s[i], labels[i])
-            elif each_label in {"label", "P1476", "description", "P1813"}:
-                id_ = "{}-{}".format(node1s[i], labels[i])
-            else:
-                id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
+            id_ = _generate_edge_id(node1s[i], labels[i], node2s[i])
             output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
 
     # get output
@@ -328,7 +331,8 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
     return output_df
 
 
-def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Property",
+def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str,
+                                  memo: dict, node_column_name="Property",
                                   node_label_column_name="Attribute"):
     """
     sample format for each qualifier (totally 9 rows)
@@ -351,12 +355,12 @@ def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_id: str, memo:
             # only do for qualifier role
             if role == "QUALIFIER":
                 # update 2020.7.22: change to add role in Q node id
-                q_node_id = "Q{}-{}-{:03}".format(role, dataset_id, node_number)
+                q_node_id = _generate_q_nodes(role, dataset_q_node, node_number)
                 memo["variable"][q_node_id] = each_row[node_label_column_name]
                 node_number += 1
                 if each_row[node_column_name] == "":
                     # update 2020.7.23, also add role for P nodes
-                    p_node_id = "P{}-{}-{:03}".format(role, dataset_id, node_number)
+                    p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
                     labels = ["label", "P2006020002"]
                     node2s = [to_kgtk_format_string(each_row[node_label_column_name]),
                               p_node_id]
@@ -370,12 +374,7 @@ def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_id: str, memo:
 
                 # add those nodes
                 for i, each_label in enumerate(labels):
-                    if each_label in {"P31", "P1687", "P2006020004"}:
-                        id_ = "{}-{}-1".format(node1s[i], labels[i])
-                    elif each_label in {"label", "P1476", "description", "P1813"}:
-                        id_ = "{}-{}".format(node1s[i], labels[i])
-                    else:
-                        id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
+                    id_ = _generate_edge_id(node1s[i], labels[i], node2s[i])
                     output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
 
     # get output
@@ -386,7 +385,7 @@ def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_id: str, memo:
     return output_df
 
 
-def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict, node_column_name="Q-Node",
+def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_q_node: str, memo: dict, node_column_name="Q-Node",
                              node_label_column_name="Unit") -> pd.DataFrame:
     """
         sample format for each unit (totally 2 rows)
@@ -405,12 +404,12 @@ def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict
         node_number += 1
         if each_row[node_column_name] == "":
             # update 2020.7.22: change to use QUNIT* instead of Q*
-            node_id = "QUNIT-{}-U{:03}".format(dataset_id, node_number)
+            node_id = _generate_q_nodes("UNIT", dataset_q_node, node_number)
             labels = ["label", "P31"]
             node2s = [to_kgtk_format_string(each_row[node_label_column_name]), "Q47574"]
             memo["unit"][node_id] = each_row[node_label_column_name]
             for i in range(2):
-                id_ = "{}-{}".format(node_id, labels[i])
+                id_ = _generate_edge_id(node_id, labels[i], node2s[i])
                 output_df_dict[count] = {"id": id_, "node1": node_id, "label": labels[i], "node2": node2s[i]}
                 count += 1
         else:
@@ -524,6 +523,26 @@ def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_
         output_df["node2"] = output_df['node2'].apply(
             lambda x: to_kgtk_format_string(x) if not x.startswith("Q") and not x.startswith("P") else x)
     return output_df
+
+
+def _generate_p_nodes(role: str, dataset_q_node: str, node_number: int):
+    p_node_id = "P{}-{}-{:03}".format(role, dataset_q_node, node_number)
+    return p_node_id
+
+
+def _generate_q_nodes(role: str, dataset_q_node: str, node_number: int):
+    q_node_id = "Q{}-{}-{:03}".format(role, dataset_q_node, node_number)
+    return q_node_id
+
+
+def _generate_edge_id(node1: str, label: str, node2: str):
+    if label in {"P31", "P1687", "P2006020004"}:
+        id_ = "{}-{}-1".format(node1, label)
+    elif label in {"label", "P1476", "description", "P1813"}:
+        id_ = "{}-{}".format(node1, label)
+    else:
+        id_ = "{}-{}-{}".format(node1, label, node2)
+    return id_
 
 
 def to_kgtk_format_string(s):

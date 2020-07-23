@@ -16,7 +16,7 @@ def main():
     with open(yaml_path, "r") as f:
         t2wml_script = yaml.load(f, Loader=yaml.FullLoader)
     test = GenerateKgtk(annotated_spreadsheet=input_df, t2wml_script=t2wml_script,
-                        dataset_qnode="test_node_id", add_datamart_constant_properties=False)
+                        dataset_qnode="QTEST01", add_datamart_constant_properties=False)
     # output to current directory
     test.generate_edges("./")
 

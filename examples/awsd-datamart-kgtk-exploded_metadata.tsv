@@ -1,586 +1,586 @@
 id	node1	label	node2	node2;kgtk:data_type	node2;kgtk:valid	node2;kgtk:list_len	node2;kgtk:number	node2;kgtk:low_tolerance	node2;kgtk:high_tolerance	node2;kgtk:si_units	node2;kgtk:units_node	node2;kgtk:text	node2;kgtk:language	node2;kgtk:language_suffix	node2;kgtk:latitude	node2;kgtk:longitude	node2;kgtk:date_and_time	node2;kgtk:precision	node2;kgtk:truth	node2;kgtk:symbol
-Ptest_node_id-002-data_type	Ptest_node_id-002	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-002-P31	Ptest_node_id-002	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-002-label	Ptest_node_id-002	label	"UN"	string	True	0						"UN"								
-Ptest_node_id-003-data_type	Ptest_node_id-003	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-003-P31	Ptest_node_id-003	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-003-label	Ptest_node_id-003	label	"INGO"	string	True	0						"INGO"								
-Ptest_node_id-004-data_type	Ptest_node_id-004	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-004-P31	Ptest_node_id-004	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-004-label	Ptest_node_id-004	label	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
-Ptest_node_id-005-data_type	Ptest_node_id-005	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-005-P31	Ptest_node_id-005	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-005-label	Ptest_node_id-005	label	"ICRC"	string	True	0						"ICRC"								
-Ptest_node_id-006-data_type	Ptest_node_id-006	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-006-P31	Ptest_node_id-006	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-006-label	Ptest_node_id-006	label	"IFRC"	string	True	0						"IFRC"								
-Ptest_node_id-007-data_type	Ptest_node_id-007	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-007-P31	Ptest_node_id-007	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-007-label	Ptest_node_id-007	label	"Other"	string	True	0						"Other"								
-Ptest_node_id-008-data_type	Ptest_node_id-008	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-008-P31	Ptest_node_id-008	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-008-label	Ptest_node_id-008	label	"Nationals killed"	string	True	0						"Nationals killed"								
-Ptest_node_id-009-data_type	Ptest_node_id-009	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-009-P31	Ptest_node_id-009	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-009-label	Ptest_node_id-009	label	"Nationals wounded"	string	True	0						"Nationals wounded"								
-Ptest_node_id-010-data_type	Ptest_node_id-010	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-010-P31	Ptest_node_id-010	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-010-label	Ptest_node_id-010	label	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
-Ptest_node_id-011-data_type	Ptest_node_id-011	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-011-P31	Ptest_node_id-011	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-011-label	Ptest_node_id-011	label	"Total nationals"	string	True	0						"Total nationals"								
-Ptest_node_id-012-data_type	Ptest_node_id-012	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-012-P31	Ptest_node_id-012	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-012-label	Ptest_node_id-012	label	"Internationals killed"	string	True	0						"Internationals killed"								
-Ptest_node_id-013-data_type	Ptest_node_id-013	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-013-P31	Ptest_node_id-013	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-013-label	Ptest_node_id-013	label	"Internationals wounded"	string	True	0						"Internationals wounded"								
-Ptest_node_id-014-data_type	Ptest_node_id-014	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-014-P31	Ptest_node_id-014	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-014-label	Ptest_node_id-014	label	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
-Ptest_node_id-015-data_type	Ptest_node_id-015	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-015-P31	Ptest_node_id-015	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-015-label	Ptest_node_id-015	label	"Total internationals"	string	True	0						"Total internationals"								
-Ptest_node_id-016-data_type	Ptest_node_id-016	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-016-P31	Ptest_node_id-016	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-016-label	Ptest_node_id-016	label	"Total killed"	string	True	0						"Total killed"								
-Ptest_node_id-017-data_type	Ptest_node_id-017	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-017-P31	Ptest_node_id-017	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-017-label	Ptest_node_id-017	label	"Total wounded"	string	True	0						"Total wounded"								
-Ptest_node_id-018-data_type	Ptest_node_id-018	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-018-P31	Ptest_node_id-018	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-018-label	Ptest_node_id-018	label	"Total kidnapped"	string	True	0						"Total kidnapped"								
-Ptest_node_id-019-data_type	Ptest_node_id-019	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-019-P31	Ptest_node_id-019	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-019-label	Ptest_node_id-019	label	"Total affected"	string	True	0						"Total affected"								
-Ptest_node_id-020-data_type	Ptest_node_id-020	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-020-P31	Ptest_node_id-020	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-020-label	Ptest_node_id-020	label	"Gender Male"	string	True	0						"Gender Male"								
-Ptest_node_id-021-data_type	Ptest_node_id-021	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-021-P31	Ptest_node_id-021	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-021-label	Ptest_node_id-021	label	"Gender Female"	string	True	0						"Gender Female"								
-Ptest_node_id-022-data_type	Ptest_node_id-022	data_type	Quantity	symbol	True	0														Quantity
-Ptest_node_id-022-P31	Ptest_node_id-022	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-022-label	Ptest_node_id-022	label	"Gender Unknown"	string	True	0						"Gender Unknown"								
-Ptest_node_id-023-data_type	Ptest_node_id-023	data_type	String	symbol	True	0														String
-Ptest_node_id-023-P31	Ptest_node_id-023	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-023-label	Ptest_node_id-023	label	"Means of attack"	string	True	0						"Means of attack"								
-Ptest_node_id-024-data_type	Ptest_node_id-024	data_type	String	symbol	True	0														String
-Ptest_node_id-024-P31	Ptest_node_id-024	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-024-label	Ptest_node_id-024	label	"Attack context"	string	True	0						"Attack context"								
-Ptest_node_id-025-data_type	Ptest_node_id-025	data_type	String	symbol	True	0														String
-Ptest_node_id-025-P31	Ptest_node_id-025	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-025-label	Ptest_node_id-025	label	"Location"	string	True	0						"Location"								
-Ptest_node_id-026-data_type	Ptest_node_id-026	data_type	String	symbol	True	0														String
-Ptest_node_id-026-P31	Ptest_node_id-026	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-026-label	Ptest_node_id-026	label	"Actor type"	string	True	0						"Actor type"								
-Ptest_node_id-027-data_type	Ptest_node_id-027	data_type	String	symbol	True	0														String
-Ptest_node_id-027-P31	Ptest_node_id-027	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-027-label	Ptest_node_id-027	label	"Actor name"	string	True	0						"Actor name"								
-Ptest_node_id-028-data_type	Ptest_node_id-028	data_type	String	symbol	True	0														String
-Ptest_node_id-028-P31	Ptest_node_id-028	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-028-label	Ptest_node_id-028	label	"Details"	string	True	0						"Details"								
-Ptest_node_id-029-data_type	Ptest_node_id-029	data_type	String	symbol	True	0														String
-Ptest_node_id-029-P31	Ptest_node_id-029	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-029-label	Ptest_node_id-029	label	"Verified"	string	True	0						"Verified"								
-Ptest_node_id-030-data_type	Ptest_node_id-030	data_type	String	symbol	True	0														String
-Ptest_node_id-030-P31	Ptest_node_id-030	P31	Q18616576	symbol	True	0														Q18616576
-Ptest_node_id-030-label	Ptest_node_id-030	label	"Source"	string	True	0						"Source"								
-QVARIABLE-test_node_id-002-label	QVARIABLE-test_node_id-002	label	"UN"	string	True	0						"UN"								
-QVARIABLE-test_node_id-002-P1476	QVARIABLE-test_node_id-002	P1476	"UN"	string	True	0						"UN"								
-QVARIABLE-test_node_id-002-description	QVARIABLE-test_node_id-002	description	"UN in test_node_id"	string	True	0						"UN in test_node_id"								
-QVARIABLE-test_node_id-002-P31-1	QVARIABLE-test_node_id-002	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-002-P2006020002-P585	QVARIABLE-test_node_id-002	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-002-P2006020002-P248	QVARIABLE-test_node_id-002	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-002-P1687-1	QVARIABLE-test_node_id-002	P1687	PVARIABLE-test_node_id-002	symbol	True	0														PVARIABLE-test_node_id-002
-QVARIABLE-test_node_id-002-P2006020004-1	QVARIABLE-test_node_id-002	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-002-P1813	QVARIABLE-test_node_id-002	P1813	un	symbol	True	0														un
-test_node_id-P2006020003-QVARIABLE-test_node_id-002	test_node_id	P2006020003	QVARIABLE-test_node_id-002	symbol	True	0														QVARIABLE-test_node_id-002
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-002-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-002	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-003-label	QVARIABLE-test_node_id-003	label	"INGO"	string	True	0						"INGO"								
-QVARIABLE-test_node_id-003-P1476	QVARIABLE-test_node_id-003	P1476	"INGO"	string	True	0						"INGO"								
-QVARIABLE-test_node_id-003-description	QVARIABLE-test_node_id-003	description	"INGO in test_node_id"	string	True	0						"INGO in test_node_id"								
-QVARIABLE-test_node_id-003-P31-1	QVARIABLE-test_node_id-003	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-003-P2006020002-P585	QVARIABLE-test_node_id-003	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-003-P2006020002-P248	QVARIABLE-test_node_id-003	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-003-P1687-1	QVARIABLE-test_node_id-003	P1687	PVARIABLE-test_node_id-003	symbol	True	0														PVARIABLE-test_node_id-003
-QVARIABLE-test_node_id-003-P2006020004-1	QVARIABLE-test_node_id-003	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-003-P1813	QVARIABLE-test_node_id-003	P1813	ingo	symbol	True	0														ingo
-test_node_id-P2006020003-QVARIABLE-test_node_id-003	test_node_id	P2006020003	QVARIABLE-test_node_id-003	symbol	True	0														QVARIABLE-test_node_id-003
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-003-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-003	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-004-label	QVARIABLE-test_node_id-004	label	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
-QVARIABLE-test_node_id-004-P1476	QVARIABLE-test_node_id-004	P1476	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
-QVARIABLE-test_node_id-004-description	QVARIABLE-test_node_id-004	description	"LNGO/NRCS in test_node_id"	string	True	0						"LNGO/NRCS in test_node_id"								
-QVARIABLE-test_node_id-004-P31-1	QVARIABLE-test_node_id-004	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-004-P2006020002-P585	QVARIABLE-test_node_id-004	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-004-P2006020002-P248	QVARIABLE-test_node_id-004	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-004-P1687-1	QVARIABLE-test_node_id-004	P1687	PVARIABLE-test_node_id-004	symbol	True	0														PVARIABLE-test_node_id-004
-QVARIABLE-test_node_id-004-P2006020004-1	QVARIABLE-test_node_id-004	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-004-P1813	QVARIABLE-test_node_id-004	P1813	lngo_nrcs	symbol	True	0														lngo_nrcs
-test_node_id-P2006020003-QVARIABLE-test_node_id-004	test_node_id	P2006020003	QVARIABLE-test_node_id-004	symbol	True	0														QVARIABLE-test_node_id-004
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-004-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-004	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-005-label	QVARIABLE-test_node_id-005	label	"ICRC"	string	True	0						"ICRC"								
-QVARIABLE-test_node_id-005-P1476	QVARIABLE-test_node_id-005	P1476	"ICRC"	string	True	0						"ICRC"								
-QVARIABLE-test_node_id-005-description	QVARIABLE-test_node_id-005	description	"ICRC in test_node_id"	string	True	0						"ICRC in test_node_id"								
-QVARIABLE-test_node_id-005-P31-1	QVARIABLE-test_node_id-005	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-005-P2006020002-P585	QVARIABLE-test_node_id-005	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-005-P2006020002-P248	QVARIABLE-test_node_id-005	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-005-P1687-1	QVARIABLE-test_node_id-005	P1687	PVARIABLE-test_node_id-005	symbol	True	0														PVARIABLE-test_node_id-005
-QVARIABLE-test_node_id-005-P2006020004-1	QVARIABLE-test_node_id-005	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-005-P1813	QVARIABLE-test_node_id-005	P1813	icrc	symbol	True	0														icrc
-test_node_id-P2006020003-QVARIABLE-test_node_id-005	test_node_id	P2006020003	QVARIABLE-test_node_id-005	symbol	True	0														QVARIABLE-test_node_id-005
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-005-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-005	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-006-label	QVARIABLE-test_node_id-006	label	"IFRC"	string	True	0						"IFRC"								
-QVARIABLE-test_node_id-006-P1476	QVARIABLE-test_node_id-006	P1476	"IFRC"	string	True	0						"IFRC"								
-QVARIABLE-test_node_id-006-description	QVARIABLE-test_node_id-006	description	"IFRC in test_node_id"	string	True	0						"IFRC in test_node_id"								
-QVARIABLE-test_node_id-006-P31-1	QVARIABLE-test_node_id-006	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-006-P2006020002-P585	QVARIABLE-test_node_id-006	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-006-P2006020002-P248	QVARIABLE-test_node_id-006	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-006-P1687-1	QVARIABLE-test_node_id-006	P1687	PVARIABLE-test_node_id-006	symbol	True	0														PVARIABLE-test_node_id-006
-QVARIABLE-test_node_id-006-P2006020004-1	QVARIABLE-test_node_id-006	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-006-P1813	QVARIABLE-test_node_id-006	P1813	ifrc	symbol	True	0														ifrc
-test_node_id-P2006020003-QVARIABLE-test_node_id-006	test_node_id	P2006020003	QVARIABLE-test_node_id-006	symbol	True	0														QVARIABLE-test_node_id-006
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-006-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-006	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-007-label	QVARIABLE-test_node_id-007	label	"Other"	string	True	0						"Other"								
-QVARIABLE-test_node_id-007-P1476	QVARIABLE-test_node_id-007	P1476	"Other"	string	True	0						"Other"								
-QVARIABLE-test_node_id-007-description	QVARIABLE-test_node_id-007	description	"Other in test_node_id"	string	True	0						"Other in test_node_id"								
-QVARIABLE-test_node_id-007-P31-1	QVARIABLE-test_node_id-007	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-007-P2006020002-P585	QVARIABLE-test_node_id-007	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-007-P2006020002-P248	QVARIABLE-test_node_id-007	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-007-P1687-1	QVARIABLE-test_node_id-007	P1687	PVARIABLE-test_node_id-007	symbol	True	0														PVARIABLE-test_node_id-007
-QVARIABLE-test_node_id-007-P2006020004-1	QVARIABLE-test_node_id-007	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-007-P1813	QVARIABLE-test_node_id-007	P1813	other	symbol	True	0														other
-test_node_id-P2006020003-QVARIABLE-test_node_id-007	test_node_id	P2006020003	QVARIABLE-test_node_id-007	symbol	True	0														QVARIABLE-test_node_id-007
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-007-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-007	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-008-label	QVARIABLE-test_node_id-008	label	"Nationals killed"	string	True	0						"Nationals killed"								
-QVARIABLE-test_node_id-008-P1476	QVARIABLE-test_node_id-008	P1476	"Nationals killed"	string	True	0						"Nationals killed"								
-QVARIABLE-test_node_id-008-description	QVARIABLE-test_node_id-008	description	"Nationals killed in test_node_id"	string	True	0						"Nationals killed in test_node_id"								
-QVARIABLE-test_node_id-008-P31-1	QVARIABLE-test_node_id-008	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-008-P2006020002-P585	QVARIABLE-test_node_id-008	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-008-P2006020002-P248	QVARIABLE-test_node_id-008	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-008-P1687-1	QVARIABLE-test_node_id-008	P1687	PVARIABLE-test_node_id-008	symbol	True	0														PVARIABLE-test_node_id-008
-QVARIABLE-test_node_id-008-P2006020004-1	QVARIABLE-test_node_id-008	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-008-P1813	QVARIABLE-test_node_id-008	P1813	nationals_killed	symbol	True	0														nationals_killed
-test_node_id-P2006020003-QVARIABLE-test_node_id-008	test_node_id	P2006020003	QVARIABLE-test_node_id-008	symbol	True	0														QVARIABLE-test_node_id-008
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-008-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-008	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-009-label	QVARIABLE-test_node_id-009	label	"Nationals wounded"	string	True	0						"Nationals wounded"								
-QVARIABLE-test_node_id-009-P1476	QVARIABLE-test_node_id-009	P1476	"Nationals wounded"	string	True	0						"Nationals wounded"								
-QVARIABLE-test_node_id-009-description	QVARIABLE-test_node_id-009	description	"Nationals wounded in test_node_id"	string	True	0						"Nationals wounded in test_node_id"								
-QVARIABLE-test_node_id-009-P31-1	QVARIABLE-test_node_id-009	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-009-P2006020002-P585	QVARIABLE-test_node_id-009	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-009-P2006020002-P248	QVARIABLE-test_node_id-009	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-009-P1687-1	QVARIABLE-test_node_id-009	P1687	PVARIABLE-test_node_id-009	symbol	True	0														PVARIABLE-test_node_id-009
-QVARIABLE-test_node_id-009-P2006020004-1	QVARIABLE-test_node_id-009	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-009-P1813	QVARIABLE-test_node_id-009	P1813	nationals_wounded	symbol	True	0														nationals_wounded
-test_node_id-P2006020003-QVARIABLE-test_node_id-009	test_node_id	P2006020003	QVARIABLE-test_node_id-009	symbol	True	0														QVARIABLE-test_node_id-009
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-009-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-009	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-010-label	QVARIABLE-test_node_id-010	label	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
-QVARIABLE-test_node_id-010-P1476	QVARIABLE-test_node_id-010	P1476	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
-QVARIABLE-test_node_id-010-description	QVARIABLE-test_node_id-010	description	"Nationals kidnapped in test_node_id"	string	True	0						"Nationals kidnapped in test_node_id"								
-QVARIABLE-test_node_id-010-P31-1	QVARIABLE-test_node_id-010	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-010-P2006020002-P585	QVARIABLE-test_node_id-010	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-010-P2006020002-P248	QVARIABLE-test_node_id-010	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-010-P1687-1	QVARIABLE-test_node_id-010	P1687	PVARIABLE-test_node_id-010	symbol	True	0														PVARIABLE-test_node_id-010
-QVARIABLE-test_node_id-010-P2006020004-1	QVARIABLE-test_node_id-010	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-010-P1813	QVARIABLE-test_node_id-010	P1813	nationals_kidnapped	symbol	True	0														nationals_kidnapped
-test_node_id-P2006020003-QVARIABLE-test_node_id-010	test_node_id	P2006020003	QVARIABLE-test_node_id-010	symbol	True	0														QVARIABLE-test_node_id-010
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-010-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-010	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-011-label	QVARIABLE-test_node_id-011	label	"Total nationals"	string	True	0						"Total nationals"								
-QVARIABLE-test_node_id-011-P1476	QVARIABLE-test_node_id-011	P1476	"Total nationals"	string	True	0						"Total nationals"								
-QVARIABLE-test_node_id-011-description	QVARIABLE-test_node_id-011	description	"Total nationals in test_node_id"	string	True	0						"Total nationals in test_node_id"								
-QVARIABLE-test_node_id-011-P31-1	QVARIABLE-test_node_id-011	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-011-P2006020002-P585	QVARIABLE-test_node_id-011	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-011-P2006020002-P248	QVARIABLE-test_node_id-011	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-011-P1687-1	QVARIABLE-test_node_id-011	P1687	PVARIABLE-test_node_id-011	symbol	True	0														PVARIABLE-test_node_id-011
-QVARIABLE-test_node_id-011-P2006020004-1	QVARIABLE-test_node_id-011	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-011-P1813	QVARIABLE-test_node_id-011	P1813	total_nationals	symbol	True	0														total_nationals
-test_node_id-P2006020003-QVARIABLE-test_node_id-011	test_node_id	P2006020003	QVARIABLE-test_node_id-011	symbol	True	0														QVARIABLE-test_node_id-011
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-011-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-011	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-012-label	QVARIABLE-test_node_id-012	label	"Internationals killed"	string	True	0						"Internationals killed"								
-QVARIABLE-test_node_id-012-P1476	QVARIABLE-test_node_id-012	P1476	"Internationals killed"	string	True	0						"Internationals killed"								
-QVARIABLE-test_node_id-012-description	QVARIABLE-test_node_id-012	description	"Internationals killed in test_node_id"	string	True	0						"Internationals killed in test_node_id"								
-QVARIABLE-test_node_id-012-P31-1	QVARIABLE-test_node_id-012	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-012-P2006020002-P585	QVARIABLE-test_node_id-012	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-012-P2006020002-P248	QVARIABLE-test_node_id-012	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-012-P1687-1	QVARIABLE-test_node_id-012	P1687	PVARIABLE-test_node_id-012	symbol	True	0														PVARIABLE-test_node_id-012
-QVARIABLE-test_node_id-012-P2006020004-1	QVARIABLE-test_node_id-012	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-012-P1813	QVARIABLE-test_node_id-012	P1813	internationals_killed	symbol	True	0														internationals_killed
-test_node_id-P2006020003-QVARIABLE-test_node_id-012	test_node_id	P2006020003	QVARIABLE-test_node_id-012	symbol	True	0														QVARIABLE-test_node_id-012
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-012-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-012	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-013-label	QVARIABLE-test_node_id-013	label	"Internationals wounded"	string	True	0						"Internationals wounded"								
-QVARIABLE-test_node_id-013-P1476	QVARIABLE-test_node_id-013	P1476	"Internationals wounded"	string	True	0						"Internationals wounded"								
-QVARIABLE-test_node_id-013-description	QVARIABLE-test_node_id-013	description	"Internationals wounded in test_node_id"	string	True	0						"Internationals wounded in test_node_id"								
-QVARIABLE-test_node_id-013-P31-1	QVARIABLE-test_node_id-013	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-013-P2006020002-P585	QVARIABLE-test_node_id-013	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-013-P2006020002-P248	QVARIABLE-test_node_id-013	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-013-P1687-1	QVARIABLE-test_node_id-013	P1687	PVARIABLE-test_node_id-013	symbol	True	0														PVARIABLE-test_node_id-013
-QVARIABLE-test_node_id-013-P2006020004-1	QVARIABLE-test_node_id-013	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-013-P1813	QVARIABLE-test_node_id-013	P1813	internationals_wounded	symbol	True	0														internationals_wounded
-test_node_id-P2006020003-QVARIABLE-test_node_id-013	test_node_id	P2006020003	QVARIABLE-test_node_id-013	symbol	True	0														QVARIABLE-test_node_id-013
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-013-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-013	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-014-label	QVARIABLE-test_node_id-014	label	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
-QVARIABLE-test_node_id-014-P1476	QVARIABLE-test_node_id-014	P1476	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
-QVARIABLE-test_node_id-014-description	QVARIABLE-test_node_id-014	description	"Internationals kidnapped in test_node_id"	string	True	0						"Internationals kidnapped in test_node_id"								
-QVARIABLE-test_node_id-014-P31-1	QVARIABLE-test_node_id-014	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-014-P2006020002-P585	QVARIABLE-test_node_id-014	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-014-P2006020002-P248	QVARIABLE-test_node_id-014	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-014-P1687-1	QVARIABLE-test_node_id-014	P1687	PVARIABLE-test_node_id-014	symbol	True	0														PVARIABLE-test_node_id-014
-QVARIABLE-test_node_id-014-P2006020004-1	QVARIABLE-test_node_id-014	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-014-P1813	QVARIABLE-test_node_id-014	P1813	internationals_kidnapped	symbol	True	0														internationals_kidnapped
-test_node_id-P2006020003-QVARIABLE-test_node_id-014	test_node_id	P2006020003	QVARIABLE-test_node_id-014	symbol	True	0														QVARIABLE-test_node_id-014
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-014-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-014	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-015-label	QVARIABLE-test_node_id-015	label	"Total internationals"	string	True	0						"Total internationals"								
-QVARIABLE-test_node_id-015-P1476	QVARIABLE-test_node_id-015	P1476	"Total internationals"	string	True	0						"Total internationals"								
-QVARIABLE-test_node_id-015-description	QVARIABLE-test_node_id-015	description	"Total internationals in test_node_id"	string	True	0						"Total internationals in test_node_id"								
-QVARIABLE-test_node_id-015-P31-1	QVARIABLE-test_node_id-015	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-015-P2006020002-P585	QVARIABLE-test_node_id-015	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-015-P2006020002-P248	QVARIABLE-test_node_id-015	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-015-P1687-1	QVARIABLE-test_node_id-015	P1687	PVARIABLE-test_node_id-015	symbol	True	0														PVARIABLE-test_node_id-015
-QVARIABLE-test_node_id-015-P2006020004-1	QVARIABLE-test_node_id-015	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-015-P1813	QVARIABLE-test_node_id-015	P1813	total_internationals	symbol	True	0														total_internationals
-test_node_id-P2006020003-QVARIABLE-test_node_id-015	test_node_id	P2006020003	QVARIABLE-test_node_id-015	symbol	True	0														QVARIABLE-test_node_id-015
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-015-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-015	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-016-label	QVARIABLE-test_node_id-016	label	"Total killed"	string	True	0						"Total killed"								
-QVARIABLE-test_node_id-016-P1476	QVARIABLE-test_node_id-016	P1476	"Total killed"	string	True	0						"Total killed"								
-QVARIABLE-test_node_id-016-description	QVARIABLE-test_node_id-016	description	"Total killed in test_node_id"	string	True	0						"Total killed in test_node_id"								
-QVARIABLE-test_node_id-016-P31-1	QVARIABLE-test_node_id-016	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-016-P2006020002-P585	QVARIABLE-test_node_id-016	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-016-P2006020002-P248	QVARIABLE-test_node_id-016	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-016-P1687-1	QVARIABLE-test_node_id-016	P1687	PVARIABLE-test_node_id-016	symbol	True	0														PVARIABLE-test_node_id-016
-QVARIABLE-test_node_id-016-P2006020004-1	QVARIABLE-test_node_id-016	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-016-P1813	QVARIABLE-test_node_id-016	P1813	total_killed	symbol	True	0														total_killed
-test_node_id-P2006020003-QVARIABLE-test_node_id-016	test_node_id	P2006020003	QVARIABLE-test_node_id-016	symbol	True	0														QVARIABLE-test_node_id-016
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-016-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-016	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-017-label	QVARIABLE-test_node_id-017	label	"Total wounded"	string	True	0						"Total wounded"								
-QVARIABLE-test_node_id-017-P1476	QVARIABLE-test_node_id-017	P1476	"Total wounded"	string	True	0						"Total wounded"								
-QVARIABLE-test_node_id-017-description	QVARIABLE-test_node_id-017	description	"Total wounded in test_node_id"	string	True	0						"Total wounded in test_node_id"								
-QVARIABLE-test_node_id-017-P31-1	QVARIABLE-test_node_id-017	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-017-P2006020002-P585	QVARIABLE-test_node_id-017	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-017-P2006020002-P248	QVARIABLE-test_node_id-017	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-017-P1687-1	QVARIABLE-test_node_id-017	P1687	PVARIABLE-test_node_id-017	symbol	True	0														PVARIABLE-test_node_id-017
-QVARIABLE-test_node_id-017-P2006020004-1	QVARIABLE-test_node_id-017	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-017-P1813	QVARIABLE-test_node_id-017	P1813	total_wounded	symbol	True	0														total_wounded
-test_node_id-P2006020003-QVARIABLE-test_node_id-017	test_node_id	P2006020003	QVARIABLE-test_node_id-017	symbol	True	0														QVARIABLE-test_node_id-017
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-017-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-017	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-018-label	QVARIABLE-test_node_id-018	label	"Total kidnapped"	string	True	0						"Total kidnapped"								
-QVARIABLE-test_node_id-018-P1476	QVARIABLE-test_node_id-018	P1476	"Total kidnapped"	string	True	0						"Total kidnapped"								
-QVARIABLE-test_node_id-018-description	QVARIABLE-test_node_id-018	description	"Total kidnapped in test_node_id"	string	True	0						"Total kidnapped in test_node_id"								
-QVARIABLE-test_node_id-018-P31-1	QVARIABLE-test_node_id-018	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-018-P2006020002-P585	QVARIABLE-test_node_id-018	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-018-P2006020002-P248	QVARIABLE-test_node_id-018	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-018-P1687-1	QVARIABLE-test_node_id-018	P1687	PVARIABLE-test_node_id-018	symbol	True	0														PVARIABLE-test_node_id-018
-QVARIABLE-test_node_id-018-P2006020004-1	QVARIABLE-test_node_id-018	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-018-P1813	QVARIABLE-test_node_id-018	P1813	total_kidnapped	symbol	True	0														total_kidnapped
-test_node_id-P2006020003-QVARIABLE-test_node_id-018	test_node_id	P2006020003	QVARIABLE-test_node_id-018	symbol	True	0														QVARIABLE-test_node_id-018
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-018-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-018	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-019-label	QVARIABLE-test_node_id-019	label	"Total affected"	string	True	0						"Total affected"								
-QVARIABLE-test_node_id-019-P1476	QVARIABLE-test_node_id-019	P1476	"Total affected"	string	True	0						"Total affected"								
-QVARIABLE-test_node_id-019-description	QVARIABLE-test_node_id-019	description	"Total affected in test_node_id"	string	True	0						"Total affected in test_node_id"								
-QVARIABLE-test_node_id-019-P31-1	QVARIABLE-test_node_id-019	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-019-P2006020002-P585	QVARIABLE-test_node_id-019	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-019-P2006020002-P248	QVARIABLE-test_node_id-019	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-019-P1687-1	QVARIABLE-test_node_id-019	P1687	PVARIABLE-test_node_id-019	symbol	True	0														PVARIABLE-test_node_id-019
-QVARIABLE-test_node_id-019-P2006020004-1	QVARIABLE-test_node_id-019	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-019-P1813	QVARIABLE-test_node_id-019	P1813	total_affected	symbol	True	0														total_affected
-test_node_id-P2006020003-QVARIABLE-test_node_id-019	test_node_id	P2006020003	QVARIABLE-test_node_id-019	symbol	True	0														QVARIABLE-test_node_id-019
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-019-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-019	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-020-label	QVARIABLE-test_node_id-020	label	"Gender Male"	string	True	0						"Gender Male"								
-QVARIABLE-test_node_id-020-P1476	QVARIABLE-test_node_id-020	P1476	"Gender Male"	string	True	0						"Gender Male"								
-QVARIABLE-test_node_id-020-description	QVARIABLE-test_node_id-020	description	"Gender Male in test_node_id"	string	True	0						"Gender Male in test_node_id"								
-QVARIABLE-test_node_id-020-P31-1	QVARIABLE-test_node_id-020	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-020-P2006020002-P585	QVARIABLE-test_node_id-020	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-020-P2006020002-P248	QVARIABLE-test_node_id-020	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-020-P1687-1	QVARIABLE-test_node_id-020	P1687	PVARIABLE-test_node_id-020	symbol	True	0														PVARIABLE-test_node_id-020
-QVARIABLE-test_node_id-020-P2006020004-1	QVARIABLE-test_node_id-020	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-020-P1813	QVARIABLE-test_node_id-020	P1813	gender_male	symbol	True	0														gender_male
-test_node_id-P2006020003-QVARIABLE-test_node_id-020	test_node_id	P2006020003	QVARIABLE-test_node_id-020	symbol	True	0														QVARIABLE-test_node_id-020
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-020-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-020	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-021-label	QVARIABLE-test_node_id-021	label	"Gender Female"	string	True	0						"Gender Female"								
-QVARIABLE-test_node_id-021-P1476	QVARIABLE-test_node_id-021	P1476	"Gender Female"	string	True	0						"Gender Female"								
-QVARIABLE-test_node_id-021-description	QVARIABLE-test_node_id-021	description	"Gender Female in test_node_id"	string	True	0						"Gender Female in test_node_id"								
-QVARIABLE-test_node_id-021-P31-1	QVARIABLE-test_node_id-021	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-021-P2006020002-P585	QVARIABLE-test_node_id-021	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-021-P2006020002-P248	QVARIABLE-test_node_id-021	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-021-P1687-1	QVARIABLE-test_node_id-021	P1687	PVARIABLE-test_node_id-021	symbol	True	0														PVARIABLE-test_node_id-021
-QVARIABLE-test_node_id-021-P2006020004-1	QVARIABLE-test_node_id-021	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-021-P1813	QVARIABLE-test_node_id-021	P1813	gender_female	symbol	True	0														gender_female
-test_node_id-P2006020003-QVARIABLE-test_node_id-021	test_node_id	P2006020003	QVARIABLE-test_node_id-021	symbol	True	0														QVARIABLE-test_node_id-021
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-021-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-021	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QVARIABLE-test_node_id-022-label	QVARIABLE-test_node_id-022	label	"Gender Unknown"	string	True	0						"Gender Unknown"								
-QVARIABLE-test_node_id-022-P1476	QVARIABLE-test_node_id-022	P1476	"Gender Unknown"	string	True	0						"Gender Unknown"								
-QVARIABLE-test_node_id-022-description	QVARIABLE-test_node_id-022	description	"Gender Unknown in test_node_id"	string	True	0						"Gender Unknown in test_node_id"								
-QVARIABLE-test_node_id-022-P31-1	QVARIABLE-test_node_id-022	P31	Q50701	symbol	True	0														Q50701
-QVARIABLE-test_node_id-022-P2006020002-P585	QVARIABLE-test_node_id-022	P2006020002	P585	symbol	True	0														P585
-QVARIABLE-test_node_id-022-P2006020002-P248	QVARIABLE-test_node_id-022	P2006020002	P248	symbol	True	0														P248
-QVARIABLE-test_node_id-022-P1687-1	QVARIABLE-test_node_id-022	P1687	PVARIABLE-test_node_id-022	symbol	True	0														PVARIABLE-test_node_id-022
-QVARIABLE-test_node_id-022-P2006020004-1	QVARIABLE-test_node_id-022	P2006020004	test_node_id	symbol	True	0														test_node_id
-QVARIABLE-test_node_id-022-P1813	QVARIABLE-test_node_id-022	P1813	gender_unknown	symbol	True	0														gender_unknown
-test_node_id-P2006020003-QVARIABLE-test_node_id-022	test_node_id	P2006020003	QVARIABLE-test_node_id-022	symbol	True	0														QVARIABLE-test_node_id-022
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-023	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-023	symbol	True	0														Ptest_node_id-023
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-024	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-024	symbol	True	0														Ptest_node_id-024
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-025	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-025	symbol	True	0														Ptest_node_id-025
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-026	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-026	symbol	True	0														Ptest_node_id-026
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-027	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-027	symbol	True	0														Ptest_node_id-027
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-028	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-028	symbol	True	0														Ptest_node_id-028
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-029	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-029	symbol	True	0														Ptest_node_id-029
-QVARIABLE-test_node_id-022-P2006020002-Ptest_node_id-030	QVARIABLE-test_node_id-022	P2006020002	Ptest_node_id-030	symbol	True	0														Ptest_node_id-030
-QUNIT-test_node_id-U002-label	QUNIT-test_node_id-U002	label	"person"	string	True	0						"person"								
-QUNIT-test_node_id-U002-P31	QUNIT-test_node_id-U002	P31	Q47574	symbol	True	0														Q47574
-QQUALIFIER-test_node_id-001-label	QQUALIFIER-test_node_id-001	label	"Means of attack"	string	True	0						"Means of attack"								
-QQUALIFIER-test_node_id-001-P2006020002-PQUALIFIER-test_node_id-002	QQUALIFIER-test_node_id-001	P2006020002	PQUALIFIER-test_node_id-002	symbol	True	0														PQUALIFIER-test_node_id-002
-QQUALIFIER-test_node_id-002-label	QQUALIFIER-test_node_id-002	label	"Attack context"	string	True	0						"Attack context"								
-QQUALIFIER-test_node_id-002-P2006020002-PQUALIFIER-test_node_id-003	QQUALIFIER-test_node_id-002	P2006020002	PQUALIFIER-test_node_id-003	symbol	True	0														PQUALIFIER-test_node_id-003
-QQUALIFIER-test_node_id-003-label	QQUALIFIER-test_node_id-003	label	"Location"	string	True	0						"Location"								
-QQUALIFIER-test_node_id-003-P2006020002-PQUALIFIER-test_node_id-004	QQUALIFIER-test_node_id-003	P2006020002	PQUALIFIER-test_node_id-004	symbol	True	0														PQUALIFIER-test_node_id-004
-QQUALIFIER-test_node_id-004-label	QQUALIFIER-test_node_id-004	label	"Actor type"	string	True	0						"Actor type"								
-QQUALIFIER-test_node_id-004-P2006020002-PQUALIFIER-test_node_id-005	QQUALIFIER-test_node_id-004	P2006020002	PQUALIFIER-test_node_id-005	symbol	True	0														PQUALIFIER-test_node_id-005
-QQUALIFIER-test_node_id-005-label	QQUALIFIER-test_node_id-005	label	"Actor name"	string	True	0						"Actor name"								
-QQUALIFIER-test_node_id-005-P2006020002-PQUALIFIER-test_node_id-006	QQUALIFIER-test_node_id-005	P2006020002	PQUALIFIER-test_node_id-006	symbol	True	0														PQUALIFIER-test_node_id-006
-QQUALIFIER-test_node_id-006-label	QQUALIFIER-test_node_id-006	label	"Details"	string	True	0						"Details"								
-QQUALIFIER-test_node_id-006-P2006020002-PQUALIFIER-test_node_id-007	QQUALIFIER-test_node_id-006	P2006020002	PQUALIFIER-test_node_id-007	symbol	True	0														PQUALIFIER-test_node_id-007
-QQUALIFIER-test_node_id-007-label	QQUALIFIER-test_node_id-007	label	"Verified"	string	True	0						"Verified"								
-QQUALIFIER-test_node_id-007-P2006020002-PQUALIFIER-test_node_id-008	QQUALIFIER-test_node_id-007	P2006020002	PQUALIFIER-test_node_id-008	symbol	True	0														PQUALIFIER-test_node_id-008
-QQUALIFIER-test_node_id-008-label	QQUALIFIER-test_node_id-008	label	"Source"	string	True	0						"Source"								
-QQUALIFIER-test_node_id-008-P2006020002-PQUALIFIER-test_node_id-009	QQUALIFIER-test_node_id-008	P2006020002	PQUALIFIER-test_node_id-009	symbol	True	0														PQUALIFIER-test_node_id-009
-Qtest_node_id_Incident_ID_22-label	Qtest_node_id_Incident_ID_22	label	"Incident ID 22"	string	True	0						"Incident ID 22"								
-Qtest_node_id_Incident_ID_22-description	Qtest_node_id_Incident_ID_22	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_22-P31	Qtest_node_id_Incident_ID_22	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_47-label	Qtest_node_id_Incident_ID_47	label	"Incident ID 47"	string	True	0						"Incident ID 47"								
-Qtest_node_id_Incident_ID_47-description	Qtest_node_id_Incident_ID_47	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_47-P31	Qtest_node_id_Incident_ID_47	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_73-label	Qtest_node_id_Incident_ID_73	label	"Incident ID 73"	string	True	0						"Incident ID 73"								
-Qtest_node_id_Incident_ID_73-description	Qtest_node_id_Incident_ID_73	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_73-P31	Qtest_node_id_Incident_ID_73	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_103-label	Qtest_node_id_Incident_ID_103	label	"Incident ID 103"	string	True	0						"Incident ID 103"								
-Qtest_node_id_Incident_ID_103-description	Qtest_node_id_Incident_ID_103	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_103-P31	Qtest_node_id_Incident_ID_103	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_475-label	Qtest_node_id_Incident_ID_475	label	"Incident ID 475"	string	True	0						"Incident ID 475"								
-Qtest_node_id_Incident_ID_475-description	Qtest_node_id_Incident_ID_475	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_475-P31	Qtest_node_id_Incident_ID_475	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_782-label	Qtest_node_id_Incident_ID_782	label	"Incident ID 782"	string	True	0						"Incident ID 782"								
-Qtest_node_id_Incident_ID_782-description	Qtest_node_id_Incident_ID_782	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_782-P31	Qtest_node_id_Incident_ID_782	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_793-label	Qtest_node_id_Incident_ID_793	label	"Incident ID 793"	string	True	0						"Incident ID 793"								
-Qtest_node_id_Incident_ID_793-description	Qtest_node_id_Incident_ID_793	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_793-P31	Qtest_node_id_Incident_ID_793	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_942-label	Qtest_node_id_Incident_ID_942	label	"Incident ID 942"	string	True	0						"Incident ID 942"								
-Qtest_node_id_Incident_ID_942-description	Qtest_node_id_Incident_ID_942	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_942-P31	Qtest_node_id_Incident_ID_942	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_964-label	Qtest_node_id_Incident_ID_964	label	"Incident ID 964"	string	True	0						"Incident ID 964"								
-Qtest_node_id_Incident_ID_964-description	Qtest_node_id_Incident_ID_964	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_964-P31	Qtest_node_id_Incident_ID_964	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1069-label	Qtest_node_id_Incident_ID_1069	label	"Incident ID 1069"	string	True	0						"Incident ID 1069"								
-Qtest_node_id_Incident_ID_1069-description	Qtest_node_id_Incident_ID_1069	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1069-P31	Qtest_node_id_Incident_ID_1069	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1060-label	Qtest_node_id_Incident_ID_1060	label	"Incident ID 1060"	string	True	0						"Incident ID 1060"								
-Qtest_node_id_Incident_ID_1060-description	Qtest_node_id_Incident_ID_1060	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1060-P31	Qtest_node_id_Incident_ID_1060	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1102-label	Qtest_node_id_Incident_ID_1102	label	"Incident ID 1102"	string	True	0						"Incident ID 1102"								
-Qtest_node_id_Incident_ID_1102-description	Qtest_node_id_Incident_ID_1102	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1102-P31	Qtest_node_id_Incident_ID_1102	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1281-label	Qtest_node_id_Incident_ID_1281	label	"Incident ID 1281"	string	True	0						"Incident ID 1281"								
-Qtest_node_id_Incident_ID_1281-description	Qtest_node_id_Incident_ID_1281	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1281-P31	Qtest_node_id_Incident_ID_1281	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1479-label	Qtest_node_id_Incident_ID_1479	label	"Incident ID 1479"	string	True	0						"Incident ID 1479"								
-Qtest_node_id_Incident_ID_1479-description	Qtest_node_id_Incident_ID_1479	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1479-P31	Qtest_node_id_Incident_ID_1479	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1713-label	Qtest_node_id_Incident_ID_1713	label	"Incident ID 1713"	string	True	0						"Incident ID 1713"								
-Qtest_node_id_Incident_ID_1713-description	Qtest_node_id_Incident_ID_1713	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1713-P31	Qtest_node_id_Incident_ID_1713	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1689-label	Qtest_node_id_Incident_ID_1689	label	"Incident ID 1689"	string	True	0						"Incident ID 1689"								
-Qtest_node_id_Incident_ID_1689-description	Qtest_node_id_Incident_ID_1689	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1689-P31	Qtest_node_id_Incident_ID_1689	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1931-label	Qtest_node_id_Incident_ID_1931	label	"Incident ID 1931"	string	True	0						"Incident ID 1931"								
-Qtest_node_id_Incident_ID_1931-description	Qtest_node_id_Incident_ID_1931	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1931-P31	Qtest_node_id_Incident_ID_1931	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1924-label	Qtest_node_id_Incident_ID_1924	label	"Incident ID 1924"	string	True	0						"Incident ID 1924"								
-Qtest_node_id_Incident_ID_1924-description	Qtest_node_id_Incident_ID_1924	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1924-P31	Qtest_node_id_Incident_ID_1924	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1923-label	Qtest_node_id_Incident_ID_1923	label	"Incident ID 1923"	string	True	0						"Incident ID 1923"								
-Qtest_node_id_Incident_ID_1923-description	Qtest_node_id_Incident_ID_1923	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1923-P31	Qtest_node_id_Incident_ID_1923	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_1934-label	Qtest_node_id_Incident_ID_1934	label	"Incident ID 1934"	string	True	0						"Incident ID 1934"								
-Qtest_node_id_Incident_ID_1934-description	Qtest_node_id_Incident_ID_1934	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_1934-P31	Qtest_node_id_Incident_ID_1934	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2143-label	Qtest_node_id_Incident_ID_2143	label	"Incident ID 2143"	string	True	0						"Incident ID 2143"								
-Qtest_node_id_Incident_ID_2143-description	Qtest_node_id_Incident_ID_2143	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2143-P31	Qtest_node_id_Incident_ID_2143	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2135-label	Qtest_node_id_Incident_ID_2135	label	"Incident ID 2135"	string	True	0						"Incident ID 2135"								
-Qtest_node_id_Incident_ID_2135-description	Qtest_node_id_Incident_ID_2135	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2135-P31	Qtest_node_id_Incident_ID_2135	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2692-label	Qtest_node_id_Incident_ID_2692	label	"Incident ID 2692"	string	True	0						"Incident ID 2692"								
-Qtest_node_id_Incident_ID_2692-description	Qtest_node_id_Incident_ID_2692	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2692-P31	Qtest_node_id_Incident_ID_2692	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2623-label	Qtest_node_id_Incident_ID_2623	label	"Incident ID 2623"	string	True	0						"Incident ID 2623"								
-Qtest_node_id_Incident_ID_2623-description	Qtest_node_id_Incident_ID_2623	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2623-P31	Qtest_node_id_Incident_ID_2623	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2641-label	Qtest_node_id_Incident_ID_2641	label	"Incident ID 2641"	string	True	0						"Incident ID 2641"								
-Qtest_node_id_Incident_ID_2641-description	Qtest_node_id_Incident_ID_2641	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2641-P31	Qtest_node_id_Incident_ID_2641	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2952-label	Qtest_node_id_Incident_ID_2952	label	"Incident ID 2952"	string	True	0						"Incident ID 2952"								
-Qtest_node_id_Incident_ID_2952-description	Qtest_node_id_Incident_ID_2952	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2952-P31	Qtest_node_id_Incident_ID_2952	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2916-label	Qtest_node_id_Incident_ID_2916	label	"Incident ID 2916"	string	True	0						"Incident ID 2916"								
-Qtest_node_id_Incident_ID_2916-description	Qtest_node_id_Incident_ID_2916	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2916-P31	Qtest_node_id_Incident_ID_2916	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_3006-label	Qtest_node_id_Incident_ID_3006	label	"Incident ID 3006"	string	True	0						"Incident ID 3006"								
-Qtest_node_id_Incident_ID_3006-description	Qtest_node_id_Incident_ID_3006	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_3006-P31	Qtest_node_id_Incident_ID_3006	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2895-label	Qtest_node_id_Incident_ID_2895	label	"Incident ID 2895"	string	True	0						"Incident ID 2895"								
-Qtest_node_id_Incident_ID_2895-description	Qtest_node_id_Incident_ID_2895	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2895-P31	Qtest_node_id_Incident_ID_2895	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2896-label	Qtest_node_id_Incident_ID_2896	label	"Incident ID 2896"	string	True	0						"Incident ID 2896"								
-Qtest_node_id_Incident_ID_2896-description	Qtest_node_id_Incident_ID_2896	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2896-P31	Qtest_node_id_Incident_ID_2896	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2768-label	Qtest_node_id_Incident_ID_2768	label	"Incident ID 2768"	string	True	0						"Incident ID 2768"								
-Qtest_node_id_Incident_ID_2768-description	Qtest_node_id_Incident_ID_2768	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2768-P31	Qtest_node_id_Incident_ID_2768	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2897-label	Qtest_node_id_Incident_ID_2897	label	"Incident ID 2897"	string	True	0						"Incident ID 2897"								
-Qtest_node_id_Incident_ID_2897-description	Qtest_node_id_Incident_ID_2897	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2897-P31	Qtest_node_id_Incident_ID_2897	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2911-label	Qtest_node_id_Incident_ID_2911	label	"Incident ID 2911"	string	True	0						"Incident ID 2911"								
-Qtest_node_id_Incident_ID_2911-description	Qtest_node_id_Incident_ID_2911	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2911-P31	Qtest_node_id_Incident_ID_2911	P31	Q35120	symbol	True	0														Q35120
-Qtest_node_id_Incident_ID_2997-label	Qtest_node_id_Incident_ID_2997	label	"Incident ID 2997"	string	True	0						"Incident ID 2997"								
-Qtest_node_id_Incident_ID_2997-description	Qtest_node_id_Incident_ID_2997	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
-Qtest_node_id_Incident_ID_2997-P31	Qtest_node_id_Incident_ID_2997	P31	Q35120	symbol	True	0														Q35120
+PVARIABLE-QTEST01-002-data_type	PVARIABLE-QTEST01-002	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-002-P31	PVARIABLE-QTEST01-002	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-002-label	PVARIABLE-QTEST01-002	label	"UN"	string	True	0						"UN"								
+PVARIABLE-QTEST01-003-data_type	PVARIABLE-QTEST01-003	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-003-P31	PVARIABLE-QTEST01-003	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-003-label	PVARIABLE-QTEST01-003	label	"INGO"	string	True	0						"INGO"								
+PVARIABLE-QTEST01-004-data_type	PVARIABLE-QTEST01-004	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-004-P31	PVARIABLE-QTEST01-004	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-004-label	PVARIABLE-QTEST01-004	label	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
+PVARIABLE-QTEST01-005-data_type	PVARIABLE-QTEST01-005	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-005-P31	PVARIABLE-QTEST01-005	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-005-label	PVARIABLE-QTEST01-005	label	"ICRC"	string	True	0						"ICRC"								
+PVARIABLE-QTEST01-006-data_type	PVARIABLE-QTEST01-006	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-006-P31	PVARIABLE-QTEST01-006	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-006-label	PVARIABLE-QTEST01-006	label	"IFRC"	string	True	0						"IFRC"								
+PVARIABLE-QTEST01-007-data_type	PVARIABLE-QTEST01-007	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-007-P31	PVARIABLE-QTEST01-007	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-007-label	PVARIABLE-QTEST01-007	label	"Other"	string	True	0						"Other"								
+PVARIABLE-QTEST01-008-data_type	PVARIABLE-QTEST01-008	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-008-P31	PVARIABLE-QTEST01-008	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-008-label	PVARIABLE-QTEST01-008	label	"Nationals killed"	string	True	0						"Nationals killed"								
+PVARIABLE-QTEST01-009-data_type	PVARIABLE-QTEST01-009	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-009-P31	PVARIABLE-QTEST01-009	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-009-label	PVARIABLE-QTEST01-009	label	"Nationals wounded"	string	True	0						"Nationals wounded"								
+PVARIABLE-QTEST01-010-data_type	PVARIABLE-QTEST01-010	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-010-P31	PVARIABLE-QTEST01-010	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-010-label	PVARIABLE-QTEST01-010	label	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
+PVARIABLE-QTEST01-011-data_type	PVARIABLE-QTEST01-011	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-011-P31	PVARIABLE-QTEST01-011	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-011-label	PVARIABLE-QTEST01-011	label	"Total nationals"	string	True	0						"Total nationals"								
+PVARIABLE-QTEST01-012-data_type	PVARIABLE-QTEST01-012	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-012-P31	PVARIABLE-QTEST01-012	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-012-label	PVARIABLE-QTEST01-012	label	"Internationals killed"	string	True	0						"Internationals killed"								
+PVARIABLE-QTEST01-013-data_type	PVARIABLE-QTEST01-013	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-013-P31	PVARIABLE-QTEST01-013	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-013-label	PVARIABLE-QTEST01-013	label	"Internationals wounded"	string	True	0						"Internationals wounded"								
+PVARIABLE-QTEST01-014-data_type	PVARIABLE-QTEST01-014	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-014-P31	PVARIABLE-QTEST01-014	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-014-label	PVARIABLE-QTEST01-014	label	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
+PVARIABLE-QTEST01-015-data_type	PVARIABLE-QTEST01-015	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-015-P31	PVARIABLE-QTEST01-015	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-015-label	PVARIABLE-QTEST01-015	label	"Total internationals"	string	True	0						"Total internationals"								
+PVARIABLE-QTEST01-016-data_type	PVARIABLE-QTEST01-016	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-016-P31	PVARIABLE-QTEST01-016	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-016-label	PVARIABLE-QTEST01-016	label	"Total killed"	string	True	0						"Total killed"								
+PVARIABLE-QTEST01-017-data_type	PVARIABLE-QTEST01-017	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-017-P31	PVARIABLE-QTEST01-017	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-017-label	PVARIABLE-QTEST01-017	label	"Total wounded"	string	True	0						"Total wounded"								
+PVARIABLE-QTEST01-018-data_type	PVARIABLE-QTEST01-018	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-018-P31	PVARIABLE-QTEST01-018	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-018-label	PVARIABLE-QTEST01-018	label	"Total kidnapped"	string	True	0						"Total kidnapped"								
+PVARIABLE-QTEST01-019-data_type	PVARIABLE-QTEST01-019	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-019-P31	PVARIABLE-QTEST01-019	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-019-label	PVARIABLE-QTEST01-019	label	"Total affected"	string	True	0						"Total affected"								
+PVARIABLE-QTEST01-020-data_type	PVARIABLE-QTEST01-020	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-020-P31	PVARIABLE-QTEST01-020	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-020-label	PVARIABLE-QTEST01-020	label	"Gender Male"	string	True	0						"Gender Male"								
+PVARIABLE-QTEST01-021-data_type	PVARIABLE-QTEST01-021	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-021-P31	PVARIABLE-QTEST01-021	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-021-label	PVARIABLE-QTEST01-021	label	"Gender Female"	string	True	0						"Gender Female"								
+PVARIABLE-QTEST01-022-data_type	PVARIABLE-QTEST01-022	data_type	Quantity	symbol	True	0														Quantity
+PVARIABLE-QTEST01-022-P31	PVARIABLE-QTEST01-022	P31	Q18616576	symbol	True	0														Q18616576
+PVARIABLE-QTEST01-022-label	PVARIABLE-QTEST01-022	label	"Gender Unknown"	string	True	0						"Gender Unknown"								
+PQUALIFIER-QTEST01-023-data_type	PQUALIFIER-QTEST01-023	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-023-P31	PQUALIFIER-QTEST01-023	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-023-label	PQUALIFIER-QTEST01-023	label	"Means of attack"	string	True	0						"Means of attack"								
+PQUALIFIER-QTEST01-024-data_type	PQUALIFIER-QTEST01-024	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-024-P31	PQUALIFIER-QTEST01-024	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-024-label	PQUALIFIER-QTEST01-024	label	"Attack context"	string	True	0						"Attack context"								
+PQUALIFIER-QTEST01-025-data_type	PQUALIFIER-QTEST01-025	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-025-P31	PQUALIFIER-QTEST01-025	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-025-label	PQUALIFIER-QTEST01-025	label	"Location"	string	True	0						"Location"								
+PQUALIFIER-QTEST01-026-data_type	PQUALIFIER-QTEST01-026	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-026-P31	PQUALIFIER-QTEST01-026	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-026-label	PQUALIFIER-QTEST01-026	label	"Actor type"	string	True	0						"Actor type"								
+PQUALIFIER-QTEST01-027-data_type	PQUALIFIER-QTEST01-027	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-027-P31	PQUALIFIER-QTEST01-027	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-027-label	PQUALIFIER-QTEST01-027	label	"Actor name"	string	True	0						"Actor name"								
+PQUALIFIER-QTEST01-028-data_type	PQUALIFIER-QTEST01-028	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-028-P31	PQUALIFIER-QTEST01-028	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-028-label	PQUALIFIER-QTEST01-028	label	"Details"	string	True	0						"Details"								
+PQUALIFIER-QTEST01-029-data_type	PQUALIFIER-QTEST01-029	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-029-P31	PQUALIFIER-QTEST01-029	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-029-label	PQUALIFIER-QTEST01-029	label	"Verified"	string	True	0						"Verified"								
+PQUALIFIER-QTEST01-030-data_type	PQUALIFIER-QTEST01-030	data_type	String	symbol	True	0														String
+PQUALIFIER-QTEST01-030-P31	PQUALIFIER-QTEST01-030	P31	Q18616576	symbol	True	0														Q18616576
+PQUALIFIER-QTEST01-030-label	PQUALIFIER-QTEST01-030	label	"Source"	string	True	0						"Source"								
+QVARIABLE-QTEST01-002-label	QVARIABLE-QTEST01-002	label	"UN"	string	True	0						"UN"								
+QVARIABLE-QTEST01-002-P1476	QVARIABLE-QTEST01-002	P1476	"UN"	string	True	0						"UN"								
+QVARIABLE-QTEST01-002-description	QVARIABLE-QTEST01-002	description	"UN in awsd"	string	True	0						"UN in awsd"								
+QVARIABLE-QTEST01-002-P31-1	QVARIABLE-QTEST01-002	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-002-P2006020002-P585	QVARIABLE-QTEST01-002	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-002-P2006020002-P248	QVARIABLE-QTEST01-002	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-002-P1687-1	QVARIABLE-QTEST01-002	P1687	PVARIABLE-QTEST01-002	symbol	True	0														PVARIABLE-QTEST01-002
+QVARIABLE-QTEST01-002-P2006020004-1	QVARIABLE-QTEST01-002	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-002-P1813	QVARIABLE-QTEST01-002	P1813	un	symbol	True	0														un
+QTEST01-P2006020003-QVARIABLE-QTEST01-002	QTEST01	P2006020003	QVARIABLE-QTEST01-002	symbol	True	0														QVARIABLE-QTEST01-002
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-003-label	QVARIABLE-QTEST01-003	label	"INGO"	string	True	0						"INGO"								
+QVARIABLE-QTEST01-003-P1476	QVARIABLE-QTEST01-003	P1476	"INGO"	string	True	0						"INGO"								
+QVARIABLE-QTEST01-003-description	QVARIABLE-QTEST01-003	description	"INGO in awsd"	string	True	0						"INGO in awsd"								
+QVARIABLE-QTEST01-003-P31-1	QVARIABLE-QTEST01-003	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-003-P2006020002-P585	QVARIABLE-QTEST01-003	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-003-P2006020002-P248	QVARIABLE-QTEST01-003	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-003-P1687-1	QVARIABLE-QTEST01-003	P1687	PVARIABLE-QTEST01-003	symbol	True	0														PVARIABLE-QTEST01-003
+QVARIABLE-QTEST01-003-P2006020004-1	QVARIABLE-QTEST01-003	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-003-P1813	QVARIABLE-QTEST01-003	P1813	ingo	symbol	True	0														ingo
+QTEST01-P2006020003-QVARIABLE-QTEST01-003	QTEST01	P2006020003	QVARIABLE-QTEST01-003	symbol	True	0														QVARIABLE-QTEST01-003
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-004-label	QVARIABLE-QTEST01-004	label	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
+QVARIABLE-QTEST01-004-P1476	QVARIABLE-QTEST01-004	P1476	"LNGO/NRCS"	string	True	0						"LNGO/NRCS"								
+QVARIABLE-QTEST01-004-description	QVARIABLE-QTEST01-004	description	"LNGO/NRCS in awsd"	string	True	0						"LNGO/NRCS in awsd"								
+QVARIABLE-QTEST01-004-P31-1	QVARIABLE-QTEST01-004	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-004-P2006020002-P585	QVARIABLE-QTEST01-004	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-004-P2006020002-P248	QVARIABLE-QTEST01-004	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-004-P1687-1	QVARIABLE-QTEST01-004	P1687	PVARIABLE-QTEST01-004	symbol	True	0														PVARIABLE-QTEST01-004
+QVARIABLE-QTEST01-004-P2006020004-1	QVARIABLE-QTEST01-004	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-004-P1813	QVARIABLE-QTEST01-004	P1813	lngo_nrcs	symbol	True	0														lngo_nrcs
+QTEST01-P2006020003-QVARIABLE-QTEST01-004	QTEST01	P2006020003	QVARIABLE-QTEST01-004	symbol	True	0														QVARIABLE-QTEST01-004
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-005-label	QVARIABLE-QTEST01-005	label	"ICRC"	string	True	0						"ICRC"								
+QVARIABLE-QTEST01-005-P1476	QVARIABLE-QTEST01-005	P1476	"ICRC"	string	True	0						"ICRC"								
+QVARIABLE-QTEST01-005-description	QVARIABLE-QTEST01-005	description	"ICRC in awsd"	string	True	0						"ICRC in awsd"								
+QVARIABLE-QTEST01-005-P31-1	QVARIABLE-QTEST01-005	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-005-P2006020002-P585	QVARIABLE-QTEST01-005	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-005-P2006020002-P248	QVARIABLE-QTEST01-005	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-005-P1687-1	QVARIABLE-QTEST01-005	P1687	PVARIABLE-QTEST01-005	symbol	True	0														PVARIABLE-QTEST01-005
+QVARIABLE-QTEST01-005-P2006020004-1	QVARIABLE-QTEST01-005	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-005-P1813	QVARIABLE-QTEST01-005	P1813	icrc	symbol	True	0														icrc
+QTEST01-P2006020003-QVARIABLE-QTEST01-005	QTEST01	P2006020003	QVARIABLE-QTEST01-005	symbol	True	0														QVARIABLE-QTEST01-005
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-006-label	QVARIABLE-QTEST01-006	label	"IFRC"	string	True	0						"IFRC"								
+QVARIABLE-QTEST01-006-P1476	QVARIABLE-QTEST01-006	P1476	"IFRC"	string	True	0						"IFRC"								
+QVARIABLE-QTEST01-006-description	QVARIABLE-QTEST01-006	description	"IFRC in awsd"	string	True	0						"IFRC in awsd"								
+QVARIABLE-QTEST01-006-P31-1	QVARIABLE-QTEST01-006	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-006-P2006020002-P585	QVARIABLE-QTEST01-006	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-006-P2006020002-P248	QVARIABLE-QTEST01-006	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-006-P1687-1	QVARIABLE-QTEST01-006	P1687	PVARIABLE-QTEST01-006	symbol	True	0														PVARIABLE-QTEST01-006
+QVARIABLE-QTEST01-006-P2006020004-1	QVARIABLE-QTEST01-006	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-006-P1813	QVARIABLE-QTEST01-006	P1813	ifrc	symbol	True	0														ifrc
+QTEST01-P2006020003-QVARIABLE-QTEST01-006	QTEST01	P2006020003	QVARIABLE-QTEST01-006	symbol	True	0														QVARIABLE-QTEST01-006
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-007-label	QVARIABLE-QTEST01-007	label	"Other"	string	True	0						"Other"								
+QVARIABLE-QTEST01-007-P1476	QVARIABLE-QTEST01-007	P1476	"Other"	string	True	0						"Other"								
+QVARIABLE-QTEST01-007-description	QVARIABLE-QTEST01-007	description	"Other in awsd"	string	True	0						"Other in awsd"								
+QVARIABLE-QTEST01-007-P31-1	QVARIABLE-QTEST01-007	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-007-P2006020002-P585	QVARIABLE-QTEST01-007	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-007-P2006020002-P248	QVARIABLE-QTEST01-007	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-007-P1687-1	QVARIABLE-QTEST01-007	P1687	PVARIABLE-QTEST01-007	symbol	True	0														PVARIABLE-QTEST01-007
+QVARIABLE-QTEST01-007-P2006020004-1	QVARIABLE-QTEST01-007	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-007-P1813	QVARIABLE-QTEST01-007	P1813	other	symbol	True	0														other
+QTEST01-P2006020003-QVARIABLE-QTEST01-007	QTEST01	P2006020003	QVARIABLE-QTEST01-007	symbol	True	0														QVARIABLE-QTEST01-007
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-008-label	QVARIABLE-QTEST01-008	label	"Nationals killed"	string	True	0						"Nationals killed"								
+QVARIABLE-QTEST01-008-P1476	QVARIABLE-QTEST01-008	P1476	"Nationals killed"	string	True	0						"Nationals killed"								
+QVARIABLE-QTEST01-008-description	QVARIABLE-QTEST01-008	description	"Nationals killed in awsd"	string	True	0						"Nationals killed in awsd"								
+QVARIABLE-QTEST01-008-P31-1	QVARIABLE-QTEST01-008	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-008-P2006020002-P585	QVARIABLE-QTEST01-008	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-008-P2006020002-P248	QVARIABLE-QTEST01-008	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-008-P1687-1	QVARIABLE-QTEST01-008	P1687	PVARIABLE-QTEST01-008	symbol	True	0														PVARIABLE-QTEST01-008
+QVARIABLE-QTEST01-008-P2006020004-1	QVARIABLE-QTEST01-008	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-008-P1813	QVARIABLE-QTEST01-008	P1813	nationals_killed	symbol	True	0														nationals_killed
+QTEST01-P2006020003-QVARIABLE-QTEST01-008	QTEST01	P2006020003	QVARIABLE-QTEST01-008	symbol	True	0														QVARIABLE-QTEST01-008
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-009-label	QVARIABLE-QTEST01-009	label	"Nationals wounded"	string	True	0						"Nationals wounded"								
+QVARIABLE-QTEST01-009-P1476	QVARIABLE-QTEST01-009	P1476	"Nationals wounded"	string	True	0						"Nationals wounded"								
+QVARIABLE-QTEST01-009-description	QVARIABLE-QTEST01-009	description	"Nationals wounded in awsd"	string	True	0						"Nationals wounded in awsd"								
+QVARIABLE-QTEST01-009-P31-1	QVARIABLE-QTEST01-009	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-009-P2006020002-P585	QVARIABLE-QTEST01-009	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-009-P2006020002-P248	QVARIABLE-QTEST01-009	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-009-P1687-1	QVARIABLE-QTEST01-009	P1687	PVARIABLE-QTEST01-009	symbol	True	0														PVARIABLE-QTEST01-009
+QVARIABLE-QTEST01-009-P2006020004-1	QVARIABLE-QTEST01-009	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-009-P1813	QVARIABLE-QTEST01-009	P1813	nationals_wounded	symbol	True	0														nationals_wounded
+QTEST01-P2006020003-QVARIABLE-QTEST01-009	QTEST01	P2006020003	QVARIABLE-QTEST01-009	symbol	True	0														QVARIABLE-QTEST01-009
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-009-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-009	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-010-label	QVARIABLE-QTEST01-010	label	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
+QVARIABLE-QTEST01-010-P1476	QVARIABLE-QTEST01-010	P1476	"Nationals kidnapped"	string	True	0						"Nationals kidnapped"								
+QVARIABLE-QTEST01-010-description	QVARIABLE-QTEST01-010	description	"Nationals kidnapped in awsd"	string	True	0						"Nationals kidnapped in awsd"								
+QVARIABLE-QTEST01-010-P31-1	QVARIABLE-QTEST01-010	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-010-P2006020002-P585	QVARIABLE-QTEST01-010	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-010-P2006020002-P248	QVARIABLE-QTEST01-010	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-010-P1687-1	QVARIABLE-QTEST01-010	P1687	PVARIABLE-QTEST01-010	symbol	True	0														PVARIABLE-QTEST01-010
+QVARIABLE-QTEST01-010-P2006020004-1	QVARIABLE-QTEST01-010	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-010-P1813	QVARIABLE-QTEST01-010	P1813	nationals_kidnapped	symbol	True	0														nationals_kidnapped
+QTEST01-P2006020003-QVARIABLE-QTEST01-010	QTEST01	P2006020003	QVARIABLE-QTEST01-010	symbol	True	0														QVARIABLE-QTEST01-010
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-010-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-010	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-011-label	QVARIABLE-QTEST01-011	label	"Total nationals"	string	True	0						"Total nationals"								
+QVARIABLE-QTEST01-011-P1476	QVARIABLE-QTEST01-011	P1476	"Total nationals"	string	True	0						"Total nationals"								
+QVARIABLE-QTEST01-011-description	QVARIABLE-QTEST01-011	description	"Total nationals in awsd"	string	True	0						"Total nationals in awsd"								
+QVARIABLE-QTEST01-011-P31-1	QVARIABLE-QTEST01-011	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-011-P2006020002-P585	QVARIABLE-QTEST01-011	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-011-P2006020002-P248	QVARIABLE-QTEST01-011	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-011-P1687-1	QVARIABLE-QTEST01-011	P1687	PVARIABLE-QTEST01-011	symbol	True	0														PVARIABLE-QTEST01-011
+QVARIABLE-QTEST01-011-P2006020004-1	QVARIABLE-QTEST01-011	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-011-P1813	QVARIABLE-QTEST01-011	P1813	total_nationals	symbol	True	0														total_nationals
+QTEST01-P2006020003-QVARIABLE-QTEST01-011	QTEST01	P2006020003	QVARIABLE-QTEST01-011	symbol	True	0														QVARIABLE-QTEST01-011
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-011-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-011	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-012-label	QVARIABLE-QTEST01-012	label	"Internationals killed"	string	True	0						"Internationals killed"								
+QVARIABLE-QTEST01-012-P1476	QVARIABLE-QTEST01-012	P1476	"Internationals killed"	string	True	0						"Internationals killed"								
+QVARIABLE-QTEST01-012-description	QVARIABLE-QTEST01-012	description	"Internationals killed in awsd"	string	True	0						"Internationals killed in awsd"								
+QVARIABLE-QTEST01-012-P31-1	QVARIABLE-QTEST01-012	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-012-P2006020002-P585	QVARIABLE-QTEST01-012	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-012-P2006020002-P248	QVARIABLE-QTEST01-012	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-012-P1687-1	QVARIABLE-QTEST01-012	P1687	PVARIABLE-QTEST01-012	symbol	True	0														PVARIABLE-QTEST01-012
+QVARIABLE-QTEST01-012-P2006020004-1	QVARIABLE-QTEST01-012	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-012-P1813	QVARIABLE-QTEST01-012	P1813	internationals_killed	symbol	True	0														internationals_killed
+QTEST01-P2006020003-QVARIABLE-QTEST01-012	QTEST01	P2006020003	QVARIABLE-QTEST01-012	symbol	True	0														QVARIABLE-QTEST01-012
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-012-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-012	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-013-label	QVARIABLE-QTEST01-013	label	"Internationals wounded"	string	True	0						"Internationals wounded"								
+QVARIABLE-QTEST01-013-P1476	QVARIABLE-QTEST01-013	P1476	"Internationals wounded"	string	True	0						"Internationals wounded"								
+QVARIABLE-QTEST01-013-description	QVARIABLE-QTEST01-013	description	"Internationals wounded in awsd"	string	True	0						"Internationals wounded in awsd"								
+QVARIABLE-QTEST01-013-P31-1	QVARIABLE-QTEST01-013	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-013-P2006020002-P585	QVARIABLE-QTEST01-013	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-013-P2006020002-P248	QVARIABLE-QTEST01-013	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-013-P1687-1	QVARIABLE-QTEST01-013	P1687	PVARIABLE-QTEST01-013	symbol	True	0														PVARIABLE-QTEST01-013
+QVARIABLE-QTEST01-013-P2006020004-1	QVARIABLE-QTEST01-013	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-013-P1813	QVARIABLE-QTEST01-013	P1813	internationals_wounded	symbol	True	0														internationals_wounded
+QTEST01-P2006020003-QVARIABLE-QTEST01-013	QTEST01	P2006020003	QVARIABLE-QTEST01-013	symbol	True	0														QVARIABLE-QTEST01-013
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-013-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-013	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-014-label	QVARIABLE-QTEST01-014	label	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
+QVARIABLE-QTEST01-014-P1476	QVARIABLE-QTEST01-014	P1476	"Internationals kidnapped"	string	True	0						"Internationals kidnapped"								
+QVARIABLE-QTEST01-014-description	QVARIABLE-QTEST01-014	description	"Internationals kidnapped in awsd"	string	True	0						"Internationals kidnapped in awsd"								
+QVARIABLE-QTEST01-014-P31-1	QVARIABLE-QTEST01-014	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-014-P2006020002-P585	QVARIABLE-QTEST01-014	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-014-P2006020002-P248	QVARIABLE-QTEST01-014	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-014-P1687-1	QVARIABLE-QTEST01-014	P1687	PVARIABLE-QTEST01-014	symbol	True	0														PVARIABLE-QTEST01-014
+QVARIABLE-QTEST01-014-P2006020004-1	QVARIABLE-QTEST01-014	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-014-P1813	QVARIABLE-QTEST01-014	P1813	internationals_kidnapped	symbol	True	0														internationals_kidnapped
+QTEST01-P2006020003-QVARIABLE-QTEST01-014	QTEST01	P2006020003	QVARIABLE-QTEST01-014	symbol	True	0														QVARIABLE-QTEST01-014
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-014-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-014	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-015-label	QVARIABLE-QTEST01-015	label	"Total internationals"	string	True	0						"Total internationals"								
+QVARIABLE-QTEST01-015-P1476	QVARIABLE-QTEST01-015	P1476	"Total internationals"	string	True	0						"Total internationals"								
+QVARIABLE-QTEST01-015-description	QVARIABLE-QTEST01-015	description	"Total internationals in awsd"	string	True	0						"Total internationals in awsd"								
+QVARIABLE-QTEST01-015-P31-1	QVARIABLE-QTEST01-015	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-015-P2006020002-P585	QVARIABLE-QTEST01-015	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-015-P2006020002-P248	QVARIABLE-QTEST01-015	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-015-P1687-1	QVARIABLE-QTEST01-015	P1687	PVARIABLE-QTEST01-015	symbol	True	0														PVARIABLE-QTEST01-015
+QVARIABLE-QTEST01-015-P2006020004-1	QVARIABLE-QTEST01-015	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-015-P1813	QVARIABLE-QTEST01-015	P1813	total_internationals	symbol	True	0														total_internationals
+QTEST01-P2006020003-QVARIABLE-QTEST01-015	QTEST01	P2006020003	QVARIABLE-QTEST01-015	symbol	True	0														QVARIABLE-QTEST01-015
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-015-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-015	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-016-label	QVARIABLE-QTEST01-016	label	"Total killed"	string	True	0						"Total killed"								
+QVARIABLE-QTEST01-016-P1476	QVARIABLE-QTEST01-016	P1476	"Total killed"	string	True	0						"Total killed"								
+QVARIABLE-QTEST01-016-description	QVARIABLE-QTEST01-016	description	"Total killed in awsd"	string	True	0						"Total killed in awsd"								
+QVARIABLE-QTEST01-016-P31-1	QVARIABLE-QTEST01-016	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-016-P2006020002-P585	QVARIABLE-QTEST01-016	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-016-P2006020002-P248	QVARIABLE-QTEST01-016	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-016-P1687-1	QVARIABLE-QTEST01-016	P1687	PVARIABLE-QTEST01-016	symbol	True	0														PVARIABLE-QTEST01-016
+QVARIABLE-QTEST01-016-P2006020004-1	QVARIABLE-QTEST01-016	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-016-P1813	QVARIABLE-QTEST01-016	P1813	total_killed	symbol	True	0														total_killed
+QTEST01-P2006020003-QVARIABLE-QTEST01-016	QTEST01	P2006020003	QVARIABLE-QTEST01-016	symbol	True	0														QVARIABLE-QTEST01-016
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-016-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-016	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-017-label	QVARIABLE-QTEST01-017	label	"Total wounded"	string	True	0						"Total wounded"								
+QVARIABLE-QTEST01-017-P1476	QVARIABLE-QTEST01-017	P1476	"Total wounded"	string	True	0						"Total wounded"								
+QVARIABLE-QTEST01-017-description	QVARIABLE-QTEST01-017	description	"Total wounded in awsd"	string	True	0						"Total wounded in awsd"								
+QVARIABLE-QTEST01-017-P31-1	QVARIABLE-QTEST01-017	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-017-P2006020002-P585	QVARIABLE-QTEST01-017	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-017-P2006020002-P248	QVARIABLE-QTEST01-017	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-017-P1687-1	QVARIABLE-QTEST01-017	P1687	PVARIABLE-QTEST01-017	symbol	True	0														PVARIABLE-QTEST01-017
+QVARIABLE-QTEST01-017-P2006020004-1	QVARIABLE-QTEST01-017	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-017-P1813	QVARIABLE-QTEST01-017	P1813	total_wounded	symbol	True	0														total_wounded
+QTEST01-P2006020003-QVARIABLE-QTEST01-017	QTEST01	P2006020003	QVARIABLE-QTEST01-017	symbol	True	0														QVARIABLE-QTEST01-017
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-017-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-017	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-018-label	QVARIABLE-QTEST01-018	label	"Total kidnapped"	string	True	0						"Total kidnapped"								
+QVARIABLE-QTEST01-018-P1476	QVARIABLE-QTEST01-018	P1476	"Total kidnapped"	string	True	0						"Total kidnapped"								
+QVARIABLE-QTEST01-018-description	QVARIABLE-QTEST01-018	description	"Total kidnapped in awsd"	string	True	0						"Total kidnapped in awsd"								
+QVARIABLE-QTEST01-018-P31-1	QVARIABLE-QTEST01-018	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-018-P2006020002-P585	QVARIABLE-QTEST01-018	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-018-P2006020002-P248	QVARIABLE-QTEST01-018	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-018-P1687-1	QVARIABLE-QTEST01-018	P1687	PVARIABLE-QTEST01-018	symbol	True	0														PVARIABLE-QTEST01-018
+QVARIABLE-QTEST01-018-P2006020004-1	QVARIABLE-QTEST01-018	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-018-P1813	QVARIABLE-QTEST01-018	P1813	total_kidnapped	symbol	True	0														total_kidnapped
+QTEST01-P2006020003-QVARIABLE-QTEST01-018	QTEST01	P2006020003	QVARIABLE-QTEST01-018	symbol	True	0														QVARIABLE-QTEST01-018
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-018-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-018	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-019-label	QVARIABLE-QTEST01-019	label	"Total affected"	string	True	0						"Total affected"								
+QVARIABLE-QTEST01-019-P1476	QVARIABLE-QTEST01-019	P1476	"Total affected"	string	True	0						"Total affected"								
+QVARIABLE-QTEST01-019-description	QVARIABLE-QTEST01-019	description	"Total affected in awsd"	string	True	0						"Total affected in awsd"								
+QVARIABLE-QTEST01-019-P31-1	QVARIABLE-QTEST01-019	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-019-P2006020002-P585	QVARIABLE-QTEST01-019	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-019-P2006020002-P248	QVARIABLE-QTEST01-019	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-019-P1687-1	QVARIABLE-QTEST01-019	P1687	PVARIABLE-QTEST01-019	symbol	True	0														PVARIABLE-QTEST01-019
+QVARIABLE-QTEST01-019-P2006020004-1	QVARIABLE-QTEST01-019	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-019-P1813	QVARIABLE-QTEST01-019	P1813	total_affected	symbol	True	0														total_affected
+QTEST01-P2006020003-QVARIABLE-QTEST01-019	QTEST01	P2006020003	QVARIABLE-QTEST01-019	symbol	True	0														QVARIABLE-QTEST01-019
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-019-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-019	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-020-label	QVARIABLE-QTEST01-020	label	"Gender Male"	string	True	0						"Gender Male"								
+QVARIABLE-QTEST01-020-P1476	QVARIABLE-QTEST01-020	P1476	"Gender Male"	string	True	0						"Gender Male"								
+QVARIABLE-QTEST01-020-description	QVARIABLE-QTEST01-020	description	"Gender Male in awsd"	string	True	0						"Gender Male in awsd"								
+QVARIABLE-QTEST01-020-P31-1	QVARIABLE-QTEST01-020	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-020-P2006020002-P585	QVARIABLE-QTEST01-020	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-020-P2006020002-P248	QVARIABLE-QTEST01-020	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-020-P1687-1	QVARIABLE-QTEST01-020	P1687	PVARIABLE-QTEST01-020	symbol	True	0														PVARIABLE-QTEST01-020
+QVARIABLE-QTEST01-020-P2006020004-1	QVARIABLE-QTEST01-020	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-020-P1813	QVARIABLE-QTEST01-020	P1813	gender_male	symbol	True	0														gender_male
+QTEST01-P2006020003-QVARIABLE-QTEST01-020	QTEST01	P2006020003	QVARIABLE-QTEST01-020	symbol	True	0														QVARIABLE-QTEST01-020
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-020-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-020	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-021-label	QVARIABLE-QTEST01-021	label	"Gender Female"	string	True	0						"Gender Female"								
+QVARIABLE-QTEST01-021-P1476	QVARIABLE-QTEST01-021	P1476	"Gender Female"	string	True	0						"Gender Female"								
+QVARIABLE-QTEST01-021-description	QVARIABLE-QTEST01-021	description	"Gender Female in awsd"	string	True	0						"Gender Female in awsd"								
+QVARIABLE-QTEST01-021-P31-1	QVARIABLE-QTEST01-021	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-021-P2006020002-P585	QVARIABLE-QTEST01-021	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-021-P2006020002-P248	QVARIABLE-QTEST01-021	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-021-P1687-1	QVARIABLE-QTEST01-021	P1687	PVARIABLE-QTEST01-021	symbol	True	0														PVARIABLE-QTEST01-021
+QVARIABLE-QTEST01-021-P2006020004-1	QVARIABLE-QTEST01-021	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-021-P1813	QVARIABLE-QTEST01-021	P1813	gender_female	symbol	True	0														gender_female
+QTEST01-P2006020003-QVARIABLE-QTEST01-021	QTEST01	P2006020003	QVARIABLE-QTEST01-021	symbol	True	0														QVARIABLE-QTEST01-021
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-021-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-021	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QVARIABLE-QTEST01-022-label	QVARIABLE-QTEST01-022	label	"Gender Unknown"	string	True	0						"Gender Unknown"								
+QVARIABLE-QTEST01-022-P1476	QVARIABLE-QTEST01-022	P1476	"Gender Unknown"	string	True	0						"Gender Unknown"								
+QVARIABLE-QTEST01-022-description	QVARIABLE-QTEST01-022	description	"Gender Unknown in awsd"	string	True	0						"Gender Unknown in awsd"								
+QVARIABLE-QTEST01-022-P31-1	QVARIABLE-QTEST01-022	P31	Q50701	symbol	True	0														Q50701
+QVARIABLE-QTEST01-022-P2006020002-P585	QVARIABLE-QTEST01-022	P2006020002	P585	symbol	True	0														P585
+QVARIABLE-QTEST01-022-P2006020002-P248	QVARIABLE-QTEST01-022	P2006020002	P248	symbol	True	0														P248
+QVARIABLE-QTEST01-022-P1687-1	QVARIABLE-QTEST01-022	P1687	PVARIABLE-QTEST01-022	symbol	True	0														PVARIABLE-QTEST01-022
+QVARIABLE-QTEST01-022-P2006020004-1	QVARIABLE-QTEST01-022	P2006020004	QTEST01	symbol	True	0														QTEST01
+QVARIABLE-QTEST01-022-P1813	QVARIABLE-QTEST01-022	P1813	gender_unknown	symbol	True	0														gender_unknown
+QTEST01-P2006020003-QVARIABLE-QTEST01-022	QTEST01	P2006020003	QVARIABLE-QTEST01-022	symbol	True	0														QVARIABLE-QTEST01-022
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-023	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-023	symbol	True	0														PQUALIFIER-QTEST01-023
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-024	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-024	symbol	True	0														PQUALIFIER-QTEST01-024
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-025	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-025	symbol	True	0														PQUALIFIER-QTEST01-025
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-026	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-026	symbol	True	0														PQUALIFIER-QTEST01-026
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-027	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-027	symbol	True	0														PQUALIFIER-QTEST01-027
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-028	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-028	symbol	True	0														PQUALIFIER-QTEST01-028
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-029	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-029	symbol	True	0														PQUALIFIER-QTEST01-029
+QVARIABLE-QTEST01-022-P2006020002-PQUALIFIER-QTEST01-030	QVARIABLE-QTEST01-022	P2006020002	PQUALIFIER-QTEST01-030	symbol	True	0														PQUALIFIER-QTEST01-030
+QUNIT-QTEST01-002-label	QUNIT-QTEST01-002	label	"person"	string	True	0						"person"								
+QUNIT-QTEST01-002-P31-1	QUNIT-QTEST01-002	P31	Q47574	symbol	True	0														Q47574
+QQUALIFIER-QTEST01-001-label	QQUALIFIER-QTEST01-001	label	"Means of attack"	string	True	0						"Means of attack"								
+QQUALIFIER-QTEST01-001-P2006020002-PQUALIFIER-QTEST01-002	QQUALIFIER-QTEST01-001	P2006020002	PQUALIFIER-QTEST01-002	symbol	True	0														PQUALIFIER-QTEST01-002
+QQUALIFIER-QTEST01-002-label	QQUALIFIER-QTEST01-002	label	"Attack context"	string	True	0						"Attack context"								
+QQUALIFIER-QTEST01-002-P2006020002-PQUALIFIER-QTEST01-003	QQUALIFIER-QTEST01-002	P2006020002	PQUALIFIER-QTEST01-003	symbol	True	0														PQUALIFIER-QTEST01-003
+QQUALIFIER-QTEST01-003-label	QQUALIFIER-QTEST01-003	label	"Location"	string	True	0						"Location"								
+QQUALIFIER-QTEST01-003-P2006020002-PQUALIFIER-QTEST01-004	QQUALIFIER-QTEST01-003	P2006020002	PQUALIFIER-QTEST01-004	symbol	True	0														PQUALIFIER-QTEST01-004
+QQUALIFIER-QTEST01-004-label	QQUALIFIER-QTEST01-004	label	"Actor type"	string	True	0						"Actor type"								
+QQUALIFIER-QTEST01-004-P2006020002-PQUALIFIER-QTEST01-005	QQUALIFIER-QTEST01-004	P2006020002	PQUALIFIER-QTEST01-005	symbol	True	0														PQUALIFIER-QTEST01-005
+QQUALIFIER-QTEST01-005-label	QQUALIFIER-QTEST01-005	label	"Actor name"	string	True	0						"Actor name"								
+QQUALIFIER-QTEST01-005-P2006020002-PQUALIFIER-QTEST01-006	QQUALIFIER-QTEST01-005	P2006020002	PQUALIFIER-QTEST01-006	symbol	True	0														PQUALIFIER-QTEST01-006
+QQUALIFIER-QTEST01-006-label	QQUALIFIER-QTEST01-006	label	"Details"	string	True	0						"Details"								
+QQUALIFIER-QTEST01-006-P2006020002-PQUALIFIER-QTEST01-007	QQUALIFIER-QTEST01-006	P2006020002	PQUALIFIER-QTEST01-007	symbol	True	0														PQUALIFIER-QTEST01-007
+QQUALIFIER-QTEST01-007-label	QQUALIFIER-QTEST01-007	label	"Verified"	string	True	0						"Verified"								
+QQUALIFIER-QTEST01-007-P2006020002-PQUALIFIER-QTEST01-008	QQUALIFIER-QTEST01-007	P2006020002	PQUALIFIER-QTEST01-008	symbol	True	0														PQUALIFIER-QTEST01-008
+QQUALIFIER-QTEST01-008-label	QQUALIFIER-QTEST01-008	label	"Source"	string	True	0						"Source"								
+QQUALIFIER-QTEST01-008-P2006020002-PQUALIFIER-QTEST01-009	QQUALIFIER-QTEST01-008	P2006020002	PQUALIFIER-QTEST01-009	symbol	True	0														PQUALIFIER-QTEST01-009
+QQTEST01_Incident_ID_22-label	QQTEST01_Incident_ID_22	label	"Incident ID 22"	string	True	0						"Incident ID 22"								
+QQTEST01_Incident_ID_22-description	QQTEST01_Incident_ID_22	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_22-P31	QQTEST01_Incident_ID_22	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_47-label	QQTEST01_Incident_ID_47	label	"Incident ID 47"	string	True	0						"Incident ID 47"								
+QQTEST01_Incident_ID_47-description	QQTEST01_Incident_ID_47	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_47-P31	QQTEST01_Incident_ID_47	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_73-label	QQTEST01_Incident_ID_73	label	"Incident ID 73"	string	True	0						"Incident ID 73"								
+QQTEST01_Incident_ID_73-description	QQTEST01_Incident_ID_73	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_73-P31	QQTEST01_Incident_ID_73	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_103-label	QQTEST01_Incident_ID_103	label	"Incident ID 103"	string	True	0						"Incident ID 103"								
+QQTEST01_Incident_ID_103-description	QQTEST01_Incident_ID_103	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_103-P31	QQTEST01_Incident_ID_103	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_475-label	QQTEST01_Incident_ID_475	label	"Incident ID 475"	string	True	0						"Incident ID 475"								
+QQTEST01_Incident_ID_475-description	QQTEST01_Incident_ID_475	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_475-P31	QQTEST01_Incident_ID_475	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_782-label	QQTEST01_Incident_ID_782	label	"Incident ID 782"	string	True	0						"Incident ID 782"								
+QQTEST01_Incident_ID_782-description	QQTEST01_Incident_ID_782	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_782-P31	QQTEST01_Incident_ID_782	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_793-label	QQTEST01_Incident_ID_793	label	"Incident ID 793"	string	True	0						"Incident ID 793"								
+QQTEST01_Incident_ID_793-description	QQTEST01_Incident_ID_793	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_793-P31	QQTEST01_Incident_ID_793	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_942-label	QQTEST01_Incident_ID_942	label	"Incident ID 942"	string	True	0						"Incident ID 942"								
+QQTEST01_Incident_ID_942-description	QQTEST01_Incident_ID_942	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_942-P31	QQTEST01_Incident_ID_942	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_964-label	QQTEST01_Incident_ID_964	label	"Incident ID 964"	string	True	0						"Incident ID 964"								
+QQTEST01_Incident_ID_964-description	QQTEST01_Incident_ID_964	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_964-P31	QQTEST01_Incident_ID_964	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1069-label	QQTEST01_Incident_ID_1069	label	"Incident ID 1069"	string	True	0						"Incident ID 1069"								
+QQTEST01_Incident_ID_1069-description	QQTEST01_Incident_ID_1069	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1069-P31	QQTEST01_Incident_ID_1069	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1060-label	QQTEST01_Incident_ID_1060	label	"Incident ID 1060"	string	True	0						"Incident ID 1060"								
+QQTEST01_Incident_ID_1060-description	QQTEST01_Incident_ID_1060	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1060-P31	QQTEST01_Incident_ID_1060	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1102-label	QQTEST01_Incident_ID_1102	label	"Incident ID 1102"	string	True	0						"Incident ID 1102"								
+QQTEST01_Incident_ID_1102-description	QQTEST01_Incident_ID_1102	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1102-P31	QQTEST01_Incident_ID_1102	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1281-label	QQTEST01_Incident_ID_1281	label	"Incident ID 1281"	string	True	0						"Incident ID 1281"								
+QQTEST01_Incident_ID_1281-description	QQTEST01_Incident_ID_1281	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1281-P31	QQTEST01_Incident_ID_1281	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1479-label	QQTEST01_Incident_ID_1479	label	"Incident ID 1479"	string	True	0						"Incident ID 1479"								
+QQTEST01_Incident_ID_1479-description	QQTEST01_Incident_ID_1479	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1479-P31	QQTEST01_Incident_ID_1479	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1713-label	QQTEST01_Incident_ID_1713	label	"Incident ID 1713"	string	True	0						"Incident ID 1713"								
+QQTEST01_Incident_ID_1713-description	QQTEST01_Incident_ID_1713	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1713-P31	QQTEST01_Incident_ID_1713	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1689-label	QQTEST01_Incident_ID_1689	label	"Incident ID 1689"	string	True	0						"Incident ID 1689"								
+QQTEST01_Incident_ID_1689-description	QQTEST01_Incident_ID_1689	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1689-P31	QQTEST01_Incident_ID_1689	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1931-label	QQTEST01_Incident_ID_1931	label	"Incident ID 1931"	string	True	0						"Incident ID 1931"								
+QQTEST01_Incident_ID_1931-description	QQTEST01_Incident_ID_1931	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1931-P31	QQTEST01_Incident_ID_1931	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1924-label	QQTEST01_Incident_ID_1924	label	"Incident ID 1924"	string	True	0						"Incident ID 1924"								
+QQTEST01_Incident_ID_1924-description	QQTEST01_Incident_ID_1924	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1924-P31	QQTEST01_Incident_ID_1924	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1923-label	QQTEST01_Incident_ID_1923	label	"Incident ID 1923"	string	True	0						"Incident ID 1923"								
+QQTEST01_Incident_ID_1923-description	QQTEST01_Incident_ID_1923	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1923-P31	QQTEST01_Incident_ID_1923	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_1934-label	QQTEST01_Incident_ID_1934	label	"Incident ID 1934"	string	True	0						"Incident ID 1934"								
+QQTEST01_Incident_ID_1934-description	QQTEST01_Incident_ID_1934	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_1934-P31	QQTEST01_Incident_ID_1934	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2143-label	QQTEST01_Incident_ID_2143	label	"Incident ID 2143"	string	True	0						"Incident ID 2143"								
+QQTEST01_Incident_ID_2143-description	QQTEST01_Incident_ID_2143	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2143-P31	QQTEST01_Incident_ID_2143	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2135-label	QQTEST01_Incident_ID_2135	label	"Incident ID 2135"	string	True	0						"Incident ID 2135"								
+QQTEST01_Incident_ID_2135-description	QQTEST01_Incident_ID_2135	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2135-P31	QQTEST01_Incident_ID_2135	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2692-label	QQTEST01_Incident_ID_2692	label	"Incident ID 2692"	string	True	0						"Incident ID 2692"								
+QQTEST01_Incident_ID_2692-description	QQTEST01_Incident_ID_2692	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2692-P31	QQTEST01_Incident_ID_2692	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2623-label	QQTEST01_Incident_ID_2623	label	"Incident ID 2623"	string	True	0						"Incident ID 2623"								
+QQTEST01_Incident_ID_2623-description	QQTEST01_Incident_ID_2623	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2623-P31	QQTEST01_Incident_ID_2623	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2641-label	QQTEST01_Incident_ID_2641	label	"Incident ID 2641"	string	True	0						"Incident ID 2641"								
+QQTEST01_Incident_ID_2641-description	QQTEST01_Incident_ID_2641	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2641-P31	QQTEST01_Incident_ID_2641	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2952-label	QQTEST01_Incident_ID_2952	label	"Incident ID 2952"	string	True	0						"Incident ID 2952"								
+QQTEST01_Incident_ID_2952-description	QQTEST01_Incident_ID_2952	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2952-P31	QQTEST01_Incident_ID_2952	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2916-label	QQTEST01_Incident_ID_2916	label	"Incident ID 2916"	string	True	0						"Incident ID 2916"								
+QQTEST01_Incident_ID_2916-description	QQTEST01_Incident_ID_2916	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2916-P31	QQTEST01_Incident_ID_2916	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_3006-label	QQTEST01_Incident_ID_3006	label	"Incident ID 3006"	string	True	0						"Incident ID 3006"								
+QQTEST01_Incident_ID_3006-description	QQTEST01_Incident_ID_3006	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_3006-P31	QQTEST01_Incident_ID_3006	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2895-label	QQTEST01_Incident_ID_2895	label	"Incident ID 2895"	string	True	0						"Incident ID 2895"								
+QQTEST01_Incident_ID_2895-description	QQTEST01_Incident_ID_2895	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2895-P31	QQTEST01_Incident_ID_2895	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2896-label	QQTEST01_Incident_ID_2896	label	"Incident ID 2896"	string	True	0						"Incident ID 2896"								
+QQTEST01_Incident_ID_2896-description	QQTEST01_Incident_ID_2896	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2896-P31	QQTEST01_Incident_ID_2896	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2768-label	QQTEST01_Incident_ID_2768	label	"Incident ID 2768"	string	True	0						"Incident ID 2768"								
+QQTEST01_Incident_ID_2768-description	QQTEST01_Incident_ID_2768	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2768-P31	QQTEST01_Incident_ID_2768	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2897-label	QQTEST01_Incident_ID_2897	label	"Incident ID 2897"	string	True	0						"Incident ID 2897"								
+QQTEST01_Incident_ID_2897-description	QQTEST01_Incident_ID_2897	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2897-P31	QQTEST01_Incident_ID_2897	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2911-label	QQTEST01_Incident_ID_2911	label	"Incident ID 2911"	string	True	0						"Incident ID 2911"								
+QQTEST01_Incident_ID_2911-description	QQTEST01_Incident_ID_2911	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2911-P31	QQTEST01_Incident_ID_2911	P31	Q35120	symbol	True	0														Q35120
+QQTEST01_Incident_ID_2997-label	QQTEST01_Incident_ID_2997	label	"Incident ID 2997"	string	True	0						"Incident ID 2997"								
+QQTEST01_Incident_ID_2997-description	QQTEST01_Incident_ID_2997	description	"incident related to aid worker security"	string	True	0						"incident related to aid worker security"								
+QQTEST01_Incident_ID_2997-P31	QQTEST01_Incident_ID_2997	P31	Q35120	symbol	True	0														Q35120

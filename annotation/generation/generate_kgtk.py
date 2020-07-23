@@ -51,7 +51,9 @@ class GenerateKgtk:
         # generate template output files
         self.output_df_dict = generate(template_df_dict, to_disk=False,
                                        datamart_properties_file=property_file,
-                                       dataset_qnode=dataset_qnode)
+                                       dataset_qnode=dataset_qnode,
+                                       dataset_id=self.project_name,
+                                       )
 
         # update 2020.7.22: not add dataset edges
         _ = self.output_df_dict.pop("dataset.tsv")
