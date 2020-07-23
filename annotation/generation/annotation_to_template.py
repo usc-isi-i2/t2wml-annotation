@@ -32,13 +32,12 @@ def generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
     return dataset_df
 
 
-def generate_template_from_df(input_df: pd.DataFrame) -> dict:
+def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) -> dict:
     """
     function used for datamart annotation batch mode, return a dict of dataFrame instead of output a xlsx file
-    :param input_df: input annotation DataFrame
-    :return:
     """
-    dataset_id = input_df.iloc[0, 0]
+    if dataset_id is None:
+        dataset_id = input_df.iloc[0, 0]
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
     if "header" in input_df.index:
         header_row = input_df.index.tolist().index("header")
@@ -203,7 +202,8 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
                     node2s = ["{} {}".format(main_subject_annotation["header"], label),
                               main_subject_annotation["description"], "Q35120"]
                     for each_label, each_node2 in zip(labels, node2s):
-                        extra_df_list.append({"id": "", "node1": node, "label": each_label, "node2": each_node2})
+                        id_ = "{}-{}".format(node, each_label)
+                        extra_df_list.append({"id": id_, "node1": node, "label": each_label, "node2": each_node2})
 
             elif type_ not in allowed_types:
                 raise ValueError("{} is not a legal type among {{{}}}!".format(type_, allowed_types))

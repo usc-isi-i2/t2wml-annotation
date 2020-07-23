@@ -75,16 +75,11 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
 
 
 def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True,
-             datamart_properties_file: str = None) -> typing.Optional[dict]:
+             datamart_properties_file: str = None, dataset_qnode: str = None,
+             ) -> typing.Optional[dict]:
     """
     The main entry function for generating datamart files from template input,
     base on input parameter `to_disk`, the output can be None or dict of dataframe
-    :param loaded_file:
-    :param output_path:
-    :param column_name_config:
-    :param to_disk:
-    :param datamart_properties_file
-    :return:
     """
     if not os.path.exists(output_path):
         os.mkdir(output_path)
@@ -108,7 +103,12 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     else:
         extra_wikifier_dict = {}
 
-    dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
+    # update 2020.7.22: accept user specified dataset id if given
+    if dataset_qnode is None:
+        dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
+    else:
+        dataset_id = dataset_qnode
+
     # generate files
     memo = defaultdict(dict)
     kgtk_properties_df = generate_KGTK_properties_file(loaded_file["attributes_file"], loaded_file["qualifiers"],
@@ -131,16 +131,9 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     dataset_df = generate_and_save_dataset_file(loaded_file["dataset_file"])
     extra_edges_df = generate_extra_edges_file(loaded_file["extra_edges"], memo)
 
-    # combine datamart-schema part's property files
-    if datamart_properties_file is None:
-        datamart_properties_file = __file__[:__file__.rfind("/")] + "/datamart_schema_properties.tsv"
-
-    if not os.path.exists(datamart_properties_file):
-        raise ValueError("Datamart schema properties tsv file not exist at {}!".format(datamart_properties_file))
-    kgtk_properties_df = pd.concat([pd.read_csv(datamart_properties_file, sep='\t'), kgtk_properties_df])
-
     output_files = [kgtk_properties_df, kgtk_variables_df, kgtk_units_df, wikifier_df, extra_edges_df, dataset_df]
-    output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv", "extra_edges.tsv", "dataset.tsv"]
+    output_file_names = ["kgtk_properties.tsv", "kgtk_variables.tsv", "kgtk_units.tsv", "wikifier.csv",
+                         "extra_edges.tsv", "dataset.tsv"]
     if not to_disk:
         result_dict = {}
         for each_file, each_file_name in zip(output_files, output_file_names):
@@ -273,21 +266,30 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
                 else:
                     for each_relation in relations.slipt("|"):
                         if each_relation not in memo["property_name_to_id"]:
-                            raise ValueError("Annotation specify variable {} not exist in input data.".format(each_relation))
+                            raise ValueError(
+                                "Annotation specify variable {} not exist in input data.".format(each_relation))
                         target_properties.append(memo["property_name_to_id"][each_relation])
+
+        if has_relationship:
+            role = each_row["Role"].upper()
+        else:
+            role = ""
 
         node_number += 1
         if each_row[node_column_name] == "":
             p_node_id = "P{}-{:03}".format(dataset_id, node_number)
         else:
             p_node_id = each_row[node_column_name]
-        q_node_id = "Q{}-{:03}".format(dataset_id, node_number)
+
+        # update 2020.7.22: change to add role in Q node id
+        q_node_id = "Q{}-{}-{:03}".format(role, dataset_id, node_number)
         memo["variable"][q_node_id] = each_row[node_label_column_name]
 
-        labels = ["label", "P1476", "description",
-                  "P31", "P1687",
-                  "P2006020002", "P2006020004", "P1813",
-                  "P2006020003"] + len(target_properties) * ["P2006020002"]
+        fixed_labels = ["label", "P1476", "description",
+                        "P31", "P1687",
+                        "P2006020002", "P2006020004", "P1813",
+                        "P2006020003"]
+        labels = fixed_labels + len(target_properties) * ["P2006020002"]
         node2s = [to_kgtk_format_string(each_row[node_label_column_name]),  # 1
                   to_kgtk_format_string(each_row[node_label_column_name]),  # 2
                   to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
@@ -297,13 +299,13 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_id: str, memo: 
                   get_short_name(short_name_memo, each_row[node_label_column_name]),  # 8
                   q_node_id  # 9
                   ] + target_properties
-        node1s = [q_node_id] * 9 + ["Q" + dataset_id] + [q_node_id] * len(target_properties)
+        node1s = [q_node_id] * (len(fixed_labels) - 1) + ["Q" + dataset_id] + [q_node_id] * len(target_properties)
 
         # add those nodes
         for i, each_label in enumerate(labels):
             if each_label in {"P31", "P1687", "P2006020004"}:
                 id_ = "{}-{}-1".format(node1s[i], labels[i])
-            elif each_label in {"label", "P1476", "description",  "P1813"}:
+            elif each_label in {"label", "P1476", "description", "P1813"}:
                 id_ = "{}-{}".format(node1s[i], labels[i])
             else:
                 id_ = "{}-{}-{}".format(node1s[i], labels[i], node2s[i])
@@ -322,8 +324,8 @@ def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict
     """
         sample format for each unit (totally 2 rows)
         id	                        node1	            label	node2
-    0   Qaid-security-U002-label	Qaid-security-U002	label	person
-    1   Qaid-security-U002-P31	    Qaid-security-U002	P31	    Q47574
+    0   QUNIT-aid-security-U002-label	Qaid-security-U002	label	person
+    1   QUNIT-aid-security-U002-P31	    Qaid-security-U002	P31	    Q47574
 
     :return:
     """
@@ -331,10 +333,12 @@ def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_id: str, memo: dict
     count = 0
     output_df_dict = {}
     input_df = input_df.fillna("")
+
     for _, each_row in input_df.iterrows():
         node_number += 1
         if each_row[node_column_name] == "":
-            node_id = "Q{}-U{:03}".format(dataset_id, node_number)
+            # update 2020.7.22: change to use QUNIT* instead of Q*
+            node_id = "QUNIT-{}-U{:03}".format(dataset_id, node_number)
             labels = ["label", "P31"]
             node2s = [to_kgtk_format_string(each_row[node_label_column_name]), "Q47574"]
             memo["unit"][node_id] = each_row[node_label_column_name]

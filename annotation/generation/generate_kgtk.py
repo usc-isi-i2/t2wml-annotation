@@ -16,8 +16,8 @@ from annotation.generation.generate_t2wml_files import execute_shell_code
 
 
 class GenerateKgtk:
-    def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict,
-                 wikifier_file: str = None, property_file: str = None):
+    def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict, dataset_qnode: str = None,
+                 wikifier_file: str = None, property_file: str = None, add_datamart_constant_properties: bool = False):
         """
         Parameters
         ----------
@@ -46,10 +46,12 @@ class GenerateKgtk:
         self.project_name = self.annotated_spreadsheet.iloc[0, 0]
 
         # generate the template files
-        template_df_dict = generate_template_from_df(annotated_spreadsheet)
+        template_df_dict = generate_template_from_df(annotated_spreadsheet, dataset_qnode)
 
         # generate template output files
-        self.output_df_dict = generate(template_df_dict, to_disk=False, datamart_properties_file=property_file)
+        self.output_df_dict = generate(template_df_dict, to_disk=False,
+                                       datamart_properties_file=property_file,
+                                       dataset_qnode=dataset_qnode)
 
         # update 2020.7.22: not add dataset edges
         _ = self.output_df_dict.pop("dataset.tsv")
@@ -57,6 +59,19 @@ class GenerateKgtk:
         # memory all nodes2 from P1813 of variables
         variables_df = self.output_df_dict['kgtk_variables.tsv']
         self.variables_ids = variables_df[variables_df["label"] == "P1813"]["node2"].tolist()
+
+        # combine datamart-schema part's property files, we always need this for t2wml
+        if property_file is None:
+            property_file = __file__[:__file__.rfind("/")] + "/datamart_schema_properties.tsv"
+
+        if not os.path.exists(property_file):
+            raise ValueError("Datamart schema properties tsv file not exist at {}!".format(property_file))
+        self.kgtk_properties_df = pd.concat([pd.read_csv(property_file, sep='\t'),
+                                             self.output_df_dict["kgtk_properties.tsv"]])
+
+        # update 2020.7.22: only combine datamart scheme constant properties when required
+        if add_datamart_constant_properties:
+            self.output_df_dict["kgtk_properties.tsv"] = self.kgtk_properties_df
 
     def get_variable_ids(self) -> typing.List[str]:
         return self.variables_ids
@@ -129,7 +144,7 @@ class GenerateKgtk:
         _ = temp_wikifier_file.seek(0)
 
         # use t2wml api to add properties file to t2wml database
-        all_properties_df = self.output_df_dict["kgtk_properties.tsv"]
+        all_properties_df = self.kgtk_properties_df
         all_properties_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         all_properties_df.to_csv(all_properties_file.name, sep="\t", index=False)
         _ = all_properties_file.seek(0)
