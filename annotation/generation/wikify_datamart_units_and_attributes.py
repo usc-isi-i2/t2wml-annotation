@@ -147,7 +147,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
         return output_files
 
     else:
-        os.mkdirs(output_path, exist_ok=True)
+        os.makedirs(output_path, exist_ok=True)
         for each_file_name, each_file in output_files.items():
             output_file_path = os.path.join(output_path, each_file_name)
             if each_file_name.endswith(".csv"):
