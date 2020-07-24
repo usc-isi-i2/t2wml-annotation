@@ -34,11 +34,72 @@ class VaidateAnnotation(object):
 
         valid_column_one = self.validate_annotation_column_one(df, dataset_id)
 
+        valid_roles = self.validate_roles(df)
+
         valid_role_and_type = self.validate_roles_types(df)
 
-        if not valid_role_and_type or not valid_column_one:
+        if not valid_role_and_type or not valid_column_one or not valid_roles:
             return json.dumps(self.error_report), False
         return "", True
+
+    def validate_roles(self, df):
+        # TODO validate the following
+        # 1. at max one main subject
+        # 2. at least one time
+        # 3. location annotation is optional, but if it not present, `main subject` is required.
+        # 4. at least one variable annotation must be present
+        roles = list(df.iloc[1])
+        valid_roles = True
+        main_subject_cols = []
+        variable_cols = []
+        time_cols = []
+        location_cols = []
+        for i, x in enumerate(roles):
+            if x == 'main subject':
+                main_subject_cols.append(utility.xl_col_to_name(i))
+            if x == 'variable':
+                variable_cols.append(utility.xl_col_to_name(i))
+            if x == 'time':
+                time_cols.append(utility.xl_col_to_name(i))
+            if x == 'location':
+                location_cols.append(utility.xl_col_to_name(i))
+
+        if len(variable_cols) == 0:
+            valid_roles = False
+            self.error_report.append(
+                self.error_row('Annotation missing: variable',
+                               ROLE_ROW,
+                               -1,
+                               'Annotation spreadsheet should have at least one column annotated as "variable"'))
+
+        if len(time_cols) == 0:
+            valid_roles = False
+            self.error_report.append(
+                self.error_row('Annotation missing: time',
+                               ROLE_ROW,
+                               -1,
+                               'Annotation spreadsheet should have at least one column annotated as "time"'))
+
+        if len(main_subject_cols) > 1:
+            valid_roles = False
+            self.error_report.append(
+                self.error_row('Annotation invalid: main subject',
+                               ROLE_ROW,
+                               ','.join(main_subject_cols),
+                               'Annotation spreadsheet can have at maximum one column annotated as "main subject". '
+                               'The following columns are annotated as main subject: {}'.format(
+                                   ','.join(main_subject_cols))))
+
+        if len(location_cols) == 0 and len(main_subject_cols) == 0:
+            valid_roles = False
+            self.error_report.append(
+                self.error_row('Annotation invalid',
+                               ROLE_ROW,
+                               -1,
+                               'Either "location" or "main subject" should be present as annotation for a column. '
+                               'None of the columns are annotated as "location" or "variable"'))
+
+        return valid_roles
 
     def validate_roles_types(self, df):
         roles = list(df.iloc[1])
