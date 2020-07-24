@@ -114,6 +114,7 @@ class ToT2WML:
         self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)
         self.role_index = get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
         self.type_index = get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
+        self.unit_index = get_index(self.sheet.iloc[:, 0], Category.UNIT.value)
         self.header_index = get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
         self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
 
@@ -308,6 +309,7 @@ class ToT2WML:
         template['item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]'
         template['property'] = f'=item[$col, {self.header_index+1}, "property"]'
         template['value'] = '=value[$col, $row]'
+        template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'   #
 
         qualifier = []
         qualifier.append(self._get_time())
