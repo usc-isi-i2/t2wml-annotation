@@ -6,7 +6,6 @@ import os
 import typing
 import traceback
 
-from pathlib import Path
 from t2wml.api import add_properties_from_file, KnowledgeGraph
 from annotation.generation.annotation_to_template import generate_template_from_df
 from annotation.generation.wikify_datamart_units_and_attributes import generate
@@ -232,17 +231,4 @@ class GenerateKgtk:
 
         return exploded_file, metadata_file
 
-    @staticmethod
-    def get_sheet_names(file_path):
-        """
-        This function returns the first sheet name of the excel file
-        :param file_path:
-        :return:
-        """
-        file_extension = Path(file_path).suffix
-        is_csv = True if file_extension.lower() == ".csv" else False
-        if is_csv:
-            return [Path(file_path).name]
-        xl = pd.ExcelFile(file_path)
-        return xl.sheet_names
 

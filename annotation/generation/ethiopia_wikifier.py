@@ -172,7 +172,7 @@ class EthiopiaWikifier:
         :return:
         """
         shell_code = """tl --url {} --index {} \
-        canonicalize {} --csv -c {} --add-other-information \
+        canonicalize {} --csv -c "{}" --add-other-information \
         / clean -c label \
         / get-exact-matches -i -c label_clean \
         / get-phrase-matches -c label_clean -n 5 \
