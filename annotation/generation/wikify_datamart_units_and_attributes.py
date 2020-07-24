@@ -121,9 +121,9 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                                                      column_name_config["attributes_file_node_column_name"],
                                                      column_name_config["attributes_file_node_label_column_name"])
 
-    kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
-                                                       column_name_config["attributes_file_node_column_name"],
-                                                       column_name_config["attributes_file_node_label_column_name"])
+    # kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
+    #                                                    column_name_config["attributes_file_node_column_name"],
+    #                                                    column_name_config["attributes_file_node_label_column_name"])
 
     kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_qnode, memo,
                                              column_name_config["unit_file_node_column_name"],
@@ -139,7 +139,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     output_files = {"kgtk_properties.tsv": kgtk_properties_df,
                     "kgtk_variables.tsv": kgtk_variables_df,
                     "kgtk_units.tsv": kgtk_units_df,
-                    "kgtk_qualifiers.tsv": kgtk_qualifiers_df,
+                    # "kgtk_qualifiers.tsv": kgtk_qualifiers_df,
                     "wikifier.csv": wikifier_df,
                     "extra_edges.tsv": extra_edges_df,
                     "dataset.tsv": dataset_df}
@@ -227,6 +227,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
                 memo["qualifier_name_to_id"][each_row[qualifier_column_name]] = each_row[node_column_name]
                 memo["qualifier_target_nodes"][each_row[qualifier_column_name]] = memo["property_name_to_id"][
                     each_row[node_label_column_name]]
+
     # get output
     output_df = pd.DataFrame(output_df_list)
     # in case of empty df
@@ -331,58 +332,53 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, da
     return output_df
 
 
-def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str,
-                                  memo: dict, node_column_name="Property",
-                                  node_label_column_name="Attribute"):
-    """
-    sample format for each qualifier (totally 9 rows)
-        "id"             "node1"                "label"          "node2"
-                        QQUALIFIER-QOECD-22	    label	        "some qualifier for QOECD"
-        	            QQUALIFIER-OECD-34	    P2006020002	    PQUALIFIER-QOECD-22
-
-    following part length will change depending on the properties amount
-    """
-    node_number = 1
-    output_df_list = []
-    input_df = input_df.fillna("")
-
-    has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
-
-    if has_relationship:
-        for _, each_row in input_df.iterrows():
-            role = each_row["Role"].upper()
-
-            # only do for qualifier role
-            if role == "QUALIFIER":
-                # update 2020.7.22: change to add role in Q node id
-                q_node_id = _generate_q_nodes(role, dataset_q_node, node_number)
-                memo["variable"][q_node_id] = each_row[node_label_column_name]
-                node_number += 1
-                if each_row[node_column_name] == "":
-                    # update 2020.7.23, also add role for P nodes
-                    p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
-                    labels = ["label", "P2006020002"]
-                    node2s = [to_kgtk_format_string(each_row[node_label_column_name]),
-                              p_node_id]
-                else:
-                    # update 2020.7.23, if this qualifier is a given node already, not add label
-                    p_node_id = each_row[node_column_name]
-                    labels = ["P2006020002"]
-                    node2s = [p_node_id]
-
-                node1s = [q_node_id] * (len(labels))
-
-                # add those nodes
-                for i, each_label in enumerate(labels):
-                    id_ = _generate_edge_id(node1s[i], labels[i], node2s[i])
-                    output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
-
-    # get output
-    output_df = pd.DataFrame(output_df_list)
-    # in case of empty df
-    if output_df.shape == (0, 0):
-        output_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
-    return output_df
+# def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str,
+#                                   memo: dict, node_column_name="Property",
+#                                   node_label_column_name="Attribute"):
+#     """
+#     sample format for each qualifier (totally 9 rows)
+#         "id"             "node1"                "label"          "node2"
+#                         QQUALIFIER-QOECD-22	    label	        "some qualifier for QOECD"
+#
+#     following part length will change depending on the properties amount
+#     """
+#     node_number = 1
+#     output_df_list = []
+#     input_df = input_df.fillna("")
+#
+#     has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
+#
+#     if has_relationship:
+#         for _, each_row in input_df.iterrows():
+#             role = each_row["Role"].upper()
+#
+#             # only do for qualifier role
+#             if role == "QUALIFIER":
+#
+#                 node_number += 1
+#                 # update 2020.7.22: change to add role in Q node id
+#                 q_node_id = _generate_q_nodes(role, dataset_q_node, node_number)
+#                 memo["variable"][q_node_id] = each_row[node_label_column_name]
+#
+#                 if each_row[node_column_name] == "":
+#                     # update 2020.7.23, also add role for P nodes
+#                     p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
+#                     labels = ["label"]
+#                     node2s = [to_kgtk_format_string(each_row[node_label_column_name]),
+#                               p_node_id]
+#                     node1s = [q_node_id] * (len(labels))
+#
+#                     # add those nodes
+#                     for i, each_label in enumerate(labels):
+#                         id_ = _generate_edge_id(node1s[i], labels[i], node2s[i])
+#                         output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
+#
+#     # get output
+#     output_df = pd.DataFrame(output_df_list)
+#     # in case of empty df
+#     if output_df.shape == (0, 0):
+#         output_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
+#     return output_df
 
 
 def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_q_node: str, memo: dict, node_column_name="Q-Node",
