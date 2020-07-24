@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import logging
+from collections import defaultdict
 
 _logger = logging.getLogger(__name__)
 type_mapper_dict = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
@@ -46,6 +47,9 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
         content_rows.remove(header_row)
     # when not present, row 7 is assumed to contain the headers
     else:
+        _index = input_df.index.tolist()
+        _index[6] = 'header'
+        input_df.index = _index
         annotation_rows = list(range(1, 7))
         content_rows = list(range(7, len(input_df)))
 
@@ -117,6 +121,9 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
                 relationship = ""
             attribute = each_col_info["header"]
             role_type = each_col_info["type"].lower()
+            if role_type == "":
+                continue
+
             if role_type not in type_mapper_dict:
                 raise ValueError("Column type {} for column {} is not valid!".format(role_type, i))
             data_type = type_mapper_dict[each_col_info["type"]]
@@ -148,21 +155,30 @@ def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_pa
         person	    ""
     """
     unit_df_list = []
-    unit_cols = []
+    unit_cols = defaultdict(list)
     units_set = set()
 
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
+
         role = each_col_info["role"].lower()
         # if role is unit, record them
-        if role == "unit":
-            unit_cols.append(i)
+        if len(role) > 4 and role[:4] == "unit":
+            if role == "unit":
+                unit_cols[""].append(i)
+            # update 2020.7.24, now allow unit only corresponding to specific variables
+            else:
+                target_variables = role[role.rfind(";")+1:]
+                for each_variable in target_variables.split("|"):
+                    unit_cols[each_variable].append(i)
+
         # add units defined in unit
         if each_col_info['unit'] != "":
             units_set.add(each_col_info['unit'].lower())
 
     if len(unit_cols) > 0:
-        units_set.update(content_part.iloc[:, unit_cols].agg(", ".join, axis=1).unique())
+        for each_variable_units in unit_cols.values():
+            units_set.update(content_part.iloc[:, each_variable_units].agg(", ".join, axis=1).unique())
 
     # sort for better index for human vision
     for each_unit in sorted(list(units_set)):
@@ -181,6 +197,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
     col_offset = 1
     wikifier_df_list = []
     extra_df_list = []
+    created_node_ids = set()
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
         role = each_col_info["role"].lower()
@@ -194,10 +211,16 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
             if type_ == "string":
                 for row, each in enumerate(content_part.iloc[:, i]):
                     label = str(each).strip()
-                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label).replace(" ", "_").replace("-", "_")
+                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label)\
+                        .replace(" ", "_").replace("-", "_")
+                    # update 2020.7.24, not create again if exist
+                    if node in created_node_ids:
+                        continue
+                    created_node_ids.add(node)
+
                     wikifier_df_list.append(
-                        {"column": i + col_offset, "row": row + row_offset, "value": label, "context": "main subject",
-                         "item": node})
+                        {"column": i + col_offset, "row": row + row_offset, "value": label,
+                         "context": "main subject", "item": node})
                     labels = ["label", "description", "P31"]
                     node2s = ["{} {}".format(main_subject_annotation["header"], label),
                               main_subject_annotation["description"], "Q35120"]
@@ -235,38 +258,60 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
         if each_col_info["role"] == "location":
             if each_col_info["type"] == "country":
                 # use country wikifier
-                from annotation.generation.country_wikifier import DatamartCountryWikifier
-                wikified_result = DatamartCountryWikifier().wikify(content_part.iloc[:, i].dropna().unique().tolist())
-                for label, node in wikified_result.items():
-                    wikifier_df_list.append(
-                        {"column": "", "row": "", "value": label, "context": "", "item": node})
+                wikifier_df_list.extend(run_wikifier(input_df=content_part, target_col=i,
+                                                return_type="list", wikifier_type="country"))
+
                 if "ethiopia" in [each.lower() for each in content_part.iloc[:, i].dropna().unique()]:
                     run_ethiopia_wikifier = True
             if each_col_info["type"] in {"admin1", "admin2", "admin3"}:
                 target_cols.append(i)
 
     if run_ethiopia_wikifier:
-        from annotation.generation.ethiopia_wikifier import EthiopiaWikifier
-        wikifier = EthiopiaWikifier()
         # get target columns to run with wikifier
         target_df = content_part.iloc[:, target_cols].reset_index().drop(columns=[0])
         # run wikifier on each column
         for i in range(len(target_cols)):
             # for each part, run wikifier and add it the wikifier file
-            input_col_name = target_df.columns[i]
-            output_col_name = "{}_wikifier".format(input_col_name)
-            wikifier_res = wikifier.produce(input_df=target_df, target_column=input_col_name).fillna("")
-            for row_number, each_row in wikifier_res.iterrows():
-                label = each_row[input_col_name]
-                node = each_row[output_col_name]
-                if node != "" and label != "":
-                    # to prevent duplicate names with different nodes, we need to create column and row number here
-                    wikifier_df_list.append(
-                        {"column": target_cols[i] + col_offset, "row": row_number + row_offset, "value": label,
-                         "context": "", "item": node})
+            wikifier_df_list.extend(run_wikifier(input_df=target_df, target_col=i, wikifier_type="ethiopia",
+                                                 col_offset=col_offset + target_cols[i] - i, row_offset=row_offset))
+
     if len(wikifier_df_list) == 0:
         wikifier_df = pd.DataFrame(columns=['column', 'row', 'value', 'context', "item"])
     else:
         wikifier_df = pd.DataFrame(wikifier_df_list)
     return wikifier_df
 
+
+def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, return_type: str = "list",
+                 col_offset=0, row_offset=0):
+    wikifier_df_list = []
+
+    if wikifier_type == "country":
+        from annotation.generation.country_wikifier import DatamartCountryWikifier
+        wikified_result = DatamartCountryWikifier().wikify(input_df.iloc[:, target_col].dropna().unique().tolist())
+        for label, node in wikified_result.items():
+            if node and label:
+                wikifier_df_list.append(
+                    {"column": "", "row": "", "value": label, "context": "", "item": node})
+
+    elif wikifier_type == "ethiopia":
+        from annotation.generation.ethiopia_wikifier import EthiopiaWikifier
+        wikifier = EthiopiaWikifier()
+        input_col_name = input_df.columns[target_col]
+        output_col_name = "{}_wikifier".format(input_col_name)
+        wikifier_res = wikifier.produce(input_df=input_df, target_column=input_col_name).fillna("")
+        for row_number, each_row in wikifier_res.iterrows():
+            label = each_row[input_col_name]
+            node = each_row[output_col_name]
+            if node != "" and label != "":
+                # to prevent duplicate names with different nodes, we need to create column and row number here
+                wikifier_df_list.append(
+                    {"column": col_offset + target_col, "row": row_number + row_offset, "value": label,
+                     "context": "", "item": node})
+    else:
+        raise ValueError("Unsupport wikifier type!")
+
+    if return_type == "list":
+        return wikifier_df_list
+    else:
+        return pd.DataFrame(wikifier_df_list)

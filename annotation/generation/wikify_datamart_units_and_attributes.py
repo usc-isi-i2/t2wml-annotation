@@ -4,7 +4,10 @@ import string
 import csv
 import copy
 import typing
+import yaml
 
+from annotation.generation.annotation_to_template import run_wikifier as get_wikifier_result
+from pathlib import Path
 from collections import defaultdict
 
 """
@@ -49,6 +52,7 @@ def load_csvs(dataset_file: str, attributes_file: str, units_file: str):
 
 def load_xlsx(input_file: str, sheet_name_config: dict = None):
     loaded_file = {}
+    sheet_names = pd.ExcelFile(input_file).sheet_names
     if not sheet_name_config:
         sheet_name_config = {"dataset_file": "Dataset",
                              "attributes_file": "Attributes",
@@ -56,21 +60,23 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
                              "extra_edges": "Extra Edges"
                              }
     for k, v in sheet_name_config.items():
+        if v not in sheet_names:
+            raise ValueError("Sheet name {} used for {} does not found!".format(v, k))
         loaded_file[k] = pd.read_excel(input_file, v)
-    try:
-        loaded_file["wikifier"] = pd.read_excel(input_file, "Wikifier")
-    except:
-        loaded_file["wikifier"] = None
-    # added 2020.6.30, for Qualifier
-    try:
-        loaded_file["qualifiers"] = pd.read_excel(input_file, "Qualifiers")
-    except:
-        loaded_file["qualifiers"] = None
-    # added 2020.7.13, for t2wml format wikifier input
-    try:
-        loaded_file["Wikifier_t2wml"] = pd.read_excel(input_file, "Wikifier_t2wml")
-    except:
-        loaded_file["Wikifier_t2wml"] = None
+
+    optional_sheet_name_config = {
+        "wikifier": "Wikifier",
+        "qualifiers": "Qualifiers",
+        "Wikifier_t2wml": "Wikifier_t2wml",
+        "Wikifier Columns": "Wikifier Columns"
+    }
+    for k, v in optional_sheet_name_config.items():
+        if v not in sheet_names:
+            loaded_sheet = None
+        else:
+            loaded_sheet = pd.read_excel(input_file, v)
+        loaded_file[k] = loaded_sheet
+
     return loaded_file
 
 
@@ -485,6 +491,57 @@ def generate_extra_edges_file(input_df: pd.DataFrame, memo: dict):
     return output_df
 
 
+# update 2020.7.24, add support of run wikifier and record t2wml wikifier file in template
+def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, template_output_path: str):
+    new_wikifier_df_list = []
+    input_data = []
+
+    for each_file in os.listdir(input_folder_path):
+        if each_file.startswith("~") or each_file.startswith("."):
+            continue
+
+        each_file = os.path.join(input_folder_path, each_file)
+        if each_file.endswith(".csv"):
+            input_data.append(pd.read_csv(each_file, header=None))
+        elif each_file.endswith(".xlsx") or each_file.endswith("xls"):
+            for each_sheet in get_sheet_names(each_file):
+                input_data.append(pd.read_excel(each_file, each_sheet, header=None))
+
+    for each_df in input_data:
+        each_df = each_df.fillna("")
+
+        # get only data part that need to be parsed
+        for _, each_row in wikifier_columns_df.iterrows():
+            target_column_number = ord(each_row['Columns']) - ord("A")
+            start_row, end_row = each_row["Rows"].split(":")
+            start_row = int(start_row) - 1
+            if end_row == "":
+                end_row = len(each_df)
+            else:
+                end_row = int(end_row) - 1
+
+            if target_column_number >= each_df.shape[1] or end_row >= each_df.shape[0]:
+                continue
+
+            each_df = each_df.iloc[start_row:end_row, :]
+            # run wikifier
+            new_wikifier_df_list.extend(get_wikifier_result(input_df=each_df, target_col=target_column_number,
+                                                            wikifier_type="country"))
+            wikified_values = set([each["value"] for each in new_wikifier_df_list])
+            remained_df_part = each_df[~each_df.iloc[:, target_column_number].isin(wikified_values)]
+            new_wikifier_df_list.extend(get_wikifier_result(input_df=remained_df_part, target_col=target_column_number,
+                                                            wikifier_type="ethiopia"))
+
+    new_wikifier_df = pd.DataFrame(new_wikifier_df_list)
+    # combine the previous wikifier file if exists
+    output_wikifier_file_path = os.path.join(template_output_path, "wikifier.csv")
+    if os.path.exists(output_wikifier_file_path):
+        new_wikifier_df = pd.concat([pd.read_csv(output_wikifier_file_path), new_wikifier_df])
+
+    # save to disk
+    new_wikifier_df.to_csv(output_wikifier_file_path, index=False)
+
+
 def get_short_name(short_name_memo, input_str):
     words_processed = str(input_str).lower().translate(TRANSLATOR).split()
     short_name = "_".join(words_processed)
@@ -503,6 +560,20 @@ def get_wikifier_part(wikifier_input_df: pd.DataFrame):
     for _, each_row in wikifier_input_df.iterrows():
         result[(each_row["attribute"], each_row["context"])] = (each_row["value"])
     return result
+
+
+def get_sheet_names(file_path):
+    """
+    This function returns the first sheet name of the excel file
+    :param file_path:
+    :return:
+    """
+    file_extension = Path(file_path).suffix
+    is_csv = True if file_extension.lower() == ".csv" else False
+    if is_csv:
+        return [Path(file_path).name]
+    xl = pd.ExcelFile(file_path)
+    return xl.sheet_names
 
 
 def _update_double_quotes(each_series):
