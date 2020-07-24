@@ -32,7 +32,7 @@ class VaidateAnnotation(object):
         if file_path is not None:
             df = pd.read_excel(file_path, header=None).fillna('')
 
-        valid_column_one = self.validate_annotation_column_one(df)
+        valid_column_one = self.validate_annotation_column_one(df, dataset_id)
 
         valid_role_and_type = self.validate_roles_types(df)
 
