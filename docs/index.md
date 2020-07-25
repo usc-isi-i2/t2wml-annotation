@@ -102,9 +102,9 @@ annotations.
     - These annotations can use `;` to indicate that the annotated column should be used with a specific `variable` column.
     For example; lets say we have a `variable` column with heading "fatalities" and a `qualifier` column with heading "location".
     `qualifier;fatalities` on the column "location" indicates that this qualifier column should be used only with 
-    column with heading "fatalities".
+    column "fatalities".
     - It is possible to attach the annotation to multiple variables by separating the column names with "|" as `qualifier;fatalities|injuries`, 
-    or  `unit;price|weight`.
+    or  `unit;price|currency`.
 4. Special case for `unit` annotation.
     - When multiple `unit` annotations are present, they are concatenated together, separated by commas, from 
     left to right.
