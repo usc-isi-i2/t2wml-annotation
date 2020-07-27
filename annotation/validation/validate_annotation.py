@@ -43,7 +43,6 @@ class VaidateAnnotation(object):
         return "", True
 
     def validate_roles(self, df):
-        # TODO validate the following
         # 1. at max one main subject
         # 2. at least one time
         # 3. location annotation is optional, but if it not present, `main subject` is required.
