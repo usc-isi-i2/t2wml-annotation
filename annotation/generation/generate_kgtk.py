@@ -7,16 +7,18 @@ import typing
 import traceback
 
 from t2wml.api import add_properties_from_file, KnowledgeGraph
-from annotation.generation.annotation_to_template import generate_template_from_df
+from annotation.generation.annotation_to_template import generate_template_from_df, save_template_file
 from annotation.generation.wikify_datamart_units_and_attributes import generate
 from annotation.generation.generate_t2wml_files import execute_shell_code
+
 
 # currently this script only support t2wml == 2.0a19
 
 
 class GenerateKgtk:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict, dataset_qnode: str = None,
-                 wikifier_file: str = None, property_file: str = None, add_datamart_constant_properties: bool = False):
+                 wikifier_file: str = None, property_file: str = None, add_datamart_constant_properties: bool = False,
+                 debug: bool = False, debug_dir: str = None):
         """
         Parameters
         ----------
@@ -32,6 +34,8 @@ class GenerateKgtk:
         self.t2wml_script = t2wml_script
         self.annotated_spreadsheet = annotated_spreadsheet
         self.property_file = property_file
+        self._debug = debug
+
         if __file__.rfind("/") != -1:
             base_pos = __file__[:__file__.rfind("/")]
         else:
@@ -47,11 +51,26 @@ class GenerateKgtk:
         # generate the template files
         template_df_dict = generate_template_from_df(annotated_spreadsheet, dataset_qnode)
 
+        # update 2020.7.27, enable debug to save the template and template-output files
+        if self._debug:
+            if debug_dir is None:
+                self.debug_dir = os.path.join(os.getenv("HOME"), "datamart-annotation-debug-output")
+            else:
+                self.debug_dir = debug_dir
+            os.makedirs(self.debug_dir, exist_ok=True)
+            if not os.access(self.debug_dir, os.W_OK):
+                raise ValueError("No write permission to debug folder `{}`".format(self.debug_dir))
+            save_template_file(template_df_dict, os.path.join(self.debug_dir, "template.xlsx"))
+
         # generate template output files
-        self.output_df_dict = generate(template_df_dict, to_disk=False,
+        # update 2020.7.27, enable debug to save the template-output files
+        self.output_df_dict = generate(loaded_file=template_df_dict,
+                                       output_path=self.debug_dir,
+                                       to_disk=False,
                                        datamart_properties_file=property_file,
                                        dataset_qnode=dataset_qnode,
                                        dataset_id=self.project_name,
+                                       debug=self._debug,
                                        )
 
         # update 2020.7.22: not add dataset edges
@@ -142,6 +161,8 @@ class GenerateKgtk:
         temp_wikifier_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".csv")
         wikifier_filepath = temp_wikifier_file.name
         wikifier_df.to_csv(wikifier_filepath, index=False)
+        if self._debug:
+            wikifier_df.to_csv(os.path.join(self.debug_dir, "consolidated-wikifier.csv"), index=False)
         _ = temp_wikifier_file.seek(0)
 
         # use t2wml api to add properties file to t2wml database
@@ -171,15 +192,19 @@ class GenerateKgtk:
         # generate knowledge graph
         sheet_name = data_filepath
         output_kgtk_main_content = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
-        output_filepath = output_kgtk_main_content.name
+        t2wml_output_filepath = output_kgtk_main_content.name
         try:
             kg = KnowledgeGraph.generate_from_files(data_filepath, sheet_name, yaml_filepath, wikifier_filepath)
-            kg.save_kgtk(output_filepath)
+            kg.save_kgtk(t2wml_output_filepath)
         except:
             traceback.print_exc()
             raise ValueError("Generating kgtk knowledge graph file failed!")
         finally:
             os.remove(data_filepath)
+
+        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t")
+        if len(t2wml_kgtk_df) == 0:
+            raise ValueError("An empty kgtk file was generated from t2wml! Please check!")
 
         _ = output_kgtk_main_content.seek(0)
 
@@ -188,7 +213,7 @@ class GenerateKgtk:
         kgtk_imploded_file_name = kgtk_imploded_file.name
         shell_code = """
             kgtk implode "{}" --remove-prefixed-columns True --without si_units language_suffix > "{}"
-            """.format(output_filepath, kgtk_imploded_file_name)
+            """.format(t2wml_output_filepath, kgtk_imploded_file_name)
         return_res = execute_shell_code(shell_code)
         if return_res != "":
             print(return_res)
@@ -230,5 +255,3 @@ class GenerateKgtk:
             raise ValueError("The output kgtk file is invalid!")
 
         return exploded_file, metadata_file
-
-

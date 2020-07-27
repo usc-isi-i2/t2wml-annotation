@@ -82,14 +82,12 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
 
 def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True,
              datamart_properties_file: str = None, dataset_qnode: str = None, dataset_id: str = None,
+             debug: bool = False,
              ) -> typing.Optional[dict]:
     """
     The main entry function for generating datamart files from template input,
     base on input parameter `to_disk`, the output can be None or dict of dataframe
     """
-    if not os.path.exists(output_path):
-        os.makedirs(output_path)
-
     if column_name_config is None:
         column_name_config = {}
     if "attributes_file_node_column_name" not in column_name_config:
@@ -150,10 +148,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                     "extra_edges.tsv": extra_edges_df,
                     "dataset.tsv": dataset_df}
 
-    if not to_disk:
-        return output_files
-
-    else:
+    # save to disk if required or running in debug mode
+    if to_disk or debug:
         os.makedirs(output_path, exist_ok=True)
         for each_file_name, each_file in output_files.items():
             output_file_path = os.path.join(output_path, each_file_name)
@@ -161,6 +157,9 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                 each_file.to_csv(output_file_path, index=False)
             elif each_file_name.endswith(".tsv"):
                 each_file.to_csv(output_file_path, sep='\t', index=False, quoting=csv.QUOTE_NONE)
+
+    if not to_disk:
+        return output_files
 
 
 def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame,

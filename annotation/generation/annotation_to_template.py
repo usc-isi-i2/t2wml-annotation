@@ -91,7 +91,10 @@ def generate_template(input_path: str, output_path: str) -> None:
     """
     input_df = pd.read_excel(input_path, index_col=0, header=None)
     output_df_dict = generate_template_from_df(input_df)
+    save_template_file(output_df_dict, output_path)
 
+
+def save_template_file(output_df_dict: dict, output_path: str) -> None:
     with pd.ExcelWriter(output_path) as writer:
         output_df_dict["dataset_file"].to_excel(writer, sheet_name='Dataset', index=False)
         output_df_dict["attributes_file"].to_excel(writer, sheet_name='Attributes', index=False)

@@ -6,6 +6,7 @@ import tempfile
 import re
 import urllib.parse
 
+from annotation.generation.country_wikifier import HybridJaccardSimilarity
 from collections import defaultdict
 from io import StringIO
 from tl.utility.utility import Utility
@@ -19,7 +20,7 @@ CONSTRAINS_CHARS = set("abcdefghijklmnopqrstuvwxyz_() 1234567890'")
 
 
 class EthiopiaWikifier:
-    def __init__(self, es_server=None, es_index=None, sparql_server=None):
+    def __init__(self, es_server=None, es_index=None, sparql_server=None, similarity_threshold: float = 0.5):
         if not es_server:
             self.es_server = "http://kg2018a.isi.edu:9200"
         else:
@@ -34,6 +35,8 @@ class EthiopiaWikifier:
             self.sparql_server = sparql_server
         self.level_memo = defaultdict(int)
         self.TRANSLATOR = str.maketrans(string.punctuation, ' ' * len(string.punctuation))
+        self.similarity_unit = HybridJaccardSimilarity(tl_args={"ignore_case": True}, tokenizer="word")
+        self.similarity_threshold = similarity_threshold
 
     def generate_index(self, kgtk_file: str, output_path: str):
         """
@@ -373,8 +376,7 @@ class EthiopiaWikifier:
         :return:
         """
         # find the best match result
-        output_df_dict = {}
-        count = 0
+        output_df_list = []
         pending_results = pd.DataFrame()
         for each_value, each_group in df_all.groupby(["column", "row"]):
             # no candidates
@@ -383,15 +385,13 @@ class EthiopiaWikifier:
                 # temp_kg_id = "Q{}".format(temp["label"].lower())
                 # while temp_kg_id in self.
                 # temp["kg_id"] =
-                output_df_dict[count] = temp.to_dict()
-                count += 1
+                output_df_list.append(temp.to_dict())
                 continue
             each_group = each_group.dropna()
             # 1. If only one candidate -> use it
             if len(each_group) == 1:
                 temp = each_group.iloc[0]
-                output_df_dict[count] = temp.to_dict()
-                count += 1
+                output_df_list.append(temp.to_dict())
                 self.check_level_information(temp)
                 continue
             # if we have exact match, use exact match first
@@ -400,8 +400,7 @@ class EthiopiaWikifier:
                 # One exact match -> use it
                 if len(exact_match_res) == 1:
                     temp = exact_match_res.iloc[0]
-                    output_df_dict[count] = temp.to_dict()
-                    count += 1
+                    output_df_list.append(temp.to_dict())
                     self.check_level_information(temp)
                     continue
                 # multiple exact match
@@ -413,8 +412,31 @@ class EthiopiaWikifier:
             else:
                 # remove possible duplicate candidates first
                 each_group = each_group.drop_duplicates(subset='kg_id', keep="first")
-                pending_results = pd.concat([pending_results, each_group])
-                continue
+                input_label = each_group['label_clean'].iloc[0]
+                has_high_similairty_candidates = False
+
+                # update 2020.7.27: check similarity, and only apply when there do exist similarity is higher than threshold
+                for each_candidate_labels in each_group['kg_labels']:
+                    for each_label in each_candidate_labels.split("|"):
+                        if each_label[0] == '"' and each_label[-1] == '"':
+                            each_label = each_label[1:-1]
+                        score = self.similarity_unit.similarity(input_label, each_label)
+                        if score >= self.similarity_threshold:
+                            has_high_similairty_candidates = True
+                            break
+                    if has_high_similairty_candidates:
+                        break
+
+                if has_high_similairty_candidates:
+                    pending_results = pd.concat([pending_results, each_group])
+                else:
+                    temp = each_group.iloc[0, :]
+                    empty_result = {'column':  temp['column'], 'row':  temp['row'],
+                                    'label': temp['label'], '||other_information||': temp['||other_information||'],
+                                    'label_clean': temp['label_clean'], 'kg_id': "", 'kg_labels': "",
+                                    'method': 'exact-match', 'retrieval_score': '0.0',
+                                    'retrieval_score_normalized': '0.0'}
+                    output_df_list.append(empty_result)
 
         max_v = 0
         level = 0
@@ -429,8 +451,7 @@ class EthiopiaWikifier:
                 possible_candidates = self.get_higher_score_candidate(each_group, keep_multiple_highest=True, level=level)
                 possible_candidates = list(possible_candidates.values())[0]
                 if len(possible_candidates) == 1:
-                    output_df_dict[count] = possible_candidates[0].to_dict()
-                    count += 1
+                    output_df_list.append(possible_candidates[0].to_dict())
                     continue
                 else:
                     # no way to figure out, use the higher retrieval_score one
@@ -441,10 +462,10 @@ class EthiopiaWikifier:
                         if score > highest_score:
                             highest_score = score
                             final_res = each
-                    output_df_dict[count] = final_res.to_dict()
-                    count += 1
+                    output_df_list.append(final_res.to_dict())
                     continue
-        output_df = pd.DataFrame.from_dict(output_df_dict, orient="index")
+
+        output_df = pd.DataFrame(output_df_list)
         return output_df
 
     def check_level_information(self, match_candidate):
