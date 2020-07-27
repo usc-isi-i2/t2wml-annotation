@@ -177,7 +177,7 @@ def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_pa
 
         # add units defined in unit
         if each_col_info['unit'] != "":
-            units_set.add(each_col_info['unit'].lower())
+            units_set.add(each_col_info['unit'])
 
     if len(unit_cols) > 0:
         for each_variable_units in unit_cols.values():
@@ -216,14 +216,17 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
                     label = str(each).strip()
                     node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label) \
                         .replace(" ", "_").replace("-", "_")
+
+                    # wikifier part should always be updated, as column/row is specified for each cell
+                    wikifier_df_list.append(
+                        {"column": i + col_offset, "row": row + row_offset, "value": label,
+                         "context": "main subject", "item": node})
+
                     # update 2020.7.24, not create again if exist
                     if node in created_node_ids:
                         continue
                     created_node_ids.add(node)
 
-                    wikifier_df_list.append(
-                        {"column": i + col_offset, "row": row + row_offset, "value": label,
-                         "context": "main subject", "item": node})
                     labels = ["label", "description", "P31"]
                     node2s = ["{} {}".format(main_subject_annotation["header"], label),
                               main_subject_annotation["description"], "Q35120"]

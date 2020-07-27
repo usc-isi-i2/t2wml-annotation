@@ -27,8 +27,9 @@ def main():
     output = test.generate_edges_df()
     print("------------output kgtk file is------------")
     print(output)
+
     # get all variable ids
-    print("------------all variable ids------------")
+    print("-------------all variable ids--------------")
     print(test.get_variable_ids())
 
 
