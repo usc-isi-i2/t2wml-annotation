@@ -1,17 +1,25 @@
 import pandas as pd
 import numpy as np
+import typing
 import string
 import tempfile
 import re
-import typing
+import urllib.parse
 
 from collections import defaultdict
 from io import StringIO
 from tl.utility.utility import Utility
 
+ethiopia_direction_dict = {"misraq": "east", "misraqawi": "eastern",
+                           "mirab": "west", "mi'irabawi": "western",
+                           "debub": "south", "debubawi": "southern",
+                           "semien": "north",
+                           }
+CONSTRAINS_CHARS = set("abcdefghijklmnopqrstuvwxyz_() 1234567890'")
+
 
 class EthiopiaWikifier:
-    def __init__(self, es_server=None, es_index=None):
+    def __init__(self, es_server=None, es_index=None, sparql_server=None):
         if not es_server:
             self.es_server = "http://kg2018a.isi.edu:9200"
         else:
@@ -20,6 +28,10 @@ class EthiopiaWikifier:
             self.es_index = "ethiopia_wikifier_index"
         else:
             self.es_index = es_index
+        if not sparql_server:
+            self.sparql_server = "https://dsbox02.isi.edu:8888/bigdata/namespace/wdq/sparql"
+        else:
+            self.sparql_server = sparql_server
         self.level_memo = defaultdict(int)
         self.TRANSLATOR = str.maketrans(string.punctuation, ' ' * len(string.punctuation))
 
@@ -39,11 +51,27 @@ class EthiopiaWikifier:
                     node2 = node2[1:-1]
                 if label == "label":
                     label_memo[node1].add(node2)
-                    for each in [" (woreda)", " Zone", " Region", " District"]:
+                    for each in ["(woreda)", "Zone", "Region", "District"]:
                         if each in node2:
-                            label_memo[node1].add(node2.replace(each, ""))
+                            label_memo[node1].add(node2.replace(each, "").strip())
                     if "," in node2:
                         label_memo[node1].add(node2.split(",")[0])
+
+        label_memo = self.get_extra_names(label_memo)
+
+        new_label_memo = {}
+
+        for node, labels in label_memo.items():
+            new_labels = set()
+            for each_label in labels:
+                temp = each_label.lower().strip()
+                new_labels.add(temp)
+                for v1, v2 in ethiopia_direction_dict.items():
+                    if v1 in temp:
+                        new_labels.add(temp.replace(v1, v2))
+            new_label_memo[node] = new_labels
+
+        label_memo = new_label_memo
 
         with open(kgtk_file, "r") as f:
             output_f = open(output_path, "w")
@@ -117,10 +145,29 @@ class EthiopiaWikifier:
             new_results = results
         return self.get_permunations(names, new_results, i + 1)
 
+    @staticmethod
+    def send_sparql_query(query_body: str, query_address: str):
+        """
+            a simple wrap to send the query and return the returned results
+        """
+        from SPARQLWrapper import SPARQLWrapper, JSON, POST, URLENCODED  # type: ignore
+        qm = SPARQLWrapper(query_address)
+        qm.setReturnFormat(JSON)
+        qm.setMethod(POST)
+        qm.setRequestMethod(URLENCODED)
+        qm.setQuery(query_body)
+        try:
+            results = qm.query().convert()['results']['bindings']
+            return results
+        except Exception as e:
+            error_message = ("Sending Sparql query to {} failed!".format(query_address))
+            raise ValueError(error_message)
+
     def upload_to_es(self, kgtk_file: str):
         """
             main function call to upload the index
         """
+
         output_json = tempfile.NamedTemporaryFile(mode='r+')
         map_json = tempfile.NamedTemporaryFile(mode='r+')
         kgtk_index = tempfile.NamedTemporaryFile(mode='r+')
@@ -132,6 +179,31 @@ class EthiopiaWikifier:
         _ = map_json.seek(0)
         _ = output_json.seek(0)
         Utility.load_elasticsearch_index(output_json.name, self.es_server, self.es_index, map_json.name)
+
+    def get_extra_names(self, label_memo):
+        target_nodes = label_memo.keys()
+        each_part_str = " ".join(["wd:{}".format(each) for each in target_nodes])
+        query = """
+        SELECT DISTINCT ?item ?article WHERE {{
+          values ?item {{{q_nodes}}} 
+          ?article schema:about ?item ;  
+          FILTER (SUBSTR(str(?article), 12, 13) = "wikipedia.org")
+        }}
+        """.format(q_nodes=each_part_str)
+
+        result = self.send_sparql_query(query, self.sparql_server)
+        for each in result:
+            node = each['item']['value'].split("/")[-1]
+            other_name = urllib.parse.unquote(each['article']['value'].split("/wiki/")[-1]).replace("_", " ")
+
+            # skip those names not in english
+            if len(set(other_name.lower()) - CONSTRAINS_CHARS) > 0:
+                continue
+
+            label_memo[node].add(other_name)
+            if "(" in other_name and ")" in other_name:
+                label_memo[node].add(other_name[:other_name.find("(")] + other_name[other_name.rfind(")") + 1:].strip())
+        return label_memo
 
     def produce(self, input_file: str = None, input_df: pd.DataFrame = None,
                 target_column: str = None, output_column_name: str = None, unique_columns=typing.List[str]) -> pd.DataFrame:
@@ -164,6 +236,28 @@ class EthiopiaWikifier:
         self.level_memo = defaultdict(int)
         return output_df
 
+    def fetech_label(self, input_df: pd.DataFrame, target_column: str):
+        """
+            used for confirm whether the prediction is correct or not, just for development purpose
+        """
+        each_part_str = " ".join(["wd:{}".format(each) for each in input_df[target_column].dropna().unique()])
+        query = """
+        SELECT ?item ?itemLabel 
+        WHERE 
+        {{
+          values ?item {{{q_nodes}}}
+          SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+        }}
+        """.format(q_nodes=each_part_str)
+        result = self.send_sparql_query(query, self.sparql_server)
+        labels_map = {}
+        for each in result:
+            node = each['item']['value'].split("/")[-1]
+            label = each['itemLabel']['value'].split("/")[-1]
+            labels_map[node] = label
+        input_df["{}_labels".format(target_column)] = input_df[target_column].map(labels_map)
+        return input_df
+
     def get_candidates(self, input_file_path: str, target_column: str) -> pd.DataFrame:
         """
         Main query to get most candidates
@@ -172,7 +266,7 @@ class EthiopiaWikifier:
         :return:
         """
         shell_code = """tl --url {} --index {} \
-        canonicalize {} --csv -c "{}" --add-other-information \
+        canonicalize "{}" --csv -c "{}" --add-other-information \
         / clean -c label \
         / get-exact-matches -i -c label_clean \
         / get-phrase-matches -c label_clean -n 5 \
@@ -197,7 +291,7 @@ class EthiopiaWikifier:
         :return:
         """
         shell_code = """tl --url {} --index {} \
-        clean {} -c label \
+        clean "{}" -c label \
         / get-exact-matches -i -c label_clean \
         / get-phrase-matches -c label_clean -n 5 \
         / get-fuzzy-matches -c label_clean -n 5 \
@@ -400,6 +494,12 @@ def test_run():
 
 
 def encode(input_df: pd.DataFrame, target_col: str):
+    """
+    designed to encode the input dataframe to reduce the dataframe size, need more further development
+    :param input_df:
+    :param target_col:
+    :return:
+    """
     import hashlib
     memo = {}
     new_res = []
@@ -419,3 +519,4 @@ def encode(input_df: pd.DataFrame, target_col: str):
                 memo[hash_key] = "{}".format(i)
         new_res.append(each_row)
     output_df = pd.DataFrame(new_res)
+    return output_df

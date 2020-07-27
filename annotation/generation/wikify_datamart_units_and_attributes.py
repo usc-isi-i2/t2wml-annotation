@@ -88,7 +88,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     base on input parameter `to_disk`, the output can be None or dict of dataframe
     """
     if not os.path.exists(output_path):
-        os.mkdir(output_path)
+        os.makedirs(output_path)
 
     if column_name_config is None:
         column_name_config = {}

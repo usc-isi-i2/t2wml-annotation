@@ -168,7 +168,7 @@ def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_pa
                 unit_cols[""].append(i)
             # update 2020.7.24, now allow unit only corresponding to specific variables
             else:
-                target_variables = role[role.rfind(";")+1:]
+                target_variables = role[role.rfind(";") + 1:]
                 for each_variable in target_variables.split("|"):
                     unit_cols[each_variable].append(i)
 
@@ -211,7 +211,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
             if type_ == "string":
                 for row, each in enumerate(content_part.iloc[:, i]):
                     label = str(each).strip()
-                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label)\
+                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label) \
                         .replace(" ", "_").replace("-", "_")
                     # update 2020.7.24, not create again if exist
                     if node in created_node_ids:
@@ -252,14 +252,16 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
     target_cols = []
     run_ethiopia_wikifier = False
     row_offset = 7
+    new_wikifier_roles = {"location", "main subject"}
     col_offset = 1
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
-        if each_col_info["role"] == "location":
+        if each_col_info["role"] in new_wikifier_roles:
             if each_col_info["type"] == "country":
                 # use country wikifier
-                wikifier_df_list.extend(run_wikifier(input_df=content_part, target_col=i,
-                                                return_type="list", wikifier_type="country"))
+                wikifier_df_list.extend(run_wikifier(
+                    input_df=content_part, target_col=i,
+                    return_type="list", wikifier_type="country"))
 
                 if "ethiopia" in [each.lower() for each in content_part.iloc[:, i].dropna().unique()]:
                     run_ethiopia_wikifier = True
