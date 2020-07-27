@@ -258,7 +258,8 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
     target_cols = []
     run_ethiopia_wikifier = False
     row_offset = 7
-    new_wikifier_roles = {"location", "main subject"}
+    new_wikifier_roles = {"location": "", "main subject": "main subject"}
+    wikifier_column_role_map = []  # for add roles in wikifier output
     col_offset = 1
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
@@ -273,6 +274,7 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
                     run_ethiopia_wikifier = True
             if each_col_info["type"] in {"admin1", "admin2", "admin3"}:
                 target_cols.append(i)
+                wikifier_column_role_map.append(new_wikifier_roles[each_col_info["role"]])
 
     if run_ethiopia_wikifier:
         # get target columns to run with wikifier
@@ -281,7 +283,10 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
         for i in range(len(target_cols)):
             # for each part, run wikifier and add it the wikifier file
             wikifier_df_list.extend(run_wikifier(input_df=target_df, target_col=i, wikifier_type="ethiopia",
-                                                 col_offset=col_offset + target_cols[i] - i, row_offset=row_offset))
+                                                 col_offset=col_offset + target_cols[i] - i, row_offset=row_offset,
+                                                 role_type=wikifier_column_role_map[i]
+                                                 )
+                                    )
 
     if len(wikifier_df_list) == 0:
         wikifier_df = pd.DataFrame(columns=['column', 'row', 'value', 'context', "item"])
@@ -291,7 +296,7 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
 
 
 def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, return_type: str = "list",
-                 col_offset=0, row_offset=0):
+                 col_offset=0, row_offset=0, role_type=""):
     wikifier_df_list = []
 
     if wikifier_type == "country":
@@ -315,7 +320,7 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
                 # to prevent duplicate names with different nodes, we need to create column and row number here
                 wikifier_df_list.append(
                     {"column": col_offset + target_col, "row": row_number + row_offset, "value": label,
-                     "context": "", "item": node})
+                     "context": role_type, "item": node})
     else:
         raise ValueError("Unsupport wikifier type!")
 
