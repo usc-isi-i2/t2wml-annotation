@@ -61,6 +61,8 @@ class GenerateKgtk:
             if not os.access(self.debug_dir, os.W_OK):
                 raise ValueError("No write permission to debug folder `{}`".format(self.debug_dir))
             save_template_file(template_df_dict, os.path.join(self.debug_dir, "template.xlsx"))
+        else:
+            self.debug_dir = debug_dir
 
         # generate template output files
         # update 2020.7.27, enable debug to save the template-output files
