@@ -59,7 +59,7 @@ property_node = {
 }
 
 location_context = {
-    Type.COUNTRY: '',
+    Type.COUNTRY: 'country',
     Type.ADMIN1: 'admin1',
     Type.ADMIN2: 'admin2',
     Type.ADMIN3: 'admin3'
