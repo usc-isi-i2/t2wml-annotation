@@ -305,8 +305,8 @@ class EthiopiaWikifier:
         shell_code = """tl --url {} --index {} \
         clean "{}" -c label \
         / get-exact-matches -i -c label_clean \
-        / get-phrase-matches -c label_clean -n 5 \
-        / get-fuzzy-matches -c label_clean -n 5 \
+        / get-phrase-matches -c label_clean -n 5 -p labels^5,aliases \
+        / get-fuzzy-matches -c label_clean -n 5 -p labels^5,aliases \
         / normalize-scores -c retrieval_score \
         / drop-duplicate -c kg_id --keep-method exact-match --score-column retrieval_score_normalized""". \
             format(self.es_server, self.es_index, input_file_path)
