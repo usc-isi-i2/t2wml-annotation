@@ -108,7 +108,10 @@ annotations.
 4. Special case for `unit` annotation.
     - When multiple `unit` annotations are present, they are concatenated together, separated by commas, from 
     left to right.
+    
+## User Workflow
 
+![User Workflow](image_02.png "User Workflow: Annotate Spreadsheets")
 
  
 
