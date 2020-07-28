@@ -266,21 +266,27 @@ class ToT2WML:
 
     def _get_admins(self) -> list:
         # country and admins
-        qualifier = []
-        for col_type in [Type.COUNTRY, Type.ADMIN1, Type.ADMIN2, Type.ADMIN3]:
+        qualifiers = []
+        items = []
+        for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
             context = location_context[col_type]
             if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
                 col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
-                if context == '':
-                    value = f'=item[{to_letter_column(col_index)}, $row]'
-                else:
-                    value = f'=item[{to_letter_column(col_index)}, $row, "{context}"]'
+                item = f'item[{to_letter_column(col_index)}, $row, "{context}"]'
+                value = f'={item}'
                 entry = {
                     'property': f'{property_node[col_type]}',
                     'value': value
                 }
-                qualifier.append(entry)
-        return qualifier
+                qualifiers.append(entry)
+                items.append(item)
+        if items:
+            qualifier = {
+                'property': 'P131',
+                'value': '=' + ' or '.join(items)
+            }
+            qualifiers.append(qualifier)
+        return qualifiers
 
     def _get_coordinate(self) -> list:
         # add coordinate
@@ -347,7 +353,8 @@ class ToT2WML:
 
 if __name__ == '__main__':
     # input_file = '/home/kyao/Shared/Datamart/data/D3M/GDL-AreaData370-Ethiopia-description.xlsx'
-    input_file = '/home/kyao/dev/t2wml-projects/projects/aid/csv/aid worker security_incidents2020-06-22.xlsx'
+    # input_file = '/home/kyao/dev/t2wml-projects/projects/aid/csv/aid worker security_incidents2020-06-22.xlsx'
+    input_file = '/home/ktyao/dev/dsbox/t2wml-projects/aid_worker/aid worker security_incidents2020-06-22-annotated.xlsx'
     sheet = pd.read_excel(input_file, header=None)
     sheet.iloc[1, :] = sheet.iloc[1, :].fillna(method='ffill')
     to_t2wml = ToT2WML(sheet, 'Qawsd')
