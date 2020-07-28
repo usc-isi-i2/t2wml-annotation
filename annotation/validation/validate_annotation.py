@@ -20,7 +20,7 @@ class VaidateAnnotation(object):
         self.valid_types = {
             'main subject': ['string', 'entity', 'admin1', 'admin2', 'admin3', 'country'],
             'time': ['year', 'month', 'day', 'iso'],
-            'location': ['admin1', 'admin2', 'admin3', 'longitude', 'latitude', 'country', 'city'],
+            'location': ['admin1', 'admin2', 'admin3', 'longitude', 'latitude', 'country'],
             'variable': ['number'],
             'qualifier': ['string'],
             'unit': ['string']

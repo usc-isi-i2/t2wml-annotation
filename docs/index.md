@@ -6,8 +6,9 @@ metadata to support conversion to KGTK format compatible with Datamart canonical
 ## Annotations
 
 A spreadsheet annotation consists of:
-   - A new column added as first column in the spreadsheet
-   - 6 new rows added at the top of the spreadsheet 
+
+- A new column added as first column in the spreadsheet
+- 6 new rows added at the top of the spreadsheet 
 
 For example: Column A is inserted with top 6 rows being: `dataset`, `role`, `type`, `description`, `name`, and `unit`.
  ![Datamart Spreadsheet Example](image_01.png "Datamart Spreadsheet Example")
@@ -58,7 +59,7 @@ Valid `type` for each `role` are as follows:
 
 - `main subject`: {`string`, `entity`}
 - `time`: {`year`, `month`, `day`, [Python regex format for a date, eg, %m/%d/%Y](https://docs.python.org/3.7/library/datetime.html#strftime-and-strptime-behavior) }
-- `location`: {`admin1`, `admin2`, `admin3`, `longitude`, `latitude`, `country`, `city`}
+- `location`: {`admin1`, `admin2`, `admin3`, `longitude`, `latitude`, `country`}
 - `variable`: {`number`}
 - `qualifier`:{`string`}
 - `unit`: {`string`}
@@ -108,7 +109,10 @@ annotations.
 4. Special case for `unit` annotation.
     - When multiple `unit` annotations are present, they are concatenated together, separated by commas, from 
     left to right.
+    
+## User Workflow
 
+![User Workflow](image_02.png "User Workflow: Annotate Spreadsheets")
 
  
 
