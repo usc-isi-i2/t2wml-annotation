@@ -6,8 +6,9 @@ metadata to support conversion to KGTK format compatible with Datamart canonical
 ## Annotations
 
 A spreadsheet annotation consists of:
-   - A new column added as first column in the spreadsheet
-   - 6 new rows added at the top of the spreadsheet 
+
+- A new column added as first column in the spreadsheet
+- 6 new rows added at the top of the spreadsheet 
 
 For example: Column A is inserted with top 6 rows being: `dataset`, `role`, `type`, `description`, `name`, and `unit`.
  ![Datamart Spreadsheet Example](image_01.png "Datamart Spreadsheet Example")
