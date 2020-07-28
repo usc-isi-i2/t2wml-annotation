@@ -189,13 +189,15 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
             role = ""
         if each_row[node_column_name] == "":
             node_label = to_kgtk_format_string(each_row[node_label_column_name])
-            node_id = _generate_p_nodes(role, dataset_q_node, node_number)
+            node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row['label'])
 
             # add to memo for future use
             memo["property"][node_id] = each_row[node_label_column_name]
             if "Role" in each_row:
                 memo["property_role"][node_id] = each_row["Role"].lower()
-            memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
+
+
+            # memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
 
             # get type if specified
             if "type" in each_row:
@@ -217,7 +219,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
         for _, each_row in qualifier_df.iterrows():
             node_number += 1
             if each_row[node_column_name] == "":
-                node_id = _generate_p_nodes("QUALIFIER", dataset_q_node, node_number)
+                node_id = _generate_p_nodes("QUALIFIER", dataset_q_node, node_number, memo, each_row["label"])
                 memo["qualifier_target_nodes"][each_row[qualifier_column_name]] = memo["property_name_to_id"][
                     each_row[node_label_column_name]]
                 memo["qualifier_name_to_id"][each_row[qualifier_column_name]] = node_id
@@ -300,7 +302,7 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, da
         node_number += 1
         if each_row[node_column_name] == "":
             # update 2020.7.23, also add role for P nodes
-            p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
+            p_node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row["label"])
         else:
             p_node_id = each_row[node_column_name]
 
@@ -591,8 +593,12 @@ def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_
     return output_df
 
 
-def _generate_p_nodes(role: str, dataset_q_node: str, node_number: int):
-    p_node_id = "P{}-{}-{:03}".format(role, dataset_q_node, node_number)
+def _generate_p_nodes(role: str, dataset_q_node: str, node_number: int, memo: dict, node_name: str):
+    if node_name in memo['property_name_to_id']:
+        p_node_id = memo['property_name_to_id'][node_name]
+    else:
+        p_node_id = "P{}-{}-{:03}".format(role, dataset_q_node, node_number)
+        memo['property_name_to_id'][node_name] = p_node_id
     return p_node_id
 
 
