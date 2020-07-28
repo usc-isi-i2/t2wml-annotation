@@ -37,6 +37,8 @@ class EthiopiaWikifier:
         self.TRANSLATOR = str.maketrans(string.punctuation, ' ' * len(string.punctuation))
         self.similarity_unit = HybridJaccardSimilarity(tl_args={"ignore_case": True}, tokenizer="word")
         self.similarity_threshold = similarity_threshold
+        self.admin_level_mapping = {"admin1": 1, "admin2": 2, "admin3": 3}
+        self.level_restrict = None
 
     def generate_index(self, kgtk_file: str, output_path: str):
         """
@@ -209,10 +211,17 @@ class EthiopiaWikifier:
         return label_memo
 
     def produce(self, input_file: str = None, input_df: pd.DataFrame = None,
-                target_column: str = None, output_column_name: str = None, unique_columns=typing.List[str]) -> pd.DataFrame:
+                target_column: str = None, output_column_name: str = None, unique_columns=typing.List[str],
+                column_metadata: dict = None) -> pd.DataFrame:
         """
         Main function of wikifier, the input could either be a dataframe or a input path
         """
+        if column_metadata is None:
+            column_metadata = {}
+        level_restrict = column_metadata.get("context")
+        if level_restrict in self.admin_level_mapping:
+            self.level_restrict = self.admin_level_mapping[level_restrict]
+
         if input_file is None and input_df is None:
             raise ValueError("input_file and input_df can't both be None!")
 
@@ -379,6 +388,10 @@ class EthiopiaWikifier:
         output_df_list = []
         pending_results = pd.DataFrame()
         for each_value, each_group in df_all.groupby(["column", "row"]):
+            # update 2020.7.27, if restrict on admin level, only consider corresponding candidates
+            if self.level_restrict is not None:
+                each_group = self.filter_levels(each_group, self.level_restrict)
+
             # no candidates
             if len(each_group.dropna()) == 0:
                 temp = each_group.iloc[0, :]
@@ -387,7 +400,9 @@ class EthiopiaWikifier:
                 # temp["kg_id"] =
                 output_df_list.append(temp.to_dict())
                 continue
+
             each_group = each_group.dropna()
+
             # 1. If only one candidate -> use it
             if len(each_group) == 1:
                 temp = each_group.iloc[0]
@@ -496,6 +511,26 @@ class EthiopiaWikifier:
         if not keep_multiple_highest:
             return res[0]
         return {highest_score: res}
+
+    def filter_levels(self, input_df: pd.DataFrame, level: int) -> pd.DataFrame:
+        res = input_df[input_df["kg_labels"].apply(self._get_level) == level]
+        if len(res) == 0:
+            temp = input_df.iloc[0]
+            empty_result = {'column': temp['column'], 'row': temp['row'],
+                            'label': temp['label'], '||other_information||': temp['||other_information||'],
+                            'label_clean': temp['label_clean'], 'kg_id': "", 'kg_labels': "",
+                            'method': 'exact-match', 'retrieval_score': '0.0',
+                            'retrieval_score_normalized': '0.0'}
+            empty_output = pd.DataFrame([empty_result])
+            return empty_output
+        else:
+            return res
+
+    def _get_level(self, s: str):
+        if isinstance(s, str):
+            return max([len(each.split("<")) for each in s.split("|")])
+        else:
+            return 0
 
 
 def test_run():
