@@ -267,9 +267,11 @@ def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataF
         if each_col_info["role"] in new_wikifier_roles:
             if each_col_info["type"] == "country":
                 # use country wikifier
+                context = "main subject" if each_col_info["role"] == "main subject" else each_col_info["type"]
+                column_metadata = {"context": context}
                 wikifier_df_list.extend(run_wikifier(
                     input_df=content_part, target_col=i,
-                    return_type="list", wikifier_type="country"))
+                    return_type="list", wikifier_type="country", column_metadata=column_metadata))
 
                 if "ethiopia" in [each.lower() for each in content_part.iloc[:, i].dropna().unique()]:
                     run_ethiopia_wikifier = True
@@ -312,9 +314,9 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
         wikified_result = DatamartCountryWikifier().\
             wikify(input_df.iloc[:, target_col].dropna().unique().tolist())
         for label, node in wikified_result.items():
-            if node and label:
-                wikifier_df_list.append(
-                    {"column": "", "row": "", "value": label, "context": "", "item": node})
+            each_row = {"column": "", "row": "", "value": label, "context": column_metadata.get("context", ""), "item": node}
+            if node and label and each_row not in wikifier_df_list:
+                wikifier_df_list.append(each_row)
 
     elif wikifier_type == "ethiopia":
         from annotation.generation.ethiopia_wikifier import EthiopiaWikifier
