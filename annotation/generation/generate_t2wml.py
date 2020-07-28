@@ -58,6 +58,13 @@ property_node = {
     Type.POINT: 'P276'
 }
 
+location_context = {
+    Type.COUNTRY: '',
+    Type.ADMIN1: 'admin1',
+    Type.ADMIN2: 'admin2',
+    Type.ADMIN3: 'admin3'
+}
+
 date_format = {
     Type.YEAR: '%Y',
     Type.MONTH: '%m',
@@ -261,11 +268,16 @@ class ToT2WML:
         # country and admins
         qualifier = []
         for col_type in [Type.COUNTRY, Type.ADMIN1, Type.ADMIN2, Type.ADMIN3]:
+            context = location_context[col_type]
             if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
                 col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                if context == '':
+                    value = f'=item[{to_letter_column(col_index)}, $row]'
+                else:
+                    value = f'=item[{to_letter_column(col_index)}, $row, "{context}"]'
                 entry = {
                     'property': f'{property_node[col_type]}',
-                    'value': f'=item[{to_letter_column(col_index)}, $row]',
+                    'value': value
                 }
                 qualifier.append(entry)
         return qualifier
