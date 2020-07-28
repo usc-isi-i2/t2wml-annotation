@@ -3,6 +3,7 @@ import tempfile
 import yaml
 import csv
 import os
+import shutil
 import typing
 import traceback
 
@@ -61,6 +62,8 @@ class GenerateKgtk:
             if not os.access(self.debug_dir, os.W_OK):
                 raise ValueError("No write permission to debug folder `{}`".format(self.debug_dir))
             save_template_file(template_df_dict, os.path.join(self.debug_dir, "template.xlsx"))
+            with open(os.path.join(self.debug_dir, 't2wml.yaml'), 'w') as out:
+                yaml.dump(self.t2wml_script, out)
         else:
             self.debug_dir = debug_dir
 
@@ -151,6 +154,10 @@ class GenerateKgtk:
         _ = final_output_file.seek(0)
 
         final_output_df = pd.read_csv(final_output_file, sep="\t")
+
+        if self._debug:
+            shutil.copy(final_output_file.name, os.path.join(self.debug_dir, 'kgtk-edges.tsv'))
+
         return final_output_df
 
     def _make_preparations(self):
