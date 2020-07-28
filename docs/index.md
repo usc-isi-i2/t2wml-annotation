@@ -23,8 +23,6 @@ validation will fail while uploading the annotated spreadsheet to Datamart.
 This row should provide the [`dataset_id`](https://datamart-upload.readthedocs.io/en/latest/#dataset-definition) of the dataset this file belongs to.
 The `dataset_id` should be created in the Datamart prior to uploading the annotated spreadsheet.
 
-Creating a dataset is explained in the  `Create a new dataset` section in this [jupyter notebook.](https://github.com/usc-isi-i2/datamart-api/blob/master/Datamart%20Data%20API%20Demo.ipynb)
-
 #### role
 The `role` row specifies the role the columns has in the data. Any column may have a `role` annotation, but `role` annotations are not required for all
 columns. Columns without `role` annotations will be ignored unless they have a `type` annotation (described below), in which case an error will
@@ -113,6 +111,63 @@ annotations.
 ## User Workflow
 
 ![User Workflow](image_02.png "User Workflow: Annotate Spreadsheets")
+
+### Step 1: Create Dataset
+
+Users will have to create the `dataset` as specified in cell `B1`, if it does not already exist.
+The Upload Annotated Spreadsheet API will return a validation error in case the `dataset` either:
+
+- does not exist or ,
+- does not match the dataset in the API URL (see Step 3)
+
+Example for how to create a dataset is present in this [jupyter noteboook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb) in the `Create a new dataset` section.
+
+### Step 2: Annotate Spreadsheet
+
+Next step is to annotate the spreadsheet, as described in this document. The upload Annotated Spreadsheet
+API will validate the annotation in terms of,
+
+- presence of required roles
+- corresponding types for each role
+- at max one column annotated as `main subject`
+- one of `main subject` or `location` should be present
+- at least one column annotated as `variable`
+
+### Step 3: Upload the Annotated Spreadsheet
+
+Step # 3 is to upoad the annotated spreadsheet to Datamart using the `/datasets/{dataset_id}/annotated` API.
+An example is shown in `Upload an Annotated Spreadsheet section` in the [jupyter notebook](Upload an Annotated spreadsheet)
+
+**Note: The Annotated Spreadsheet should be an Excel file with  `.xlsx` extension.**
+
+### Step 4: Get data back for the `variables` created
+
+The Upload Annotated Spreadsheet API returns the metadata for all the variables created. Example:
+
+```
+ {
+    "name": "Total affected",
+    "variable_id": "total_affected",
+    "description": "Total affected in TEST01",
+    "corresponds_to_property": "PVARIABLE-QTEST01-019",
+    "qualifier": [
+      {
+        "name": "stated in",
+        "identifier": "P248"
+      },
+      {
+        "name": "point in time",
+        "identifier": "P585"
+      }
+    ]
+  }
+```
+
+Users can use the `variable_id` to get the canonical data back. An example is shown in the `Get time series data for a variable`
+section in the [jupyter notebook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
+
+
+
 
  
 
