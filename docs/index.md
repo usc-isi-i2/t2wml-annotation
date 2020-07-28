@@ -114,13 +114,13 @@ annotations.
 
 ### Step 1: Create Dataset
 
-Users will have to create the `dataset` as specified in cell `B1`, if it does not already exist.
+Users will have to create the `dataset` as specified in cell `B1` in the annotated spreadsheet, if it does not already exist.
 The Upload Annotated Spreadsheet API will return a validation error in case the `dataset` either:
 
 - does not exist or ,
 - does not match the dataset in the API URL (see Step 3)
 
-Example for how to create a dataset is present in this [jupyter noteboook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb) in the `Create a new dataset` section.
+How to create a dataset is explained in the `Create a new dataset` section in this [jupyter noteboook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
 
 ### Step 2: Annotate Spreadsheet
 
@@ -135,12 +135,11 @@ API will validate the annotation in terms of,
 
 ### Step 3: Upload the Annotated Spreadsheet
 
-Step # 3 is to upoad the annotated spreadsheet to Datamart using the `/datasets/{dataset_id}/annotated` API.
-An example is shown in `Upload an Annotated Spreadsheet section` in the [jupyter notebook](Upload an Annotated spreadsheet)
+Next step is to upload the annotated spreadsheet to Datamart using the `/datasets/{dataset_id}/annotated` API. An example is shown in `Upload an Annotated Spreadsheet section` in the [jupyter notebook](Upload an Annotated spreadsheet)
 
 **Note: The Annotated Spreadsheet should be an Excel file with  `.xlsx` extension.**
 
-### Step 4: Get data back for the `variables` created
+### Step 4: Get Canonical data for the `variables` created
 
 The Upload Annotated Spreadsheet API returns the metadata for all the variables created. Example:
 
@@ -163,8 +162,8 @@ The Upload Annotated Spreadsheet API returns the metadata for all the variables 
   }
 ```
 
-Users can use the `variable_id` to get the canonical data back. An example is shown in the `Get time series data for a variable`
-section in the [jupyter notebook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
+Users can use the `variable_id` to get the canonical data back. 
+An example is shown in the `Get time series data for a variable` section in the [jupyter notebook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
 
 
 
