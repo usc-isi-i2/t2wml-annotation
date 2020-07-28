@@ -183,6 +183,7 @@ class ToT2WML:
         # over multiple columns
         format_list = []
         precision_list = []
+        value = ''
         for col_types in [[Type.YEAR, Type.MONTH, Type.DAY], [Type.YEAR, Type.MONTH], [Type.YEAR]]:
             time_cells = []
             time_formats = []
@@ -200,10 +201,12 @@ class ToT2WML:
                         precision = 'day'
             if len(time_cells) > 1:
                 cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
-                value = f'=concat({cells}, "-")'
+                if not value:
+                    value = f'=concat({cells}, "-")'
                 time_format = '-'.join(time_formats)
             else:
-                value = f'=value[{to_letter_column(time_cells[0])}, $row]'
+                if not value:
+                    value = f'=value[{to_letter_column(time_cells[0])}, $row]'
                 time_format = time_formats[0]
             format_list.append(time_format)
             precision_list.append(precision)
