@@ -55,7 +55,7 @@ for columns without a `role` annotation.
 
 Valid `type` for each `role` are as follows:
 
-- `main subject`: {`string`, `entity`}
+- `main subject`: {`string`, `entity`, `admin1`, `admin2`, `admin3`, `country`}
 - `time`: {`year`, `month`, `day`, [Python regex format for a date, eg, %m/%d/%Y](https://docs.python.org/3.7/library/datetime.html#strftime-and-strptime-behavior) }
 - `location`: {`admin1`, `admin2`, `admin3`, `longitude`, `latitude`, `country`}
 - `variable`: {`number`}
@@ -169,27 +169,43 @@ An example is shown in the `Get time series data for a variable` section in the 
 
 ### [Crude Oil Production](https://docs.google.com/spreadsheets/d/1XSKOcTcdyI1u72QaQ_ICq1GWgGtyTjt3/edit#gid=517749731)
 ![Crude Oil Production](image_04.png "Crude Oil Production Annotation")
-main subject country
-time regex
-one variable
-3 qualifiers
+
+Annotation Details:
+
+- `main subject` is "country", which is Column B
+- `time` is specified as a Python date format regex - `%m/%d/%y %H:%M`, column C
+- column C is annotation as `variable`, which is the crude oil production. Note that the we specify
+the `name` (crude_oil_production) as the origin column header "Close" is very generic. Also we specify the units as "barrels".
+- The spreadsheet has 3 columns annotated as `qualifier`
 
 ### [Crude Oil Price](https://docs.google.com/spreadsheets/d/1DELSd9DaMXvSNZxUG9r8rKtz0n4MMY34/edit#gid=517749731)
 ![Crude Oil Price](image_05.png "Crude Oil Price Annotation")
-time split into year and month
-2 columns with units
+
+Annotation Details:
+
+- `time` is split into 2 columns "C" and "D" which are annotated as `year` and `month` respectively.
+- there are 2 columns annotated as units. This will be interpreted as `unit` being "currency, barrels". For example, "CAD, 100" for row 8.
 
 ### [AID Sample](https://docs.google.com/spreadsheets/d/1Lc_fV2Hls0BZMNvPzScpddTO7tQW1hCyh-BG5wfRsG8/edit#gid=0)
 ![AID Sample](image_06.png)
-main subject string incident id
-multiple location columns
-multiple variables
-multiple qualifiers
-all qualifier, location, time applied to all variables
 
+Annotation Details:
+
+- `main subject` is column B, "Incident ID" which is of type "string".
+- columns "J,K,L,M,N,O" are annotated as `variable`.
+- columns "F,G,H,T,U" are annotated as `location`. These location qualifiers will be applied to all variables
+- columns "Q,R,S,V,W" are annotated as `qualifier`. These qualifiers will be applied to all variables
 
 ### [AID Sample: Variable Specific Qualifiers](https://docs.google.com/spreadsheets/d/1xdranuaX7IB-n0SjcAQsv4mS-4b8W5XB_nZur8hDG4M/edit#gid=0)
+![AID Sample Column Specific Qualifiers](image_07.png)
 
+Annotation Details:
+
+- column "O" is annotated as `qualifier` (qualifier;colA) for column "H" with header "colA". This qualifier will only be applied to column "H"
+- column "P" is annotated as `qualifier` (qualifier;colB|colC) for columns "I" and "J" with headers "colB" and "colC" respectively.
+This qualifier will only be applied to columns "I" and "J".
+- columns "Q,T,U" are also annotated as `qualifier`. These will be applied to all columns annotated as `variable`.
+- `location` columns "D,E,F,R,S" will be applied to all columns annotated as `variable`.
 
 
 
