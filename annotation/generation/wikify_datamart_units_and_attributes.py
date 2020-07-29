@@ -189,7 +189,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
             role = ""
         if each_row[node_column_name] == "":
             node_label = to_kgtk_format_string(each_row[node_label_column_name])
-            node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row['label'])
+            node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row['Attribute'])
 
             # add to memo for future use
             memo["property"][node_id] = each_row[node_label_column_name]
@@ -219,7 +219,7 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
         for _, each_row in qualifier_df.iterrows():
             node_number += 1
             if each_row[node_column_name] == "":
-                node_id = _generate_p_nodes("QUALIFIER", dataset_q_node, node_number, memo, each_row["label"])
+                node_id = _generate_p_nodes("QUALIFIER", dataset_q_node, node_number, memo, each_row["Attribute"])
                 memo["qualifier_target_nodes"][each_row[qualifier_column_name]] = memo["property_name_to_id"][
                     each_row[node_label_column_name]]
                 memo["qualifier_name_to_id"][each_row[qualifier_column_name]] = node_id
@@ -302,7 +302,7 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, da
         node_number += 1
         if each_row[node_column_name] == "":
             # update 2020.7.23, also add role for P nodes
-            p_node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row["label"])
+            p_node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row["Attribute"])
         else:
             p_node_id = each_row[node_column_name]
 
