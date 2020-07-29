@@ -165,6 +165,34 @@ The Upload Annotated Spreadsheet API returns the metadata for all the variables 
 Users can use the `variable_id` to get the canonical data back. 
 An example is shown in the `Get time series data for a variable` section in the [jupyter notebook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
 
+## Examples
+
+### [Crude Oil Production](https://docs.google.com/spreadsheets/d/1XSKOcTcdyI1u72QaQ_ICq1GWgGtyTjt3/edit#gid=517749731)
+![Crude Oil Production](image_04.png "Crude Oil Production Annotation")
+main subject country
+time regex
+one variable
+3 qualifiers
+
+### [Crude Oil Price](https://docs.google.com/spreadsheets/d/1DELSd9DaMXvSNZxUG9r8rKtz0n4MMY34/edit#gid=517749731)
+![Crude Oil Price](image_05.png "Crude Oil Price Annotation")
+time split into year and month
+2 columns with units
+
+### [AID Sample](https://docs.google.com/spreadsheets/d/1Lc_fV2Hls0BZMNvPzScpddTO7tQW1hCyh-BG5wfRsG8/edit#gid=0)
+![AID Sample](image_06.png)
+main subject string incident id
+multiple location columns
+multiple variables
+multiple qualifiers
+all qualifier, location, time applied to all variables
+
+
+### [AID Sample: Variable Specific Qualifiers](https://docs.google.com/spreadsheets/d/1xdranuaX7IB-n0SjcAQsv4mS-4b8W5XB_nZur8hDG4M/edit#gid=0)
+
+
+
+
 
 
 
