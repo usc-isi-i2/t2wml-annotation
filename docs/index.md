@@ -172,10 +172,10 @@ An example is shown in the `Get time series data for a variable` section in the 
 
 Annotation Details:
 
-- `main subject` is `country`, which is Column B
+- `main subject` is "country", which is Column B
 - `time` is specified as a Python date format regex - `%m/%d/%y %H:%M`, column C
 - column C is annotation as `variable`, which is the crude oil production. Note that the we specify
-the `name` (crude_oil_production) as the origin column header `Close` is very generic. Also we specify the units as `barrels`.
+the `name` (crude_oil_production) as the origin column header "Close" is very generic. Also we specify the units as "barrels".
 - The spreadsheet has 3 columns annotated as `qualifier`
 
 ### [Crude Oil Price](https://docs.google.com/spreadsheets/d/1DELSd9DaMXvSNZxUG9r8rKtz0n4MMY34/edit#gid=517749731)
