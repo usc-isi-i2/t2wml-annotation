@@ -55,7 +55,7 @@ for columns without a `role` annotation.
 
 Valid `type` for each `role` are as follows:
 
-- `main subject`: {`string`, `entity`}
+- `main subject`: {`string`, `entity`, `admin1`, `admin2`, `admin3`, `country`}
 - `time`: {`year`, `month`, `day`, [Python regex format for a date, eg, %m/%d/%Y](https://docs.python.org/3.7/library/datetime.html#strftime-and-strptime-behavior) }
 - `location`: {`admin1`, `admin2`, `admin3`, `longitude`, `latitude`, `country`}
 - `variable`: {`number`}
