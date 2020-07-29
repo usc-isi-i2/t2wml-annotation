@@ -115,7 +115,14 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
         role_info = each_col_info["role"].split(";")
         role_lower = role_info[0].lower()
 
-        if role_lower in {"variable", "qualifier"}:
+        # update 2020.7.29, add an extra qualifier for string main subject condition
+        if role_lower == "main subject" and each_col_info["type"].lower() == "string":
+            attributes_df_list.append({"Attribute": "located in", "Property": "P131", "Role": "qualifier",
+                                       "Relationship": "", "type": "WikibaseItem",
+                                       "label": "located in", "description": "located in"})
+            continue
+
+        elif role_lower in {"variable", "qualifier"}:
             # if ";" exists, we need to use those details on variables
             if len(role_info) > 1:
                 relationship = role_info[1]

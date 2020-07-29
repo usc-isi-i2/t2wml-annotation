@@ -191,14 +191,6 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
             node_label = to_kgtk_format_string(each_row[node_label_column_name])
             node_id = _generate_p_nodes(role, dataset_q_node, node_number, memo, each_row['Attribute'])
 
-            # add to memo for future use
-            memo["property"][node_id] = each_row[node_label_column_name]
-            if "Role" in each_row:
-                memo["property_role"][node_id] = each_row["Role"].lower()
-
-
-            # memo["property_name_to_id"][each_row[node_label_column_name]] = node_id
-
             # get type if specified
             if "type" in each_row:
                 value_type = each_row["type"]
@@ -211,7 +203,12 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
                 id_ = "{}-{}".format(node_id, labels[i])
                 output_df_list.append({"id": id_, "node1": node_id, "label": labels[i], "node2": node2s[i]})
         else:
-            memo["property"][each_row[node_column_name]] = each_row[node_label_column_name]
+            node_id = each_row[node_column_name]
+
+        # add to memo for future use
+        memo["property"][node_id] = each_row[node_label_column_name]
+        if "Role" in each_row:
+            memo["property_role"][node_id] = each_row["Role"].lower()
 
     # add qualifier part if we have
     if qualifier_df is not None:
