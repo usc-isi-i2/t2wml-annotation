@@ -116,10 +116,27 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
         role_lower = role_info[0].lower()
 
         # update 2020.7.29, add an extra qualifier for string main subject condition
+        additional_qualifier_dict = {
+            ("lat", "lon", "latitude", "longitude"): {"Attribute": "location", "Property": "P276"},
+            ("country",): {"Attribute": "country", "Property": "P17"},
+            ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
+                          "Property": "P2006190001"},
+            ("admin2",): {"Attribute": "located in the second-level administrative country subdivision",
+                          "Property": "P2006190002"},
+            ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
+                          "Property": "P2006190003"},
+            ("country", "admin1", "admin2", "admin1"): {"Attribute": "located in the administrative territorial entity",
+                                                        "Property": "P131"},
+        }
         if role_lower == "main subject" and each_col_info["type"].lower() == "string":
-            attributes_df_list.append({"Attribute": "located in", "Property": "P131", "Role": "qualifier",
-                                       "Relationship": "", "type": "WikibaseItem",
-                                       "label": "located in", "description": "located in"})
+            all_column_types = set(annotation_part.T['type'].unique())
+            for types, edge_info in additional_qualifier_dict.items():
+                if len(set(types).intersection(all_column_types)) > 0:
+                    attributes_df_list.append({"Attribute": edge_info["Attribute"],
+                                               "Property": edge_info["Property"], "Role": "qualifier",
+                                               "Relationship": "", "type": "WikibaseItem",
+                                               "label": edge_info["Attribute"],
+                                               "description": edge_info["Attribute"]})
             continue
 
         elif role_lower in {"variable", "qualifier"}:
@@ -318,7 +335,7 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
         column_metadata = {}
     if wikifier_type == "country":
         from annotation.generation.country_wikifier import DatamartCountryWikifier
-        wikified_result = DatamartCountryWikifier().\
+        wikified_result = DatamartCountryWikifier(). \
             wikify(input_df.iloc[:, target_col].dropna().unique().tolist())
         for label, node in wikified_result.items():
             each_row = {"column": "", "row": "", "value": label, "context": column_metadata.get("context", ""), "item": node}
@@ -330,8 +347,8 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
         wikifier = EthiopiaWikifier()
         input_col_name = input_df.columns[target_col]
         output_col_name = "{}_wikifier".format(input_col_name)
-        wikifier_res = wikifier.\
-            produce(input_df=input_df, target_column=input_col_name, column_metadata=column_metadata).\
+        wikifier_res = wikifier. \
+            produce(input_df=input_df, target_column=input_col_name, column_metadata=column_metadata). \
             fillna("")
         for row_number, each_row in wikifier_res.iterrows():
             label = each_row[input_col_name]
