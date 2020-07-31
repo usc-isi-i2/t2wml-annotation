@@ -117,14 +117,17 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
 
         # update 2020.7.29, add an extra qualifier for string main subject condition
         additional_qualifier_dict = {
-            ("lat", "lon", "latitude", "longitude"): {"Attribute": "coordinate location", "Property": "P625"},
-            ("country",): {"Attribute": "country", "Property": "P17"},
-            ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
-                          "Property": "P2006190001"},
-            ("admin2",): {"Attribute": "located in the second-level administrative country subdivision",
-                          "Property": "P2006190002"},
-            ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
-                          "Property": "P2006190003"},
+            # kyao
+            # Only add one location qualifier until datamart-api can handle multiple locations. 31 July 2020.
+
+            # ("lat", "lon", "latitude", "longitude"): {"Attribute": "coordinate location", "Property": "P625"},
+            # ("country",): {"Attribute": "country", "Property": "P17"},
+            # ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
+            #               "Property": "P2006190001"},
+            # ("admin2",): {"Attribute": "located in the second-level administrative country subdivision",
+            #               "Property": "P2006190002"},
+            # ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
+            #               "Property": "P2006190003"},
             ("country", "admin1", "admin2", "admin3"): {"Attribute": "located in the administrative territorial entity",
                                                         "Property": "P131"},
         }
