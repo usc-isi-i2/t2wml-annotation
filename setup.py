@@ -3,17 +3,17 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-# with open('requirements.txt', 'r') as f:
-#     install_requires = list()
-#     for line in f:
-#         re = line.strip()
-#         if re:
-#             install_requires.append(re)
+with open('requirements.txt', 'r') as f:
+    install_requires = list()
+    for line in f:
+        re = line.strip()
+        if re:
+            install_requires.append(re)
 
 
 setuptools.setup(
     name="t2wml-annotation",
-    version="0.0.1",
+    version="0.0.2",
     author="Amandeep Singh",
     author_email="amandeep.s.saggu@gmail.com",
     description="T2WML lite: annotation",
@@ -27,9 +27,6 @@ setuptools.setup(
         "Operating System :: OS Independent"
     ],
     include_package_data=True,
-    package_data={'datamart': ['resources/*.json','resources/*.csv', 'resources/*.xlsx', 'resources/*.yaml', 'resources/*.tsv']},
-    # install_requires=install_requires,
-    # dependency_links=[
-    #     'https://pypi.fury.io/theresearchsoftwarecompany/'
-    # ]
+    install_requires=install_requires,
+    package_data={'datamart': ['resources/*.json','resources/*.csv', 'resources/*.xlsx', 'resources/*.yaml', 'resources/*.tsv']}
 )
