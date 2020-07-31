@@ -106,7 +106,7 @@ def save_template_file(output_df_dict: dict, output_path: str) -> None:
 def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
     """
         codes used to generate the template attribute tab
-        1. add for columns with role = variable or role = qualifier. 
+        1. add for columns with role = variable or role = qualifier.
     """
     attributes_df_list = []
 
@@ -117,7 +117,7 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
 
         # update 2020.7.29, add an extra qualifier for string main subject condition
         additional_qualifier_dict = {
-            ("lat", "lon", "latitude", "longitude"): {"Attribute": "location", "Property": "P276"},
+            ("lat", "lon", "latitude", "longitude"): {"Attribute": "coordinate location", "Property": "P625"},
             ("country",): {"Attribute": "country", "Property": "P17"},
             ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
                           "Property": "P2006190001"},
@@ -125,7 +125,7 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
                           "Property": "P2006190002"},
             ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
                           "Property": "P2006190003"},
-            ("country", "admin1", "admin2", "admin1"): {"Attribute": "located in the administrative territorial entity",
+            ("country", "admin1", "admin2", "admin3"): {"Attribute": "located in the administrative territorial entity",
                                                         "Property": "P131"},
         }
         if role_lower == "main subject" and each_col_info["type"].lower() == "string":
