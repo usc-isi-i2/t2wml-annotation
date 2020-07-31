@@ -13,7 +13,7 @@ with open('requirements.txt', 'r') as f:
 
 setuptools.setup(
     name="t2wml-annotation",
-    version="0.0.1",
+    version="0.0.2",
     author="Amandeep Singh",
     author_email="amandeep.s.saggu@gmail.com",
     description="T2WML lite: annotation",
