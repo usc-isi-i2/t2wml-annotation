@@ -11,6 +11,7 @@ def main():
     awsd-datamart-kgtk-exploded-uniq-ids.tsv
     """
     input_path = "./sample_annotation_file.xlsx"
+    # input_path = "./test_file_main_subject_country.xlsx"
     yaml_path = "./sample_yaml_file.yaml"
     input_df = pd.read_excel(input_path, index_col=0, header=None)
     with open(yaml_path, "r") as f:

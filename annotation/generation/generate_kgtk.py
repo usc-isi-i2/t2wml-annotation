@@ -221,7 +221,7 @@ class GenerateKgtk:
         kgtk_imploded_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         kgtk_imploded_file_name = kgtk_imploded_file.name
         shell_code = """
-            kgtk implode "{}" --remove-prefixed-columns True --without si_units language_suffix > "{}"
+            kgtk implode "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
             """.format(t2wml_output_filepath, kgtk_imploded_file_name)
         return_res = execute_shell_code(shell_code)
         if return_res != "":

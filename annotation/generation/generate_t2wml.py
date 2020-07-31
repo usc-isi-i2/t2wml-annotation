@@ -55,7 +55,7 @@ property_node = {
     Type.ADMIN2: 'P2006190002',
     Type.ADMIN3: 'P2006190003',
     Type.ISO_DATE_TIME: 'P585',
-    Type.POINT: 'P276'
+    Type.POINT: 'P625',  # 'P276'
 }
 
 location_context = {
@@ -292,17 +292,22 @@ class ToT2WML:
         return qualifiers
 
     def _get_coordinate(self) -> list:
+        # kyao
+        # Ignore coordinates for now. 31 July 2020
+        return []
         # add coordinate
-        # need to generalize
         longitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LONGITUDE.value)
         latitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LATITUDE.value)
         if longitude_index.shape[0] and latitude_index.shape[0]:
             longitude_index = longitude_index[0]
             latitude_index = latitude_index[0]
             result = {
-                'property': 'P276',
-                'value': '=concat("POINT(", value[' + to_letter_column(longitude_index) + ' , $row], value[' \
-                    + to_letter_column(latitude_index) + ', $row], ")", " ")'
+                'property': property_node[Type.POINT],
+                'latitude': f'=value[{to_letter_column(latitude_index)}, $row]',
+                'longitude': f'=value[{to_letter_column(longitude_index)}, $row]',
+                'globe': 'wgs84'
+                # 'value': '=concat("POINT(", value[' + to_letter_column(longitude_index) + ' , $row], value[' \
+                #     + to_letter_column(latitude_index) + ', $row], ")", " ")'
             }
             return [result]
         else:
