@@ -1,5 +1,6 @@
 import pandas as pd
 import logging
+import os
 from collections import defaultdict
 
 _logger = logging.getLogger(__name__)
@@ -70,15 +71,18 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     return output_df_dict
 
 
-def generate_template(input_path: str, output_path: str) -> None:
+def generate_template(input_path: str, output_path: str, dataset_id: str = None) -> None:
     """
     generate the template xlsx file from the input xlsx file
+    :param dataset_id:
     :param input_path:
     :param output_path:
     :return:
     """
     input_df = pd.read_excel(input_path, index_col=0, header=None)
-    output_df_dict = generate_template_from_df(input_df)
+    output_df_dict = generate_template_from_df(input_df, dataset_id=dataset_id)
+    output_folder = output_path[:output_path.rfind("/")]
+    os.makedirs(output_folder, exist_ok=True)
     save_template_file(output_df_dict, output_path)
 
 
