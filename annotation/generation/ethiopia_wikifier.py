@@ -22,7 +22,8 @@ CONSTRAINS_CHARS = set("abcdefghijklmnopqrstuvwxyz_() 1234567890'")
 class EthiopiaWikifier:
     def __init__(self, es_server=None, es_index=None, sparql_server=None, similarity_threshold: float = 0.5):
         if not es_server:
-            self.es_server = "http://kg2018a.isi.edu:9200"
+            # self.es_server = "http://kg2018a.isi.edu:9200"
+            self.es_server = "https://dsbox02.isi.edu:8888/es"
         else:
             self.es_server = es_server
         if not es_index:
