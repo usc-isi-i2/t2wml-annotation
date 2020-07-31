@@ -1,36 +1,22 @@
 import pandas as pd
-import os
 import logging
 from collections import defaultdict
 
 _logger = logging.getLogger(__name__)
-type_mapper_dict = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
+TYPE_MAP_DICT = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
 
-
-def generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
-    """
-    A sample dataset file looks like: here {dataset_id} = "aid-security"
-    node1	        label	    node2	                id
-    Qaid-security	P31	        Q1172284	            aid-security-P31
-    Qaid-security	label	    aid-security dataset	aid-security-label
-    Qaid-security	P1476	    aid-security dataset	aid-security-P1476
-    Qaid-security	description	aid-security dataset	aid-security-description
-    Qaid-security	P2699	    aid-security	        aid-security-P2699
-    Qaid-security	P1813	    aid-security	        aid-security-P1813
-
-    :param dataset_id: input dataset id
-    :return:
-    """
-    dataset_id_df_list = []
-
-    dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
-    dataset_node2s = ["Q1172284", "{} dataset".format(dataset_id), "{} dataset".format(dataset_id),
-                      "{} dataset".format(dataset_id), dataset_id, dataset_id]
-    for label, node2 in zip(dataset_labels, dataset_node2s):
-        dataset_id_df_list.append({"dataset": dataset_id, "label": label, "node2": node2})
-
-    dataset_df = pd.DataFrame(dataset_id_df_list)
-    return dataset_df
+ADDITIONAL_QUALIFIER_MAP = {
+    ("lat", "lon", "latitude", "longitude"): {"Attribute": "location", "Property": "P276"},
+    ("country",): {"Attribute": "country", "Property": "P17"},
+    ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
+                  "Property": "P2006190001"},
+    ("admin2",): {"Attribute": "located in the second-level administrative country subdivision",
+                  "Property": "P2006190002"},
+    ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
+                  "Property": "P2006190003"},
+    ("country", "admin1", "admin2", "admin1"): {"Attribute": "located in the administrative territorial entity",
+                                                "Property": "P131"},
+}
 
 
 def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) -> dict:
@@ -63,11 +49,11 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     #         annotation_part.iloc[:, i]["role"] = annotation_part.iloc[:, i - 1]["role"]
 
     # start generate dataframe for templates
-    dataset_df = generate_dataset_tab(dataset_id)
-    attribute_df = generate_attributes_tab(dataset_id, annotation_part)
-    unit_df = generate_unit_tab(dataset_id, content_part, annotation_part)
-    extra_df, wikifier_df1 = process_main_subject(dataset_id, content_part, annotation_part)
-    wikifier_df2 = generate_wikifier_part(content_part, annotation_part)
+    dataset_df = _generate_dataset_tab(dataset_id)
+    attribute_df = _generate_attributes_tab(dataset_id, annotation_part)
+    unit_df = _generate_unit_tab(dataset_id, content_part, annotation_part)
+    extra_df, wikifier_df1 = _process_main_subject(dataset_id, content_part, annotation_part)
+    wikifier_df2 = _generate_wikifier_part(content_part, annotation_part)
     wikifier_df = pd.concat([wikifier_df1, wikifier_df2])
 
     output_df_dict = {
@@ -103,7 +89,33 @@ def save_template_file(output_df_dict: dict, output_path: str) -> None:
         output_df_dict["Wikifier_t2wml"].to_excel(writer, sheet_name="Wikifier_t2wml", index=False)
 
 
-def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
+def _generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
+    """
+    A sample dataset file looks like: here {dataset_id} = "aid-security"
+    node1	        label	    node2	                id
+    Qaid-security	P31	        Q1172284	            aid-security-P31
+    Qaid-security	label	    aid-security dataset	aid-security-label
+    Qaid-security	P1476	    aid-security dataset	aid-security-P1476
+    Qaid-security	description	aid-security dataset	aid-security-description
+    Qaid-security	P2699	    aid-security	        aid-security-P2699
+    Qaid-security	P1813	    aid-security	        aid-security-P1813
+
+    :param dataset_id: input dataset id
+    :return:
+    """
+    dataset_id_df_list = []
+
+    dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
+    dataset_node2s = ["Q1172284", "{} dataset".format(dataset_id), "{} dataset".format(dataset_id),
+                      "{} dataset".format(dataset_id), dataset_id, dataset_id]
+    for label, node2 in zip(dataset_labels, dataset_node2s):
+        dataset_id_df_list.append({"dataset": dataset_id, "label": label, "node2": node2})
+
+    dataset_df = pd.DataFrame(dataset_id_df_list)
+    return dataset_df
+
+
+def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
     """
         codes used to generate the template attribute tab
         1. add for columns with role = variable or role = qualifier. 
@@ -116,21 +128,9 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
         role_lower = role_info[0].lower()
 
         # update 2020.7.29, add an extra qualifier for string main subject condition
-        additional_qualifier_dict = {
-            ("lat", "lon", "latitude", "longitude"): {"Attribute": "location", "Property": "P276"},
-            ("country",): {"Attribute": "country", "Property": "P17"},
-            ("admin1",): {"Attribute": "located in the first-level administrative country subdivision",
-                          "Property": "P2006190001"},
-            ("admin2",): {"Attribute": "located in the second-level administrative country subdivision",
-                          "Property": "P2006190002"},
-            ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
-                          "Property": "P2006190003"},
-            ("country", "admin1", "admin2", "admin1"): {"Attribute": "located in the administrative territorial entity",
-                                                        "Property": "P131"},
-        }
         if role_lower == "main subject" and each_col_info["type"].lower() == "string":
             all_column_types = set(annotation_part.T['type'].unique())
-            for types, edge_info in additional_qualifier_dict.items():
+            for types, edge_info in ADDITIONAL_QUALIFIER_MAP.items():
                 if len(set(types).intersection(all_column_types)) > 0:
                     attributes_df_list.append({"Attribute": edge_info["Attribute"],
                                                "Property": edge_info["Property"], "Role": "qualifier",
@@ -151,9 +151,9 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
             if role_type == "":
                 continue
 
-            if role_type not in type_mapper_dict:
+            if role_type not in TYPE_MAP_DICT:
                 raise ValueError("Column type {} for column {} is not valid!".format(role_type, i))
-            data_type = type_mapper_dict[each_col_info["type"]]
+            data_type = TYPE_MAP_DICT[each_col_info["type"]]
             label = "{}".format(attribute) if not each_col_info['name'] else each_col_info['name']
             description = "{} column in {}".format(role_lower, dataset_id) if not each_col_info['description'] \
                 else each_col_info['description']
@@ -169,7 +169,7 @@ def generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> p
     return attributes_df
 
 
-def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame) -> pd.DataFrame:
+def _generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame) -> pd.DataFrame:
     """
         codes used to generate the template unit tab
         1. list all the distinct units defined in the units row
@@ -219,7 +219,7 @@ def generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_pa
     return unit_df
 
 
-def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame):
+def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame):
     row_offset = 7
     col_offset = 1
     wikifier_df_list = []
@@ -275,7 +275,7 @@ def process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation
     return extra_df, wikifier_df
 
 
-def generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataFrame):
+def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataFrame):
     # generate wikifier file for all columns that have type == country, admin1, admin2, or admin3
     # TODO: set country wikifier and ethiopia wikifier to be a service
     wikifier_df_list = []

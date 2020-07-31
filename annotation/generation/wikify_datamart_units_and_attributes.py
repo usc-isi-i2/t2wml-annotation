@@ -4,7 +4,6 @@ import string
 import csv
 import copy
 import typing
-import yaml
 
 from annotation.generation.annotation_to_template import run_wikifier as get_wikifier_result
 from pathlib import Path
@@ -116,34 +115,31 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
 
     # generate files
     memo = defaultdict(dict)
-    kgtk_properties_df = generate_KGTK_properties_file(loaded_file["attributes_file"], loaded_file["qualifiers"],
-                                                       dataset_qnode, dataset_id,
-                                                       memo, column_name_config["attributes_file_node_column_name"],
-                                                       column_name_config["attributes_file_node_label_column_name"])
+    kgtk_properties_df = _generate_KGTK_properties_file(loaded_file["attributes_file"],
+                                                        loaded_file["qualifiers"],
+                                                        dataset_qnode, dataset_id,
+                                                        memo, column_name_config["attributes_file_node_column_name"],
+                                                        column_name_config["attributes_file_node_label_column_name"])
 
-    kgtk_variables_df = generate_KGTK_variables_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
-                                                     column_name_config["attributes_file_node_column_name"],
-                                                     column_name_config["attributes_file_node_label_column_name"])
+    kgtk_variables_df = _generate_KGTK_variables_file(loaded_file["attributes_file"],
+                                                      dataset_qnode, dataset_id, memo,
+                                                      column_name_config["attributes_file_node_column_name"],
+                                                      column_name_config["attributes_file_node_label_column_name"])
 
-    # kgtk_qualifiers_df = generate_KGTK_qualifiers_file(loaded_file["attributes_file"], dataset_qnode, dataset_id, memo,
-    #                                                    column_name_config["attributes_file_node_column_name"],
-    #                                                    column_name_config["attributes_file_node_label_column_name"])
+    kgtk_units_df = _generate_KGTK_units_file(loaded_file["units_file"], dataset_qnode, memo,
+                                              column_name_config["unit_file_node_column_name"],
+                                              column_name_config["unit_file_node_label_column_name"])
 
-    kgtk_units_df = generate_KGTK_units_file(loaded_file["units_file"], dataset_qnode, memo,
-                                             column_name_config["unit_file_node_column_name"],
-                                             column_name_config["unit_file_node_label_column_name"])
-
-    wikifier_df = generate_wikifier_file(memo, extra_wikifier_dict)
+    wikifier_df = _generate_wikifier_file(memo, extra_wikifier_dict)
     if loaded_file["Wikifier_t2wml"] is not None:
         wikifier_df = pd.concat([wikifier_df, loaded_file["Wikifier_t2wml"]])
 
-    dataset_df = generate_and_save_dataset_file(loaded_file["dataset_file"])
-    extra_edges_df = generate_extra_edges_file(loaded_file["extra_edges"], memo)
+    dataset_df = _generate_dataset_file(loaded_file["dataset_file"])
+    extra_edges_df = _generate_extra_edges_file(loaded_file["extra_edges"], memo)
 
     output_files = {"kgtk_properties.tsv": kgtk_properties_df,
                     "kgtk_variables.tsv": kgtk_variables_df,
                     "kgtk_units.tsv": kgtk_units_df,
-                    # "kgtk_qualifiers.tsv": kgtk_qualifiers_df,
                     "wikifier.csv": wikifier_df,
                     "extra_edges.tsv": extra_edges_df,
                     "dataset.tsv": dataset_df}
@@ -162,20 +158,20 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
         return output_files
 
 
-def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame,
-                                  dataset_q_node: str, dataset_id: str, memo: dict,
-                                  node_column_name="Property", node_label_column_name="Attribute",
-                                  qualifier_column_name="Qualifiers") -> pd.DataFrame:
+def _generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataFrame,
+                                   dataset_q_node: str, dataset_id: str, memo: dict,
+                                   node_column_name="Property", node_label_column_name="Attribute",
+                                   qualifier_column_name="Qualifiers") -> pd.DataFrame:
     """
-    sample format for each property (totally 3 rows)
-    Please note that data type may change (to String, Date) base on the given input template file
-        id	                            node1	            label	    node2
-	0   Paid-security-002-data_type	    Paid-security-002	data_type	Quantity
-    1   Paid-security-002-P31	        Paid-security-002	P31	        Q18616576
-    2   Paid-security-002-label	        Paid-security-002	label	    UN
+        sample format for each property (totally 3 rows)
+        Please note that data type may change (to String, Date) base on the given input template file
+            id	                            node1	            label	    node2
+        0   Paid-security-002-data_type	    Paid-security-002	data_type	Quantity
+        1   Paid-security-002-P31	        Paid-security-002	P31	        Q18616576
+        2   Paid-security-002-label	        Paid-security-002	label	    UN
 
-    :return:
-    """
+    :return: kgtk format property dataframe
+     """
     node_number = 1
     output_df_list = []
     input_df = input_df.fillna("")
@@ -240,24 +236,24 @@ def generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.DataF
     return output_df
 
 
-def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str, memo: dict,
-                                 node_column_name="Property", node_label_column_name="Attribute"):
+def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str, memo: dict,
+                                  node_column_name="Property", node_label_column_name="Attribute"):
     """
-    sample format for each variable, totally 10 + n (n is the count of related qualifiers) rows
-        "id"                                 "node1"        "label"          "node2"
-    0   QVARIABLE-OECD-002-label             QVARIABLE-002   label           "GDP per capita"
-    1   QVARIABLE-OECD-002-P1476             QVARIABLE-002   P1476           "GDP per capita"
-    2   QVARIABLE-OECD-002-description       QVARIABLE-002   description     "GDP per capita variable in OECD"
-    3   QVARIABLE-OECD-002-P31-1             QVARIABLE-002   P31             Q50701
-    4   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P585
-    5   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P248
-    6   QVARIABLE-OECD-002-P1687-1           QVARIABLE-002   P1687           PVARIABLE-OECD-002
-    7   QVARIABLE-OECD-002-P2006020004-1     QVARIABLE-002   P2006020004     QOECD
-    8   QVARIABLE-OECD-002-P1813             QVARIABLE-002   P1813           "gdp_per_capita"
-    9   QVARIABLE-OECD-P2006020003-QOECD002  QVARIABLE       P2006020003     QOECD-002
-    -------------------------------------------------
-    10   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-101  QVARIABLE       P2006020003     PQUALIFIER-OECD-101
-    11   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-102  QVARIABLE       P2006020003     PQUALIFIER-OECD-102
+        sample format for each variable, totally 10 + n (n is the count of related qualifiers) rows
+            "id"                                 "node1"        "label"          "node2"
+        0   QVARIABLE-OECD-002-label             QVARIABLE-002   label           "GDP per capita"
+        1   QVARIABLE-OECD-002-P1476             QVARIABLE-002   P1476           "GDP per capita"
+        2   QVARIABLE-OECD-002-description       QVARIABLE-002   description     "GDP per capita variable in OECD"
+        3   QVARIABLE-OECD-002-P31-1             QVARIABLE-002   P31             Q50701
+        4   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P585
+        5   QVARIABLE-OECD-002-P2006020002-P248  QVARIABLE-002   P2006020002     P248
+        6   QVARIABLE-OECD-002-P1687-1           QVARIABLE-002   P1687           PVARIABLE-OECD-002
+        7   QVARIABLE-OECD-002-P2006020004-1     QVARIABLE-002   P2006020004     QOECD
+        8   QVARIABLE-OECD-002-P1813             QVARIABLE-002   P1813           "gdp_per_capita"
+        9   QVARIABLE-OECD-P2006020003-QOECD002  QVARIABLE       P2006020003     QOECD-002
+        -------------------------------------------------
+        10   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-101  QVARIABLE       P2006020003     PQUALIFIER-OECD-101
+        11   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-102  QVARIABLE       P2006020003     PQUALIFIER-OECD-102
     """
     node_number = 1
     output_df_list = []
@@ -277,7 +273,7 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, da
         else:
             role = ""
 
-        # not add QUALIFIER to here
+        # not add QUALIFIER to variables tab
         if has_relationship and role == "QUALIFIER":
             continue
 
@@ -336,57 +332,8 @@ def generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, da
     return output_df
 
 
-# def generate_KGTK_qualifiers_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str,
-#                                   memo: dict, node_column_name="Property",
-#                                   node_label_column_name="Attribute"):
-#     """
-#     sample format for each qualifier (totally 9 rows)
-#         "id"             "node1"                "label"          "node2"
-#                         QQUALIFIER-QOECD-22	    label	        "some qualifier for QOECD"
-#
-#     following part length will change depending on the properties amount
-#     """
-#     node_number = 1
-#     output_df_list = []
-#     input_df = input_df.fillna("")
-#
-#     has_relationship = 'Relationship' in input_df.columns and 'Role' in input_df.columns
-#
-#     if has_relationship:
-#         for _, each_row in input_df.iterrows():
-#             role = each_row["Role"].upper()
-#
-#             # only do for qualifier role
-#             if role == "QUALIFIER":
-#
-#                 node_number += 1
-#                 # update 2020.7.22: change to add role in Q node id
-#                 q_node_id = _generate_q_nodes(role, dataset_q_node, node_number)
-#                 memo["variable"][q_node_id] = each_row[node_label_column_name]
-#
-#                 if each_row[node_column_name] == "":
-#                     # update 2020.7.23, also add role for P nodes
-#                     p_node_id = _generate_p_nodes(role, dataset_q_node, node_number)
-#                     labels = ["label"]
-#                     node2s = [to_kgtk_format_string(each_row[node_label_column_name]),
-#                               p_node_id]
-#                     node1s = [q_node_id] * (len(labels))
-#
-#                     # add those nodes
-#                     for i, each_label in enumerate(labels):
-#                         id_ = _generate_edge_id(node1s[i], labels[i], node2s[i])
-#                         output_df_list.append({"id": id_, "node1": node1s[i], "label": labels[i], "node2": node2s[i]})
-#
-#     # get output
-#     output_df = pd.DataFrame(output_df_list)
-#     # in case of empty df
-#     if output_df.shape == (0, 0):
-#         output_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
-#     return output_df
-
-
-def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_q_node: str, memo: dict, node_column_name="Q-Node",
-                             node_label_column_name="Unit") -> pd.DataFrame:
+def _generate_KGTK_units_file(input_df: pd.DataFrame, dataset_q_node: str, memo: dict, node_column_name="Q-Node",
+                              node_label_column_name="Unit") -> pd.DataFrame:
     """
         sample format for each unit (totally 2 rows)
         id	                        node1	            label	node2
@@ -422,18 +369,18 @@ def generate_KGTK_units_file(input_df: pd.DataFrame, dataset_q_node: str, memo: 
     return output_df
 
 
-def generate_wikifier_file(memo, extra_wikifier_dict):
+def _generate_wikifier_file(memo, extra_wikifier_dict):
     """
-    generate the wikifier part from template(those properties, variables, units generated in above functions)
-    Sample file looks like:
-        column	row	    value	    context	    item
-	0	  ""     ""     UN	        property	Paid-security-002
-	1	  ""     ""     INGO	    property	Paid-security-003
-	2	  ""     ""          LNGO/NRCS	property	Paid-security-004
-	3	  ""     ""          ICRC	    property	Paid-security-005
-	4	  ""     ""        UN	        variable	Qaid-security-002
-	5	  ""     ""          INGO	    variable	Qaid-security-003
-    6     ""     ""          person	    unit	    Qaid-security-U002
+        generate the wikifier part from template(those properties, variables, units generated in above functions)
+        Sample file looks like:
+            column	row	    value	    context	    item
+        0	  ""     ""     UN	        property	Paid-security-002
+        1	  ""     ""     INGO	    property	Paid-security-003
+        2	  ""     ""          LNGO/NRCS	property	Paid-security-004
+        3	  ""     ""          ICRC	    property	Paid-security-005
+        4	  ""     ""        UN	        variable	Qaid-security-002
+        5	  ""     ""          INGO	    variable	Qaid-security-003
+        6     ""     ""          person	    unit	    Qaid-security-U002
     """
     output_df_list = []
     for memo_type, each_memo in memo.items():
@@ -452,7 +399,7 @@ def generate_wikifier_file(memo, extra_wikifier_dict):
     return output_df
 
 
-def generate_and_save_dataset_file(input_df: pd.DataFrame):
+def _generate_dataset_file(input_df: pd.DataFrame):
     """
     A sample dataset file looks like:
     node1	        label	    node2	                id
@@ -472,11 +419,11 @@ def generate_and_save_dataset_file(input_df: pd.DataFrame):
     output_df["dataset"] = output_df['dataset'].apply(lambda x: "Q" + x)
     output_df = output_df.rename(columns={"dataset": "node1"})
     # check double quotes
-    output_df = check_double_quotes(output_df, check_content_startswith=True)
+    output_df = _check_double_quotes(output_df, check_content_startswith=True)
     return output_df
 
 
-def generate_extra_edges_file(input_df: pd.DataFrame, memo: dict):
+def _generate_extra_edges_file(input_df: pd.DataFrame, memo: dict):
     qualifier_extra_edges_list = []
     if "qualifier_target_nodes" in memo:
         for k, v in memo['qualifier_target_nodes'].items():
@@ -485,12 +432,19 @@ def generate_extra_edges_file(input_df: pd.DataFrame, memo: dict):
 
     output_df = pd.concat([input_df, pd.DataFrame(qualifier_extra_edges_list)])
     # check double quotes
-    output_df = check_double_quotes(output_df, label_types={"label", "description"})
+    output_df = _check_double_quotes(output_df, label_types={"label", "description"})
     return output_df
 
 
 # update 2020.7.24, add support of run wikifier and record t2wml wikifier file in template
 def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, template_output_path: str):
+    """
+    run wikifier on all table files(csv, xlsx, xls) and add the new wikifier results to "wikifier.csv" file
+    :param input_folder_path:
+    :param wikifier_columns_df:
+    :param template_output_path:
+    :return:
+    """
     new_wikifier_df_list = []
     input_data = []
 
@@ -579,7 +533,7 @@ def _update_double_quotes(each_series):
     return each_series
 
 
-def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_startswith: bool = False):
+def _check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_startswith: bool = False):
     output_df = input_df.copy()
     if label_types is not None:
         output_df = output_df.apply(lambda x: _update_double_quotes(x) if x["label"] in set(label_types) else x, axis=1)
@@ -591,6 +545,15 @@ def check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content_
 
 
 def _generate_p_nodes(role: str, dataset_q_node: str, node_number: int, memo: dict, node_name: str):
+    """
+    use memo mapping to ensure the p nodes are always correctly mapped
+    :param role:
+    :param dataset_q_node:
+    :param node_number:
+    :param memo:
+    :param node_name:
+    :return:
+    """
     if node_name in memo['property_name_to_id']:
         p_node_id = memo['property_name_to_id'][node_name]
     else:
