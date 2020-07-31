@@ -3,12 +3,12 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-# with open('requirements.txt', 'r') as f:
-#     install_requires = list()
-#     for line in f:
-#         re = line.strip()
-#         if re:
-#             install_requires.append(re)
+with open('requirements.txt', 'r') as f:
+    install_requires = list()
+    for line in f:
+        re = line.strip()
+        if re:
+            install_requires.append(re)
 
 
 setuptools.setup(
@@ -27,9 +27,5 @@ setuptools.setup(
         "Operating System :: OS Independent"
     ],
     include_package_data=True,
-    package_data={'datamart': ['resources/*.json','resources/*.csv', 'resources/*.xlsx', 'resources/*.yaml', 'resources/*.tsv']},
-    # install_requires=install_requires,
-    # dependency_links=[
-    #     'https://pypi.fury.io/theresearchsoftwarecompany/'
-    # ]
+    package_data={'datamart': ['resources/*.json','resources/*.csv', 'resources/*.xlsx', 'resources/*.yaml', 'resources/*.tsv']}
 )
