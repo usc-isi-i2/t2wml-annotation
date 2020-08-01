@@ -245,9 +245,12 @@ class EthiopiaWikifier:
         final_answer = Utility.sort_by_col_and_row(final_answer).reset_index().drop(columns=["index"])
         # return output
         output_df = input_df.copy()
+        # update 2020.7.31, ensure index match
+        output_df = output_df.reset_index()
         if output_column_name is None:
             output_column_name = "{}_wikifier".format(target_column)
         output_df[output_column_name] = final_answer["kg_id"]
+        output_df = output_df.set_index("index")
         # clear level memo
         self.level_memo = defaultdict(int)
         return output_df

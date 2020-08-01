@@ -356,6 +356,7 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
         wikifier_res = wikifier. \
             produce(input_df=input_df, target_column=input_col_name, column_metadata=column_metadata). \
             fillna("")
+        # wrap to t2wml wikifier format
         for row_number, each_row in wikifier_res.iterrows():
             label = each_row[input_col_name]
             node = each_row[output_col_name]

@@ -470,9 +470,11 @@ def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, temp
             if end_row == "":
                 end_row = len(each_df)
             else:
-                end_row = int(end_row) - 1
+                end_row = int(end_row)
 
             if target_column_number >= each_df.shape[1] or end_row >= each_df.shape[0]:
+                print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}").\
+                    format(target_column_number, end_row, each_df.shape)
                 continue
 
             each_df = each_df.iloc[start_row:end_row, :]
