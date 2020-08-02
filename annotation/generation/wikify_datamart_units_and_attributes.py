@@ -15,7 +15,7 @@ Step 1: load file
 b. call "load_xlsx" send with one file path
 
 Step 2: generate file
-call "generate" after you loaded the file 
+call "generate" after you loaded the file
 
 the output folder location and column name config (optional) if needed
 if column name config not given or partial not given the system will use:
@@ -472,9 +472,10 @@ def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, temp
             else:
                 end_row = int(end_row)
 
-            if target_column_number >= each_df.shape[1] or end_row >= each_df.shape[0]:
-                print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}").\
-                    format(target_column_number, end_row, each_df.shape)
+            if target_column_number >= each_df.shape[1] or end_row > each_df.shape[0]:
+                import pdb
+                print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}".\
+                      format(target_column_number, end_row, each_df.shape))
                 continue
 
             each_df = each_df.iloc[start_row:end_row, :]
