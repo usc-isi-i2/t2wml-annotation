@@ -581,6 +581,8 @@ def _generate_edge_id(node1: str, label: str, node2: str):
 
 
 def to_kgtk_format_string(s):
+    if len(s) == 0:
+        return '""'
     if s[0] == '"' and s[-1] == '"':
         return s
     if '"' in s:
