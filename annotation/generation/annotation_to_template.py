@@ -266,8 +266,8 @@ def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotatio
 
             elif type_ not in allowed_types:
                 raise ValueError("{} is not a legal type among {{{}}}!".format(type_, allowed_types))
-        # only one main subject so no need to continue
-        break
+            # only one main subject so no need to continue
+            break
 
     if len(extra_df_list) == 0:
         extra_df = pd.DataFrame(columns=['id', 'node1', 'label', 'node2'])
