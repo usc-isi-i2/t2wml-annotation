@@ -29,27 +29,33 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     if dataset_id is None:
         dataset_id = input_df.iloc[0, 0]
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
+    header_row = 6
+    data_row = 7
+
     if "header" in input_df.index:
         header_row = input_df.index.tolist().index("header")
-        annotation_rows = list(range(1, 6)) + [header_row]
-        content_rows = list(range(6, len(input_df)))
-        content_rows.remove(header_row)
-    # when not present, row 7 is assumed to contain the headers
+        if "data" not in input_df.index:
+            data_row = header_row + 1
+            _index = input_df.index.tolist()
+            _index[data_row] = 'data'
+            input_df.index = _index
     else:
         _index = input_df.index.tolist()
         _index[6] = 'header'
         input_df.index = _index
-        annotation_rows = list(range(1, 7))
-        content_rows = list(range(7, len(input_df)))
+
+    if "data" in input_df.index:
+        data_row = input_df.index.tolist().index("data")
+    else:
+        _index = input_df.index.tolist()
+        _index[7] = 'data'
+        input_df.index = _index
+
+    annotation_rows = list(range(1, 6)) + [header_row]
+    content_rows = list(range(data_row, len(input_df)))
 
     annotation_part = input_df.iloc[annotation_rows].fillna("")
     content_part = input_df.iloc[content_rows]
-
-    # updated 2020.7.22: no need to check this anymore, it will be checked on datamart api side
-    # fix condition if we have merged roles rows
-    # for i in range(1, annotation_part.shape[1]):
-    #     if annotation_part.iloc[:, i]["role"] == "":
-    #         annotation_part.iloc[:, i]["role"] = annotation_part.iloc[:, i - 1]["role"]
 
     # start generate dataframe for templates
     dataset_df = _generate_dataset_tab(dataset_id)
@@ -196,7 +202,7 @@ def _generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_p
 
         role = each_col_info["role"].lower()
         # if role is unit, record them
-        if len(role) > 4 and role[:4] == "unit":
+        if len(role) >= 4 and role[:4] == "unit":
             if role == "unit":
                 unit_cols[""].append(i)
             # update 2020.7.24, now allow unit only corresponding to specific variables
@@ -344,7 +350,8 @@ def run_wikifier(input_df: pd.DataFrame, target_col: int, wikifier_type: str, re
         wikified_result = DatamartCountryWikifier(). \
             wikify(input_df.iloc[:, target_col].dropna().unique().tolist())
         for label, node in wikified_result.items():
-            each_row = {"column": "", "row": "", "value": label, "context": column_metadata.get("context", ""), "item": node}
+            each_row = {"column": "", "row": "", "value": label, "context": column_metadata.get("context", ""),
+                        "item": node}
             if node and label and each_row not in wikifier_df_list:
                 wikifier_df_list.append(each_row)
 
