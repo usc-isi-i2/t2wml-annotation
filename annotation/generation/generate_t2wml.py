@@ -106,11 +106,16 @@ def to_number_column(col: string):
 def get_index(series: pd.Series, value, *, pos=0) -> int:
     return int(series[series == value].index[pos])
 
-def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None) -> pd.Int64Index:
-    if within is not None:
-        return within.intersection(series[series == value].index)
+def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None, startswith = False) -> pd.Int64Index:
+    if startswith:
+        indices = series[series.apply(lambda x: isinstance(x, str) and x.startswith(value))].index
     else:
-        return series[series == value].index
+        indices = series[series == value].index
+
+    if within is not None:
+        indices =  within.intersection(indices)
+
+    return indices
 
 class ToT2WML:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, dataset_qnode: str):
@@ -131,6 +136,7 @@ class ToT2WML:
         self.location_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.LOCATION.value)
         self.variable_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.VARIABLE.value)
         self.qualifier_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.QUALIFIER.value)
+        self.units_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.UNIT.value, startswith=True)
         self.variable_columns = self.sheet.iloc[1, :] == Role.VARIABLE.value
 
     def _get_region(self) -> dict:
@@ -327,15 +333,53 @@ class ToT2WML:
             qualifier.append(entry)
         return qualifier
 
+    def _process_unit_columns(self) -> dict:
+        result = dict()
+        if self.units_indices.shape[0] == 0:
+            return result
+        for i in range(self.units_indices.shape[0]):
+            col_index = self.units_indices[i]
+            unit_spec = self.sheet.iloc[self.role_index, col_index]
+            variable_indices = []
+            if ';' in unit_spec:
+                variable_names = unit_spec.split(';')[1].split(',')
+                for name in variable_names:
+                    indices = get_indices(self.sheet.iloc[self.header_index,1:], name)
+                    if len(indices) == 0:
+                        print(f'Invalid unit specification: "{unit_spec}"  No variable named "{variable_name}"')
+                    else:
+                        variable_indices.append(indices[0])
+            if not variable_indices:
+                variable_indices = [None]
+            for var in variable_indices:
+                if var in result:
+                    result[var].append(col_index)
+                else:
+                    result[var] = [col_index]
+        return result
+
+
     def get_dict(self) -> dict:
         region = self._get_region()
+        variable_unit_map = self._process_unit_columns()
 
         # template = collections.OrderedDict()
         template = dict()
         template['item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]'
         template['property'] = f'=item[$col, {self.header_index+1}, "property"]'
         template['value'] = '=value[$col, $row]'
-        template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'   #
+
+        if None in variable_unit_map:
+            unit_cols = variable_unit_map[None]
+            if len(unit_cols) > 1:
+                cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in unit_cols])
+                value = f'=get_item(concat({cells} , ", "), "unit")'
+            else:
+                col = unit_cols[0]
+                value = f'=get_item[{to_letter_column(col)}, $row, "unit"]'
+            template['unit'] = value
+        else:
+            template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'   #
 
         qualifier = []
         qualifier.append(self._get_time())
