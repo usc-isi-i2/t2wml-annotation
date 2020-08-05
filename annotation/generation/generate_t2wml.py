@@ -376,7 +376,7 @@ class ToT2WML:
                 value = f'=get_item(concat({cells} , ", "), "unit")'
             else:
                 col = unit_cols[0]
-                value = f'=get_item[{to_letter_column(col)}, $row, "unit"]'
+                value = f'=item[{to_letter_column(col)}, $row, "unit"]'
             template['unit'] = value
         else:
             template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'   #
