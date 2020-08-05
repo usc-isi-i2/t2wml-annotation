@@ -61,8 +61,8 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     dataset_df = _generate_dataset_tab(dataset_id)
     attribute_df = _generate_attributes_tab(dataset_id, annotation_part)
     unit_df = _generate_unit_tab(dataset_id, content_part, annotation_part)
-    extra_df, wikifier_df1 = _process_main_subject(dataset_id, content_part, annotation_part)
-    wikifier_df2 = _generate_wikifier_part(content_part, annotation_part)
+    extra_df, wikifier_df1 = _process_main_subject(dataset_id, content_part, annotation_part, data_row)
+    wikifier_df2 = _generate_wikifier_part(content_part, annotation_part, data_row)
     wikifier_df = pd.concat([wikifier_df1, wikifier_df2])
 
     output_df_dict = {
@@ -231,8 +231,7 @@ def _generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_p
     return unit_df
 
 
-def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame):
-    row_offset = 7
+def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame, data_row):
     col_offset = 1
     wikifier_df_list = []
     extra_df_list = []
@@ -255,7 +254,7 @@ def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotatio
 
                     # wikifier part should always be updated, as column/row is specified for each cell
                     wikifier_df_list.append(
-                        {"column": i + col_offset, "row": row + row_offset, "value": label,
+                        {"column": i + col_offset, "row": row + data_row, "value": label,
                          "context": "main subject", "item": node})
 
                     # update 2020.7.24, not create again if exist
@@ -284,16 +283,16 @@ def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotatio
         wikifier_df = pd.DataFrame(columns=['column', 'row', 'value', 'context', "item"])
     else:
         wikifier_df = pd.DataFrame(wikifier_df_list)
+
     return extra_df, wikifier_df
 
 
-def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataFrame):
+def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.DataFrame, data_row):
     # generate wikifier file for all columns that have type == country, admin1, admin2, or admin3
     # TODO: set country wikifier and ethiopia wikifier to be a service
     wikifier_df_list = []
     target_cols = []
     run_ethiopia_wikifier = False
-    row_offset = 7
     new_wikifier_roles = {"location": "", "main subject": "main subject"}
     data_type_need_wikifier = {"admin1", "admin2", "admin3"}
     wikifier_column_metadata = []  # for column metadata in wikifier output
@@ -328,7 +327,7 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
         for i in range(len(target_cols)):
             # for each part, run wikifier and add it the wikifier file
             wikifier_df_list.extend(run_wikifier(input_df=target_df, target_col=i, wikifier_type="ethiopia",
-                                                 col_offset=col_offset + target_cols[i] - i, row_offset=row_offset,
+                                                 col_offset=col_offset + target_cols[i] - i, row_offset=data_row,
                                                  column_metadata=wikifier_column_metadata[i]
                                                  )
                                     )
