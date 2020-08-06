@@ -293,6 +293,7 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
     wikifier_df_list = []
     target_cols = []
     run_ethiopia_wikifier = False
+    has_country_column = False
     new_wikifier_roles = {"location": "", "main subject": "main subject"}
     data_type_need_wikifier = {"admin1", "admin2", "admin3"}
     wikifier_column_metadata = []  # for column metadata in wikifier output
@@ -301,6 +302,7 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
         each_col_info = annotation_part.iloc[:, i]
         if each_col_info["role"] in new_wikifier_roles:
             if each_col_info["type"] == "country":
+                has_country_column = True
                 # use country wikifier
                 context = "main subject" if each_col_info["role"] == "main subject" else each_col_info["type"]
                 column_metadata = {"context": context}
@@ -319,6 +321,10 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
                 else:
                     each_metadata["context"] = new_wikifier_roles[each_col_info["role"]]
                 wikifier_column_metadata.append(each_metadata)
+
+    # if no country column exists, assume the country is Ethiopia
+    if not has_country_column:
+        run_ethiopia_wikifier = True
 
     if run_ethiopia_wikifier:
         # get target columns to run with wikifier
