@@ -73,6 +73,59 @@ date_format = {
     Type.ISO_DATE_TIME: '%Y-%m-%dT%H:%M:%S%Z'
 }
 
+MONTH_FULL_NAME = set([
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+])
+
+MONTH_ABBREVIATED = set([
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec"
+])
+
+def guess_year_format(values: pd.Series):
+    values = values[values.notna()]
+    two_digit_count = values.apply(lambda x: x < 100).sum()
+    if two_digit_count > len(values) - two_digit_count:
+        return '%y'
+    else:
+        return '%Y'
+
+def guess_month_format(values: pd.Series):
+    values = values[values.notna()]
+    int_count = values.apply(lambda x: isinstance(x, int)).sum()
+    str_count = values.apply(lambda x: isinstance(x, str)).sum()
+    if int_count >= str_count:
+        # numerical month
+        return '%m'
+    full_name_count = pd.Series(values).apply(lambda x: x in MONTH_FULL_NAME).sum()
+    abbreviated_count = pd.Series(values).apply(lambda x: x in MONTH_ABBREVIATED).sum()
+    if full_name_count > abbreviated_count:
+        return '%B'
+    else:
+        return '%b'
+
+
 def to_letter_column(number):
     assert number >= 0
     length = 1
@@ -159,11 +212,22 @@ class ToT2WML:
         precision = 'year'
         for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
             col_indices = get_indices(self.sheet.iloc[self.type_index, :],
-                                      col_type.value, within=self.time_indcies)
+                                      col_type.value, within=self.time_indcies, startswith=True)
             if col_indices.shape[0]:
-                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                col_index = col_indices[0]
+                type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
+                if len(type_spec) > 1:
+                    spec_format = type_spec[1]
+                else:
+                    if col_type == Type.YEAR:
+                        spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
+                    elif col_type == Type.MONTH:
+                        spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+                    else:
+                        spec_format = date_format[col_type]
                 time_cells.append(col_index)
-                time_formats.append(date_format[col_type])
+                time_formats.append(spec_format)
                 if col_type == Type.MONTH:
                     precision = 'month'
                 elif col_type == Type.DAY:
@@ -346,7 +410,7 @@ class ToT2WML:
                 for name in variable_names:
                     indices = get_indices(self.sheet.iloc[self.header_index,1:], name)
                     if len(indices) == 0:
-                        print(f'Invalid unit specification: "{unit_spec}"  No variable named "{variable_name}"')
+                        print(f'Invalid unit specification: "{unit_spec}"  No variable named "{name}"')
                     else:
                         variable_indices.append(indices[0])
             if not variable_indices:
