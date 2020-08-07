@@ -1,6 +1,7 @@
-import pandas as pd
 import json
+import pandas as pd
 from xlsxwriter import utility
+from annotation.utility import Utility
 
 ROLE_ROW = 2
 TYPE_ROW = 3
@@ -25,6 +26,7 @@ class VaidateAnnotation(object):
             'qualifier': ['string'],
             'unit': ['string']
         }
+        self.inhouse_utilty = Utility()
 
     def validate(self, dataset_id, file_path=None, df=None):
         if file_path is None and df is None:
@@ -216,6 +218,9 @@ class VaidateAnnotation(object):
                                'Sixth row in column 1 should be "unit"'))
 
         return valid_first_column
+
+    def validate_headers(self, df):
+        header_row, data_row = self.inhouse_utilty.find_data_start_row(df)
 
     @staticmethod
     def error_row(error, row, column, description):

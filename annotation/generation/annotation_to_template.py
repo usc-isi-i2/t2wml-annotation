@@ -2,6 +2,7 @@ import pandas as pd
 import logging
 import os
 from collections import defaultdict
+from annotation.utility import Utility
 
 _logger = logging.getLogger(__name__)
 TYPE_MAP_DICT = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
@@ -26,30 +27,18 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     """
     function used for datamart annotation batch mode, return a dict of dataFrame instead of output a xlsx file
     """
+    utility = Utility()
+
     if dataset_id is None:
         dataset_id = input_df.iloc[0, 0]
+
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
-    header_row = 6
-    data_row = 7
+    header_row, data_row = utility.find_data_start_row(input_df)
 
-    if "header" in input_df.index:
-        header_row = input_df.index.tolist().index("header")
-        if "data" not in input_df.index:
-            data_row = header_row + 1
-            _index = input_df.index.tolist()
-            _index[data_row] = 'data'
-            input_df.index = _index
-    else:
-        _index = input_df.index.tolist()
-        _index[6] = 'header'
-        input_df.index = _index
-
-    if "data" in input_df.index:
-        data_row = input_df.index.tolist().index("data")
-    else:
-        _index = input_df.index.tolist()
-        _index[7] = 'data'
-        input_df.index = _index
+    _index = input_df.index.tolist()
+    _index[data_row] = 'data'
+    _index[header_row] = 'header'
+    input_df.index = _index
 
     annotation_rows = list(range(1, 6)) + [header_row]
     content_rows = list(range(data_row, len(input_df)))
