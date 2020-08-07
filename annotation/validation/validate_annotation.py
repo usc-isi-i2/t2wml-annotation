@@ -26,7 +26,24 @@ class VaidateAnnotation(object):
             'qualifier': ['string'],
             'unit': ['string']
         }
+
+        self.reserved_qualifier_columns = {
+            'location': 1,
+            'time': 1,
+            'dataset': 1,
+            'variable': 1,
+            'main subject': 1,
+            'value': 1,
+            'time_precision': 1,
+            'country': 1,
+            'admin1': 1,
+            'admin2': 1,
+            'admin3': 1,
+            'longitude': 1,
+            'latitude': 1
+        }
         self.inhouse_utilty = Utility()
+        self.renamed_columns = {}
 
     def validate(self, dataset_id, file_path=None, df=None):
         if file_path is None and df is None:
@@ -36,13 +53,15 @@ class VaidateAnnotation(object):
 
         valid_column_one = self.validate_annotation_column_one(df, dataset_id)
 
-        valid_roles = self.validate_roles(df)
+        valid_roles, qualifier_cols = self.validate_roles(df)
 
         valid_role_and_type = self.validate_roles_types(df)
 
+        rename_columns = self.validate_qualifier_headers(df, qualifier_cols)
+
         if not valid_role_and_type or not valid_column_one or not valid_roles:
             return json.dumps(self.error_report), False
-        return "", True
+        return "", True, rename_columns
 
     def validate_roles(self, df):
         # 1. at max one main subject
@@ -55,6 +74,7 @@ class VaidateAnnotation(object):
         variable_cols = []
         time_cols = []
         location_cols = []
+        qualifier_cols = []
         for i, x in enumerate(roles):
             if x == 'main subject':
                 main_subject_cols.append(utility.xl_col_to_name(i))
@@ -64,6 +84,8 @@ class VaidateAnnotation(object):
                 time_cols.append(utility.xl_col_to_name(i))
             if x == 'location':
                 location_cols.append(utility.xl_col_to_name(i))
+            if x == 'qualifier':
+                qualifier_cols.append(utility.xl_col_to_name(i))
 
         if len(variable_cols) == 0:
             valid_roles = False
@@ -100,7 +122,7 @@ class VaidateAnnotation(object):
                                'Either "location" or "main subject" should be present as annotation for a column. '
                                'None of the columns are annotated as "location" or "variable"'))
 
-        return valid_roles
+        return valid_roles, qualifier_cols
 
     def validate_roles_types(self, df):
         roles = list(df.iloc[1])
@@ -219,8 +241,30 @@ class VaidateAnnotation(object):
 
         return valid_first_column
 
-    def validate_headers(self, df):
+    def validate_qualifier_headers(self, df, qualifier_cols):
         header_row, data_row = self.inhouse_utilty.find_data_start_row(df)
+        rename_columns = []
+        for i, col in enumerate(df.iloc[header_row]):
+            if utility.xl_col_to_name(i) in qualifier_cols:
+                if col in self.reserved_qualifier_columns:
+                    # record the cell and renamed
+                    rename_columns.append((header_row, i, self.rename_column(col)))
+        return rename_columns
+
+    def rename_column(self, col_name):
+        if col_name not in self.renamed_columns:
+            self.renamed_columns[col_name] = 1
+        else:
+            self.renamed_columns[col_name] += 1
+        return '{}_{}'.format(col_name, self.renamed_columns[col_name])
+
+    @staticmethod
+    def validate_number(num):
+        try:
+            float(num)
+        except ValueError:
+            return False
+        return True
 
     @staticmethod
     def error_row(error, row, column, description):
