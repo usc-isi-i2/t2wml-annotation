@@ -176,7 +176,7 @@ class ToT2WML:
         self.dataset_qnode = dataset_qnode
 
         # category rows
-        self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)
+        # self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)  Not needed
         self.role_index = get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
         self.type_index = get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
         self.unit_index = get_index(self.sheet.iloc[:, 0], Category.UNIT.value)
@@ -294,7 +294,15 @@ class ToT2WML:
         # add point in time
         # Need to generalize
         if self.time_indcies.shape[0] == 0:
-            raise RuntimeError('No column labeled with "time" role')
+            print('WARNING: No columns with "time" role annotation. Using default date 1900-01-01')
+            result = {
+                'property': 'P585',
+                'value': '1900-01-01',
+                'calendar': 'Q1985727',
+                'precision': 'day',
+                'time_zone': 0,
+                'format': '%Y-%m-%d'
+            }
 
         # Check if type is iso
         iso_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.ISO_DATE_TIME,
@@ -330,7 +338,7 @@ class ToT2WML:
         return self._get_time_single_format()
 
     def _get_dataset(self) -> dict:
-        dataset_id = self.sheet.iloc[self.dataset_index, 1]
+        # dataset_id = self.sheet.iloc[self.dataset_index, 1]
         result = {
             'property': 'P2006020004',
             'value': self.dataset_qnode
