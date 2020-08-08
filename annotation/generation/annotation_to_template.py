@@ -34,11 +34,16 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
 
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
     header_row, data_row = utility.find_data_start_row(input_df)
-
-    _index = input_df.index.tolist()
-    _index[data_row] = 'data'
-    _index[header_row] = 'header'
-    input_df.index = _index
+    # print(input_df)
+    # _index = input_df.index.tolist()
+    # print(_index)
+    # _index[data_row] = 'data'
+    # _index[header_row] = 'header'
+    # input_df.index = _index
+    #
+    #
+    # print(input_df)
+    # print(input_df.index.tolist())
 
     annotation_rows = list(range(1, 6)) + [header_row]
     content_rows = list(range(data_row, len(input_df)))
@@ -318,6 +323,7 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
     if run_ethiopia_wikifier and target_cols:
 
         # get target columns to run with wikifier
+        print(content_part)
         target_df = content_part.iloc[:, target_cols].reset_index().drop(columns=[0])
         # run wikifier on each column
         for i in range(len(target_cols)):
