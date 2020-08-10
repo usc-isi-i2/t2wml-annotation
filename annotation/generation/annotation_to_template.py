@@ -323,7 +323,12 @@ def _generate_wikifier_part(content_part: pd.DataFrame, annotation_part: pd.Data
     if run_ethiopia_wikifier and target_cols:
 
         # get target columns to run with wikifier
-        target_df = content_part.iloc[:, target_cols].reset_index().drop(columns=[0])
+
+        # Handle non-numeric column names
+        # target_df = content_part.iloc[:, target_cols].reset_index().drop(columns=[0])
+        target_df = content_part.iloc[:, target_cols].reset_index()
+        target_df = target_df.drop(columns=[target_df.columns[0]])
+
         # run wikifier on each column
         for i in range(len(target_cols)):
             # for each part, run wikifier and add it the wikifier file
