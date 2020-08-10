@@ -184,13 +184,29 @@ class ToT2WML:
         self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
 
         # role
-        self.main_subject_index = get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
         self.time_indcies = get_indices(self.sheet.iloc[self.role_index, :], Role.TIME.value)
         self.location_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.LOCATION.value)
         self.variable_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.VARIABLE.value)
         self.qualifier_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.QUALIFIER.value)
         self.units_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.UNIT.value, startswith=True)
         self.variable_columns = self.sheet.iloc[1, :] == Role.VARIABLE.value
+
+        ## main subject role
+        try:
+            self.main_subject_index = get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
+        except:
+            # use a location column for main subject
+            self.main_subject_index = -1
+            if self.location_indices.shape[0]:
+                for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
+                    admin_indices = get_indices(self.sheet.iloc[self.type_index, :], col_type.value)
+                    if admin_indices.shape[0]:
+                        self.main_subject_index = admin_indices[0]
+                        break
+            if self.main_subject_index == -1:
+                print('WARNING: No columns with "main subject" role annotation, and no "location" roles. '
+                      'Using default column B.')
+                self.main_subject_index = 1
 
     def _get_region(self) -> dict:
         top = self.data_index
@@ -303,6 +319,7 @@ class ToT2WML:
                 'time_zone': 0,
                 'format': '%Y-%m-%d'
             }
+            return result
 
         # Check if type is iso
         iso_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.ISO_DATE_TIME,
