@@ -308,9 +308,18 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
                         "P1687", "P2006020004", "P1813",  # 7-9
                         "P2006020003"]
         labels = fixed_labels + len(target_properties) * ["P2006020002"]
-        node2s = [to_kgtk_format_string(each_row[node_label_column_name]),  # 1
+
+        if each_row['label'] == "":
+            node2_label = to_kgtk_format_string(each_row[node_label_column_name])
+        else:
+            node2_label = to_kgtk_format_string(each_row['label'])
+        if each_row['description'] == "":
+            node2_description = to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id))
+        else:
+            node2_description = to_kgtk_format_string(each_row['description'])
+        node2s = [node2_label,  # to_kgtk_format_string(each_row[node_label_column_name]),  # 1
                   to_kgtk_format_string(each_row[node_label_column_name]),  # 2
-                  to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
+                  node2_description,  # to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
                   "Q50701", "P585", "P248",  # 4(Q50701 = variable), 5(P585 = Point in time), 6(P249 = stated in)
                   p_node_id,  # 7
                   dataset_q_node,  # 8
