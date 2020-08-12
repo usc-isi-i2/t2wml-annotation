@@ -127,7 +127,7 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
         1. add for columns with role = variable or role = qualifier.
     """
     attributes_df_list = []
-
+    seen_attributes = {}
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
         role_info = each_col_info["role"].split(";")
@@ -164,14 +164,19 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
             description = "{} column in {}".format(role_lower, dataset_id) if not each_col_info['description'] \
                 else each_col_info['description']
 
-            attributes_df_list.append({"Attribute": attribute, "Property": "", "Role": role_lower,
-                                       "Relationship": relationship, "type": data_type,
-                                       "label": label, "description": description})
+            # qualifier and variables have been deduplicated already in validation. Now if anything is repeating,
+            # it is meant to be same.
+            if attribute not in seen_attributes:
+                attributes_df_list.append({"Attribute": attribute, "Property": "", "Role": role_lower,
+                                           "Relationship": relationship, "type": data_type,
+                                           "label": label, "description": description})
+                seen_attributes[attribute] = 1
 
     if len(attributes_df_list) == 0:
         attributes_df = pd.DataFrame(columns=['Attribute', 'Property', 'label', 'description'])
     else:
         attributes_df = pd.DataFrame(attributes_df_list)
+    print(attributes_df)
     return attributes_df
 
 
