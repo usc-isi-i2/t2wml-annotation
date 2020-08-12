@@ -278,7 +278,18 @@ class ToT2WML:
                 col_indices = get_indices(self.sheet.iloc[self.type_index, :],
                                           col_type.value, within=self.time_indcies)
                 if col_indices.shape[0]:
-                    col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                    # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                    col_index = col_indices[0]
+                    type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
+                    if len(type_spec) > 1:
+                        spec_format = type_spec[1]
+                    else:
+                        if col_type == Type.YEAR:
+                            spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
+                        elif col_type == Type.MONTH:
+                            spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+                        else:
+                            spec_format = date_format[col_type]
                     time_cells.append(col_index)
                     time_formats.append(date_format[col_type])
                     if col_type == Type.MONTH:
@@ -351,8 +362,8 @@ class ToT2WML:
 
 
         # over multiple columns
-        # return self._get_time_multiple_formats()
-        return self._get_time_single_format()
+        return self._get_time_multiple_formats()
+        # return self._get_time_single_format()
 
     def _get_dataset(self) -> dict:
         # dataset_id = self.sheet.iloc[self.dataset_index, 1]
@@ -458,17 +469,18 @@ class ToT2WML:
         template['property'] = f'=item[$col, {self.header_index+1}, "property"]'
         template['value'] = '=value[$col, $row]'
 
-        if None in variable_unit_map:
-            unit_cols = variable_unit_map[None]
-            if len(unit_cols) > 1:
-                cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in unit_cols])
-                value = f'=get_item(concat({cells} , ", "), "unit")'
+        if self.units_indices.shape[0] > 0:
+            if None in variable_unit_map:
+                unit_cols = variable_unit_map[None]
+                if len(unit_cols) > 1:
+                    cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in unit_cols])
+                    value = f'=get_item(concat({cells} , ", "), "unit")'
+                else:
+                    col = unit_cols[0]
+                    value = f'=item[{to_letter_column(col)}, $row, "unit"]'
+                template['unit'] = value
             else:
-                col = unit_cols[0]
-                value = f'=item[{to_letter_column(col)}, $row, "unit"]'
-            template['unit'] = value
-        else:
-            template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'   #
+                template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'
 
         qualifier = []
         qualifier.append(self._get_time())
