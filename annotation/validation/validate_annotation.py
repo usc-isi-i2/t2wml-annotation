@@ -53,11 +53,12 @@ class VaidateAnnotation(object):
 
         valid_column_one = self.validate_annotation_column_one(df, dataset_id)
 
-        valid_roles, qualifier_cols = self.validate_roles(df)
+        valid_roles, qualifier_cols, variable_col_ids = self.validate_roles(df)
 
         valid_role_and_type = self.validate_roles_types(df)
 
         rename_columns = self.validate_qualifier_headers(df, qualifier_cols)
+        rename_columns.extend(self.validate_variable_headers(df, variable_col_ids))
 
         if not valid_role_and_type or not valid_column_one or not valid_roles:
             return json.dumps(self.error_report), False, rename_columns
@@ -72,6 +73,7 @@ class VaidateAnnotation(object):
         valid_roles = True
         main_subject_cols = []
         variable_cols = []
+        variable_col_ids = []
         time_cols = []
         location_cols = []
         qualifier_cols = []
@@ -80,6 +82,7 @@ class VaidateAnnotation(object):
                 main_subject_cols.append(utility.xl_col_to_name(i))
             if x == 'variable':
                 variable_cols.append(utility.xl_col_to_name(i))
+                variable_col_ids.append(i)
             if x == 'time':
                 time_cols.append(utility.xl_col_to_name(i))
             if x == 'location':
@@ -130,7 +133,7 @@ class VaidateAnnotation(object):
         #                        'Either "location" or "main subject" should be present as annotation for a column. '
         #                        'None of the columns are annotated as "location" or "variable"'))
 
-        return valid_roles, qualifier_cols
+        return valid_roles, qualifier_cols, variable_col_ids
 
     def validate_roles_types(self, df):
         roles = list(df.iloc[1])
@@ -257,6 +260,31 @@ class VaidateAnnotation(object):
                 if col in self.reserved_qualifier_columns:
                     # record the cell and renamed
                     rename_columns.append((header_row, i, self.rename_column(col)))
+        return rename_columns
+
+    def validate_variable_headers(self, df, variable_col_ids):
+        header_row, data_row = self.inhouse_utilty.find_data_start_row(df)
+        variable_dict = {}
+
+        rename_columns = []
+        for vi in variable_col_ids:
+            if df.iloc[header_row, vi] not in variable_dict:
+                variable_dict[df.iloc[header_row, vi]] = []
+            variable_dict[df.iloc[header_row, vi]].append((df.iloc[4, vi], vi))
+        for v in variable_dict:
+            if len(variable_dict[v]) > 1:
+                v_dict = {}
+                values = variable_dict[v]
+                for val in values:
+                    val_0 = val[0].strip()
+                    if val_0 not in v_dict:
+                        v_dict[val_0] = []
+                    v_dict[val_0].append(val[1])
+                for k in v_dict:
+                    vids = v_dict[k]
+                    renamed_col = self.rename_column(df.iloc[header_row, vids[0]])
+                    for vid in vids:
+                        rename_columns.append((header_row, vid, renamed_col))
         return rename_columns
 
     def rename_column(self, col_name):
