@@ -64,9 +64,9 @@ class VaidateAnnotation(object):
         return "", True, rename_columns
 
     def validate_roles(self, df):
-        # 1. at max one main subject
+        # 1. one main subject
         # 2. at least one time
-        # 3. location annotation is optional, but if it not present, `main subject` is required.
+        # 3. location annotation is optional
         # 4. at least one variable annotation must be present
         roles = list(df.iloc[1])
         valid_roles = True
@@ -113,14 +113,22 @@ class VaidateAnnotation(object):
                                'The following columns are annotated as main subject: {}'.format(
                                    ','.join(main_subject_cols))))
 
-        if len(location_cols) == 0 and len(main_subject_cols) == 0:
+        if len(main_subject_cols) < 1:
             valid_roles = False
             self.error_report.append(
-                self.error_row('Annotation invalid',
+                self.error_row('Annotation invalid: main subject',
                                ROLE_ROW,
-                               -1,
-                               'Either "location" or "main subject" should be present as annotation for a column. '
-                               'None of the columns are annotated as "location" or "variable"'))
+                               ','.join(main_subject_cols),
+                               'Annotation spreadsheet should have at least one column annotated as "main subject".'))
+
+        # if len(location_cols) == 0 and len(main_subject_cols) == 0:
+        #     valid_roles = False
+        #     self.error_report.append(
+        #         self.error_row('Annotation invalid',
+        #                        ROLE_ROW,
+        #                        -1,
+        #                        'Either "location" or "main subject" should be present as annotation for a column. '
+        #                        'None of the columns are annotated as "location" or "variable"'))
 
         return valid_roles, qualifier_cols
 
