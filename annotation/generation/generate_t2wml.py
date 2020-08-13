@@ -191,34 +191,44 @@ class ToT2WML:
         self.units_indices = get_indices(self.sheet.iloc[self.role_index, :], Role.UNIT.value, startswith=True)
         self.variable_columns = self.sheet.iloc[1, :] == Role.VARIABLE.value
 
+        self.failures = []
+
         ## main subject role
         try:
             self.main_subject_index = get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
         except:
             # use a location column for main subject
-            self.main_subject_index = -1
+            self.main_subject_index = 0
             if self.location_indices.shape[0]:
                 for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
                     admin_indices = get_indices(self.sheet.iloc[self.type_index, :], col_type.value)
                     if admin_indices.shape[0]:
                         self.main_subject_index = admin_indices[0]
                         break
-            if self.main_subject_index == -1:
-                print('WARNING: No columns with "main subject" role annotation, and no "location" roles. '
-                      'Using default column B.')
-                self.main_subject_index = 1
+            if self.main_subject_index == 0:
+                print('WARNING: No columns with "main subject" role annotation, and no "location" roles.')
+
 
     def _get_region(self) -> dict:
-        top = self.data_index
-        bottom = self.sheet.shape[0]
-        left = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value)
-        right = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value, pos=-1)
-        region = {
-            'left': to_letter_column(left),
-            'right': to_letter_column(right),
-            'top': top+1,
-            'bottom': bottom
-        }
+        try:
+            top = self.data_index
+            bottom = self.sheet.shape[0]
+            left = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value)
+            right = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value, pos=-1)
+            region = {
+                'left': to_letter_column(left),
+                'right': to_letter_column(right),
+                'top': top+1,
+                'bottom': bottom
+            }
+        except IndexError:
+            print('WARNING: No columns with "variable" role annotation.')
+            region = {
+                'left': 'A  # FIX ME',
+                'right': 'A  # FIX ME',
+                'top': top+1,
+                'bottom': bottom
+            }
         return region
 
     def _get_time_single_format(self) -> dict:
@@ -226,29 +236,38 @@ class ToT2WML:
         time_cells = []
         time_formats = []
         precision = 'year'
-        for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
-            col_indices = get_indices(self.sheet.iloc[self.type_index, :],
-                                      col_type.value, within=self.time_indcies, startswith=True)
-            if col_indices.shape[0]:
-                # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
-                col_index = col_indices[0]
-                type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
-                if len(type_spec) > 1:
-                    spec_format = type_spec[1]
-                else:
-                    if col_type == Type.YEAR:
-                        spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
-                    elif col_type == Type.MONTH:
-                        spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+        try:
+            for col_type in [Type.YEAR, Type.MONTH, Type.DAY]:
+                col_indices = get_indices(self.sheet.iloc[self.type_index, :],
+                                          col_type.value, within=self.time_indcies, startswith=True)
+                if col_indices.shape[0]:
+                    # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                    col_index = col_indices[0]
+                    type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
+                    if len(type_spec) > 1:
+                        spec_format = type_spec[1]
                     else:
-                        spec_format = date_format[col_type]
-                time_cells.append(col_index)
-                time_formats.append(spec_format)
-                if col_type == Type.MONTH:
-                    precision = 'month'
-                elif col_type == Type.DAY:
-                    precision = 'day'
-        if len(time_cells) > 1:
+                        if col_type == Type.YEAR:
+                            spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
+                        elif col_type == Type.MONTH:
+                            spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+                        else:
+                            spec_format = date_format[col_type]
+                    time_cells.append(col_index)
+                    time_formats.append(spec_format)
+                    if col_type == Type.MONTH:
+                        precision = 'month'
+                    elif col_type == Type.DAY:
+                        precision = 'day'
+        except TypeError:
+            print('Failed to guess time format')
+        if not time_cells:
+            self.failures.append('Failed to guess time format')
+            if self.time_indcies.shape[0]:
+                value = f'=value[{to_letter_column(self.time_indcies[0])}, $row]  # FIX ME'
+            else:
+                value = '=value[COL, $row]  # FIX ME'
+        elif len(time_cells) > 1:
             cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
             value = f'=concat({cells}, "-")'
             time_format = '-'.join(time_formats)
@@ -274,29 +293,40 @@ class ToT2WML:
             time_cells = []
             time_formats = []
             precision = 'year'
-            for col_type in col_types:
-                col_indices = get_indices(self.sheet.iloc[self.type_index, :],
-                                          col_type.value, within=self.time_indcies)
-                if col_indices.shape[0]:
-                    # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
-                    col_index = col_indices[0]
-                    type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
-                    if len(type_spec) > 1:
-                        spec_format = type_spec[1]
-                    else:
-                        if col_type == Type.YEAR:
-                            spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
-                        elif col_type == Type.MONTH:
-                            spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+            try:
+                for col_type in col_types:
+                    col_indices = get_indices(self.sheet.iloc[self.type_index, :],
+                                              col_type.value, within=self.time_indcies)
+                    if col_indices.shape[0]:
+                        # col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                        col_index = col_indices[0]
+                        type_spec = self.sheet.iloc[self.type_index, col_index].split(';')
+                        if len(type_spec) > 1:
+                            spec_format = type_spec[1]
                         else:
-                            spec_format = date_format[col_type]
-                    time_cells.append(col_index)
-                    time_formats.append(date_format[col_type])
-                    if col_type == Type.MONTH:
-                        precision = 'month'
-                    elif col_type == Type.DAY:
-                        precision = 'day'
-            if len(time_cells) > 1:
+                            if col_type == Type.YEAR:
+                                spec_format = guess_year_format(self.sheet.iloc[self.data_index:, col_index])
+                            elif col_type == Type.MONTH:
+                                spec_format = guess_month_format(self.sheet.iloc[self.data_index:, col_index])
+                            else:
+                                spec_format = date_format[col_type]
+                        time_cells.append(col_index)
+                        time_formats.append(date_format[col_type])
+                        if col_type == Type.MONTH:
+                            precision = 'month'
+                        elif col_type == Type.DAY:
+                            precision = 'day'
+            except TypeError:
+                pass
+            if not time_cells:
+                print('Failed to guess time format')
+                time_format = ''
+                self.failures.append('Failed to guess time format')
+                if self.time_indcies.shape[0]:
+                    value = f'=value[{to_letter_column(self.time_indcies[0])}, $row]  # FIX ME'
+                else:
+                    value = '=value[COL, $row]  # FIX ME'
+            elif len(time_cells) > 1:
                 cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in time_cells])
                 if not value:
                     value = f'=concat({cells}, "-")'
@@ -305,13 +335,14 @@ class ToT2WML:
                 if not value:
                     value = f'=value[{to_letter_column(time_cells[0])}, $row]'
                 time_format = time_formats[0]
-            format_list.append(time_format)
+            if time_format:
+                format_list.append(time_format)
             precision_list.append(precision)
         result = {
             'property': 'P585',
             'value': value,  # '=conat(value[C:E, $row], "-")',
             'calendar': 'Q1985727',
-            'format': format_list,
+            'format': format_list if format_list else '%Y  # FIXE ME',
             'precision': precision_list[0],  # Until precision list is supported, just return first item
             'time_zone': 0,
         }
@@ -324,7 +355,7 @@ class ToT2WML:
             print('WARNING: No columns with "time" role annotation. Using default date 1900-01-01')
             result = {
                 'property': 'P585',
-                'value': '1900-01-01',
+                'value': '1900-01-01  # FIX ME',
                 'calendar': 'Q1985727',
                 'precision': 'day',
                 'time_zone': 0,
@@ -460,12 +491,17 @@ class ToT2WML:
 
 
     def get_dict(self) -> dict:
+        self.failures = []
         region = self._get_region()
         variable_unit_map = self._process_unit_columns()
 
         # template = collections.OrderedDict()
         template = dict()
-        template['item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]'
+        no_main_subject_warning = ''
+        if self.main_subject_index == 0:
+            no_main_subject_warning == '  # FIX ME'
+            self.failures.append('No main subject column')
+        template['item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]{no_main_subject_warning}'
         template['property'] = f'=item[$col, {self.header_index+1}, "property"]'
         template['value'] = '=value[$col, $row]'
 

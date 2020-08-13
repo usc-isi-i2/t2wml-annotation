@@ -61,7 +61,7 @@ class VaidateAnnotation(object):
         rename_columns.extend(self.validate_variable_headers(df, variable_col_ids))
 
         if not valid_role_and_type or not valid_column_one or not valid_roles:
-            return json.dumps(self.error_report), False, rename_columns
+            return json.dumps(self.error_report, indent=4), False, rename_columns
         return "", True, rename_columns
 
     def validate_roles(self, df):
