@@ -118,8 +118,8 @@ def guess_month_format(values: pd.Series):
     if int_count >= str_count:
         # numerical month
         return '%m'
-    full_name_count = pd.Series(values).apply(lambda x: x in MONTH_FULL_NAME).sum()
-    abbreviated_count = pd.Series(values).apply(lambda x: x in MONTH_ABBREVIATED).sum()
+    full_name_count = pd.Series(values).apply(lambda x: x.lower() in MONTH_FULL_NAME).sum()
+    abbreviated_count = pd.Series(values).apply(lambda x: x.lower() in MONTH_ABBREVIATED).sum()
     if full_name_count > abbreviated_count:
         return '%B'
     else:
@@ -294,6 +294,12 @@ class ToT2WML:
             time_formats = []
             precision = 'year'
             try:
+                # Continue, if the most fine grained date type column does not exist
+                col_indices = get_indices(self.sheet.iloc[self.type_index, :],
+                                          col_types[-1].value, within=self.time_indcies)
+                if not col_indices.shape[0]:
+                    continue
+
                 for col_type in col_types:
                     col_indices = get_indices(self.sheet.iloc[self.type_index, :],
                                               col_type.value, within=self.time_indcies)
@@ -311,7 +317,7 @@ class ToT2WML:
                             else:
                                 spec_format = date_format[col_type]
                         time_cells.append(col_index)
-                        time_formats.append(date_format[col_type])
+                        time_formats.append(spec_format)
                         if col_type == Type.MONTH:
                             precision = 'month'
                         elif col_type == Type.DAY:
@@ -409,9 +415,11 @@ class ToT2WML:
         qualifiers = []
         items = []
         for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
-            context = location_context[col_type]
             if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
                 col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                context = location_context[col_type]
+                if self.main_subject_index == col_index:
+                    context = "main subject"
                 item = f'item[{to_letter_column(col_index)}, $row, "{context}"]'
                 value = f'={item}'
                 entry = {
