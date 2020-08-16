@@ -46,6 +46,7 @@ class GenerateKgtk:
             property_file = base_pos + "/datamart_schema_properties.tsv"
 
         self.wikifier_file = wikifier_file
+        self.constant_wikikifer_df = pd.read_csv(wikifier_file)
         self.project_name = self.annotated_spreadsheet.iloc[0, 0]
 
         # generate the template files

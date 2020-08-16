@@ -7,7 +7,7 @@ ROLE_ROW = 2
 TYPE_ROW = 3
 
 
-class VaidateAnnotation(object):
+class ValidateAnnotation(object):
     def __init__(self):
         self.error_report = []
         self.valid_roles = {
