@@ -191,8 +191,8 @@ class EthiopiaWikifier:
         each_part_str = " ".join(["wd:{}".format(each) for each in target_nodes])
         query = """
         SELECT DISTINCT ?item ?article WHERE {{
-          values ?item {{{q_nodes}}} 
-          ?article schema:about ?item ;  
+          values ?item {{{q_nodes}}}
+          ?article schema:about ?item ;
           FILTER (SUBSTR(str(?article), 12, 13) = "wikipedia.org")
         }}
         """.format(q_nodes=each_part_str)
@@ -262,8 +262,8 @@ class EthiopiaWikifier:
         """
         each_part_str = " ".join(["wd:{}".format(each) for each in input_df[target_column].dropna().unique()])
         query = """
-        SELECT ?item ?itemLabel 
-        WHERE 
+        SELECT ?item ?itemLabel
+        WHERE
         {{
           values ?item {{{q_nodes}}}
           SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}

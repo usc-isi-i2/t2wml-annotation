@@ -51,7 +51,7 @@ def produce(t2wml_project_path: str, project_name: str, input_folder_path:str, o
             shutil.rmtree(full_path)
 
 
-def execute_shell_code(shell_command: str, debug=False):
+def execute_shell_code(shell_command: str, debug=True):
     if debug:
         print("Executing...")
         print(shell_command)
@@ -63,7 +63,7 @@ def execute_shell_code(shell_command: str, debug=False):
 
     Wait for child process to terminate. Set and return returncode attribute.
 
-    Warning: This will deadlock when using stdout=PIPE and/or stderr=PIPE and the child process generates enough output to 
+    Warning: This will deadlock when using stdout=PIPE and/or stderr=PIPE and the child process generates enough output to
     a pipe such that it blocks waiting for the OS pipe buffer to accept more data. Use communicate() to avoid that. """
     stdout, stderr = out.communicate()
     if stderr:
