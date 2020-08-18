@@ -27,12 +27,13 @@ class T2WMLAnnotation(object):
 
         consolidated_wikifier_df = pd.concat([gk.constant_wikikifer_df, gk.output_df_dict["wikifier.csv"]])
 
+        if extra_files:
+            return t2wml_yaml, combined_item_def_df, consolidated_wikifier_df
+
         kgtk_exploded_df = gk.generate_edges_df()
         # kgtk_exploded_df.to_csv('/tmp/t2wml-ann.csv', index=False)
 
         variable_ids = gk.get_variable_ids()
 
-        if extra_files:
-            return t2wml_yaml, combined_item_def_df, consolidated_wikifier_df
 
         return variable_ids, kgtk_exploded_df
