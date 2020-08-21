@@ -6,7 +6,9 @@ import datetime
 from enum import Enum
 from pprint import pprint
 
+import numpy as np
 import pandas as pd
+from pandas.api.types import is_numeric_dtype, is_object_dtype
 
 from yaml import load, dump
 try:
@@ -105,7 +107,10 @@ MONTH_ABBREVIATED = set([
 
 def guess_year_format(values: pd.Series):
     values = values[values.notna()]
-    two_digit_count = values.apply(lambda x: x < 100).sum()
+    if is_numeric_dtype(values):
+        two_digit_count = values.apply(lambda x: x < 100).sum()
+    else:
+        two_digit_count = np.asarray([len(str(x)) <=2 for x in values]).sum()
     if two_digit_count > len(values) - two_digit_count:
         return '%y'
     else:
@@ -113,11 +118,20 @@ def guess_year_format(values: pd.Series):
 
 def guess_month_format(values: pd.Series):
     values = values[values.notna()]
-    int_count = values.apply(lambda x: isinstance(x, int)).sum()
-    str_count = values.apply(lambda x: isinstance(x, str)).sum()
-    if int_count >= str_count:
-        # numerical month
+    # numerical month
+    if is_numeric_dtype(values):
         return '%m'
+    numeric_count = 0
+    for x in values:
+        try:
+            if int(x) > -1:
+                numeric_count += 1
+        except:
+            pass
+    if numeric_count > 0.5 * len(values):
+        return '%m'
+
+    # string month
     full_name_count = pd.Series(values).apply(lambda x: x.lower() in MONTH_FULL_NAME).sum()
     abbreviated_count = pd.Series(values).apply(lambda x: x.lower() in MONTH_ABBREVIATED).sum()
     if full_name_count > abbreviated_count:
