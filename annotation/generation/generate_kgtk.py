@@ -153,7 +153,7 @@ class GenerateKgtk:
             raise ValueError("Running kgtk add-id failed! Please check!")
         _ = final_output_file.seek(0)
 
-        final_output_df = pd.read_csv(final_output_file, sep="\t")
+        final_output_df = pd.read_csv(final_output_file, sep="\t", doublequote=False)
 
         if self._debug:
             shutil.copy(final_output_file.name, os.path.join(self.debug_dir, 'kgtk-edges.tsv'))
@@ -211,7 +211,7 @@ class GenerateKgtk:
         finally:
             os.remove(data_filepath)
 
-        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t")
+        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t", doublequote=False)
         if len(t2wml_kgtk_df) == 0:
             raise ValueError("An empty kgtk file was generated from t2wml! Please check!")
 
