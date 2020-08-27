@@ -451,9 +451,6 @@ class ToT2WML:
         return qualifiers
 
     def _get_coordinate(self) -> list:
-        # kyao
-        # Ignore coordinates for now. 31 July 2020
-        return []
         # add coordinate
         longitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LONGITUDE.value)
         latitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LATITUDE.value)
