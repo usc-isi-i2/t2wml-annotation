@@ -271,28 +271,42 @@ class ValidateAnnotation(object):
             if df.iloc[header_row, vi] not in variable_dict:
                 variable_dict[df.iloc[header_row, vi]] = []
             variable_dict[df.iloc[header_row, vi]].append((df.iloc[4, vi], vi))
+
+        # For each unique header name
         for v in variable_dict:
+            # if more than one header name with the same name
             if len(variable_dict[v]) > 1:
-                v_dict = {}
+                # list of pairs, where each pair is annotated name and column index
                 values = variable_dict[v]
+
+                # maps annotated name to list columns that should have this name
+                v_dict = {}
+
                 for val in values:
                     val_0 = val[0].strip()
                     if val_0 not in v_dict:
                         v_dict[val_0] = []
                     v_dict[val_0].append(val[1])
                 for k in v_dict:
+                    # List column indices that should have the same name
                     vids = v_dict[k]
+                    # Rename column if needed
+                    # Should use k (the annotaed name) if k is not empty, right???
                     renamed_col = self.rename_column(df.iloc[header_row, vids[0]])
                     for vid in vids:
                         rename_columns.append((header_row, vid, renamed_col))
         return rename_columns
 
     def rename_column(self, col_name):
+        # If the name has already been used rename it, otherwise return the same name
         if col_name not in self.renamed_columns:
-            self.renamed_columns[col_name] = 1
+            self.renamed_columns[col_name] = 0
         else:
             self.renamed_columns[col_name] += 1
-        return '{}_{}'.format(col_name, self.renamed_columns[col_name])
+        if self.renamed_columns[col_name] == 0:
+            return '{}'.format(col_name)
+        else:
+            return '{}_{}'.format(col_name, self.renamed_columns[col_name])
 
     @staticmethod
     def validate_number(num):
