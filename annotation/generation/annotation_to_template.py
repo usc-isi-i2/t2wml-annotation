@@ -5,7 +5,7 @@ from collections import defaultdict
 from annotation.utility import Utility
 
 _logger = logging.getLogger(__name__)
-TYPE_MAP_DICT = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time"}
+TYPE_MAP_DICT = {"string": "String", "number": "Quantity", "year": "Time", "month": "Time", "day": "Time", "date": "Time"}
 
 # kyao
 # Only add one location qualifier until datamart-api can handle multiple locations. 31 July 2020.

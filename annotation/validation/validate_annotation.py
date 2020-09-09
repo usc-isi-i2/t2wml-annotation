@@ -20,10 +20,10 @@ class ValidateAnnotation(object):
         }
         self.valid_types = {
             'main subject': ['string', 'entity', 'admin1', 'admin2', 'admin3', 'country'],
-            'time': ['year', 'month', 'day'],
+            'time': ['date', 'year', 'month', 'day'],
             'location': ['admin1', 'admin2', 'admin3', 'longitude', 'latitude', 'country'],
             'variable': ['number'],
-            'qualifier': ['string'],
+            'qualifier': ['string', 'number', 'date'],
             'unit': ['string']
         }
 

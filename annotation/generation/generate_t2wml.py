@@ -42,7 +42,7 @@ class Type(Enum):
     ADMIN3 = "admin3"
     COUNTRY = "country"
     CITY = "city"
-    ISO_DATE_TIME = "iso"
+    DATE = "date"
     YEAR = "year"
     MONTH = "month"
     DAY = "day"
@@ -56,7 +56,6 @@ property_node = {
     Type.ADMIN1: 'P2006190001',
     Type.ADMIN2: 'P2006190002',
     Type.ADMIN3: 'P2006190003',
-    Type.ISO_DATE_TIME: 'P585',
     Type.POINT: 'P625',  # 'P276'
 }
 
@@ -71,8 +70,9 @@ date_format = {
     Type.YEAR: '%Y',
     Type.MONTH: '%m',
     Type.DAY: '%d',
+    Type.DATE: '',
     # Type.ISO_DATE: '%Y-%m-%d',
-    Type.ISO_DATE_TIME: '%Y-%m-%dT%H:%M:%S%Z'
+    # Type.ISO_DATE_TIME: '%Y-%m-%dT%H:%M:%S%Z'
 }
 
 MONTH_FULL_NAME = set([
@@ -383,18 +383,18 @@ class ToT2WML:
             }
             return result
 
-        # Check if type is iso
-        iso_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.ISO_DATE_TIME,
+        # Check if type is plain 'date'
+        date_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.DATE,
                                   within=self.time_indcies)
-        if iso_indices.shape[0] > 0:
-            time_index = iso_indices.shape[0]
+        if date_indices.shape[0] > 0:
+            time_index = date_indices.shape[0]
             result = {
                 'property': 'P585',
-                'value': f'=value[{to_letter_column(time_index)}, $row]',  # '=conat(value[C:E, $row], "-")',
+                'value': f'=value[{to_letter_column(time_index)}, $row]',
                 'calendar': 'Q1985727',
                 'precision': 'day',
                 'time_zone': 0,
-                'format': date_format[Type.ISO_DATE_TIME]
+                # No need to provide 'format'. Let T2WML guess the format.
             }
             return result
 
@@ -476,10 +476,20 @@ class ToT2WML:
             return qualifier
         for i in range(self.qualifier_indices.shape[0]):
             col_index = self.qualifier_indices[i]
-            entry = {
-                'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
-                'value': f'=value[{to_letter_column(col_index)}, $row]'
-            }
+            col_type = self.sheet.iloc[self.type_index, col_index]
+            print(self.sheet.iloc[self.header_index, col_index], col_type, col_type == Type.DATE)
+            if col_type == Type.DATE.value:
+                entry = {
+                    'calendar': 'Q1985727',
+                    'time_zone': 0,
+                    'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
+                    'value': f'=value[{to_letter_column(col_index)}, $row]'
+                }
+            else:
+                entry = {
+                    'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
+                    'value': f'=value[{to_letter_column(col_index)}, $row]'
+                }
             qualifier.append(entry)
         return qualifier
 

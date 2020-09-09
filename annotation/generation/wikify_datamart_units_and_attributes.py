@@ -193,9 +193,9 @@ def _generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.Data
             else:
                 value_type = "Quantity"
 
-            labels = ["data_type", "P31", "label"]
-            node2s = [value_type, "Q18616576", node_label]
-            for i in range(3):
+            labels = ["wikidata_data_type", "data_type", "P31", "label"]
+            node2s = [value_type, value_type, "Q18616576", node_label]
+            for i in range(len(labels)):
                 id_ = "{}-{}".format(node_id, labels[i])
                 output_df_list.append({"id": id_, "node1": node_id, "label": labels[i], "node2": node2s[i]})
         else:
