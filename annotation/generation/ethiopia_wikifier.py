@@ -1,3 +1,5 @@
+import csv
+import os
 import pandas as pd
 import numpy as np
 import typing
@@ -18,6 +20,11 @@ ethiopia_direction_dict = {"misraq": "east", "misraqawi": "eastern",
                            }
 CONSTRAINS_CHARS = set("abcdefghijklmnopqrstuvwxyz_() 1234567890'")
 
+ethiopia_census_code = {}
+with open(os.path.join(os.path.dirname(__file__), 'ethiopia_census_code.csv'), 'r') as fin:
+    reader = csv.reader(fin)
+    for row in reader:
+        ethiopia_census_code[row[0]] = row[1]
 
 class EthiopiaWikifier:
     def __init__(self, es_server=None, es_index=None, sparql_server=None, similarity_threshold: float = 0.5):
@@ -241,19 +248,22 @@ class EthiopiaWikifier:
         if target_column not in input_df.columns:
             raise ValueError("Target column {} does not exist in input!".format(target_column))
 
-        df_all = self.run_table_linker(input_file, target_column)
-        final_answer = self.find_best_candidates(df_all)
-        final_answer = Utility.sort_by_col_and_row(final_answer).reset_index().drop(columns=["index"])
-        # return output
-        output_df = input_df.copy()
-        # update 2020.7.31, ensure index match
-        output_df = output_df.reset_index()
-        if output_column_name is None:
-            output_column_name = "{}_wikifier".format(target_column)
-        output_df[output_column_name] = final_answer["kg_id"]
-        output_df = output_df.set_index("index")
-        # clear level memo
-        self.level_memo = defaultdict(int)
+        if self._is_census_code(input_df, target_column):
+            output_df = self._add_census_wikifier_column(input_df, target_column)
+        else:
+            df_all = self.run_table_linker(input_file, target_column)
+            final_answer = self.find_best_candidates(df_all)
+            final_answer = Utility.sort_by_col_and_row(final_answer).reset_index().drop(columns=["index"])
+            # return output
+            output_df = input_df.copy()
+            # update 2020.7.31, ensure index match
+            output_df = output_df.reset_index()
+            if output_column_name is None:
+                output_column_name = "{}_wikifier".format(target_column)
+            output_df[output_column_name] = final_answer["kg_id"]
+            output_df = output_df.set_index("index")
+            # clear level memo
+            self.level_memo = defaultdict(int)
         return output_df
 
     def fetech_label(self, input_df: pd.DataFrame, target_column: str):
@@ -540,6 +550,19 @@ class EthiopiaWikifier:
         else:
             return 0
 
+    def _is_census_code(self, input_df: pd.DataFrame, target_column: str) -> bool:
+        self.census_qnode = []
+        count = 0
+        for _, val in input_df[[target_column]].iterrows():
+            qnode = ethiopia_census_code.get(val.iloc[0], '')
+            self.census_qnode.append(qnode)
+            if qnode:
+                count += 1
+        return  count / len(self.census_qnode) > 0.9
+
+    def _add_census_wikifier_column(self, input_df: pd.DataFrame, target_column: str):
+        input_df[f'{target_column}_wikifier'] = self.census_qnode
+        return input_df
 
 def test_run():
     test = EthiopiaWikifier()
