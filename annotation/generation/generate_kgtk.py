@@ -7,7 +7,7 @@ import shutil
 import typing
 import traceback
 from t2wml.api import KnowledgeGraph
-from t2wml.wikification.utility_functions import add_nodes_from_file
+from t2wml.wikification.utility_functions import add_entities_from_file
 from annotation.generation.generate_t2wml_files import execute_shell_code
 from annotation.generation.wikify_datamart_units_and_attributes import generate
 from annotation.generation.annotation_to_template import generate_template_from_df, save_template_file
@@ -180,7 +180,7 @@ class GenerateKgtk:
         all_properties_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         all_properties_df.to_csv(all_properties_file.name, sep="\t", index=False)
         _ = all_properties_file.seek(0)
-        add_nodes_from_file(all_properties_file.name)
+        add_entities_from_file(all_properties_file.name)
 
         # generate temp yaml file
         temp_yaml_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".yaml")
