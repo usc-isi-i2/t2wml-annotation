@@ -112,19 +112,9 @@ annotations.
 
 ![User Workflow](image_02.png "User Workflow: Annotate Spreadsheets")
 
-### Step 1: Create Dataset
+### Step 1: Annotate Spreadsheet (with dataset metadata)
 
-Users will have to create the `dataset` as specified in cell `B1` in the annotated spreadsheet, if it does not already exist.
-The Upload Annotated Spreadsheet API will return a validation error in case the `dataset` either:
-
-- does not exist or ,
-- does not match the dataset in the API URL (see Step 3)
-
-How to create a dataset is explained in the `Create a new dataset` section in this [jupyter noteboook](https://github.com/usc-isi-i2/datamart-api/blob/development/Datamart%20Data%20API%20Demo.ipynb)
-
-### Step 2: Annotate Spreadsheet
-
-Next step is to annotate the spreadsheet, as described in this document. The upload Annotated Spreadsheet
+First step is to annotate the spreadsheet, as described in this document. The upload Annotated Spreadsheet
 API will validate the annotation in terms of,
 
 - presence of required roles
@@ -132,12 +122,13 @@ API will validate the annotation in terms of,
 - at max one column annotated as `main subject`
 - one of `main subject` or `location` should be present
 - at least one column annotated as `variable`
+- dataset metadata
 
-### Step 3: Upload the Annotated Spreadsheet
+### Step 2: Upload the Annotated Spreadsheet
 
-Next step is to upload the annotated spreadsheet to Datamart using the `/datasets/{dataset_id}/annotated` API. An example is shown in `Upload an Annotated Spreadsheet section` in the [jupyter notebook](Upload an Annotated spreadsheet)
+Next step is to upload the annotated spreadsheet to Datamart using the `/datasets/{dataset_id}/annotated` API. An example is shown in `Upload an Annotated Spreadsheet section` in the [jupyter notebook](https://github.com/usc-isi-i2/datamart-api/blob/master/Datamart%20Data%20API%20Demo.ipynb)
 
-**Note: The Annotated Spreadsheet should be an Excel file with  `.xlsx` extension.**
+**Note: The Annotated Spreadsheet can be an Excel file with  `.xlsx` extension or a csv file with `.csv` extension.**
 
 ### Step 4: Get Canonical data for the `variables` created
 
