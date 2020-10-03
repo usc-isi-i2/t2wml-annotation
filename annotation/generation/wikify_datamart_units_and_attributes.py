@@ -144,6 +144,10 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
                     "extra_edges.tsv": extra_edges_df,
                     "dataset.tsv": dataset_df}
 
+    if datamart_properties_file is not None:
+        datamart_schema_df = pd.read_csv(datamart_properties_file, sep='\t')
+        output_files['datamart_schema_properties.tsv'] = datamart_schema_df
+
     # save to disk if required or running in debug mode
     if to_disk or debug:
         os.makedirs(output_path, exist_ok=True)
@@ -319,7 +323,8 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
             node2_description = to_kgtk_format_string(each_row['description'])
         node2s = [node2_label,  # to_kgtk_format_string(each_row[node_label_column_name]),  # 1
                   node2_label,  # to_kgtk_format_string(each_row[node_label_column_name]),  # 2
-                  node2_description,  # to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
+                  node2_description,
+                  # to_kgtk_format_string("{} in {}".format(each_row[node_label_column_name], dataset_id)),  # 3
                   "Q50701", "P585", "P248",  # 4(Q50701 = variable), 5(P585 = Point in time), 6(P249 = stated in)
                   p_node_id,  # 7
                   dataset_q_node,  # 8
@@ -483,7 +488,7 @@ def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, temp
 
             if target_column_number >= each_df.shape[1] or end_row > each_df.shape[0]:
                 import pdb
-                print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}".\
+                print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}". \
                       format(target_column_number, end_row, each_df.shape))
                 continue
 
