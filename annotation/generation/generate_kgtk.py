@@ -11,7 +11,7 @@ from t2wml.wikification.utility_functions import add_entities_from_file
 from annotation.generation.generate_t2wml_files import execute_shell_code
 from annotation.generation.wikify_datamart_units_and_attributes import generate
 from annotation.generation.annotation_to_template import generate_template_from_df, save_template_file
-
+from time import time
 
 # currently this script only support t2wml == 2.0a19
 
@@ -148,7 +148,9 @@ class GenerateKgtk:
         shell_code = """
         kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
         """.format(exploded_file.name, final_output_path)
+        s = time()
         return_res = execute_shell_code(shell_code)
+        print(f'time take to run kgtk add id: {time() - s} seconds')
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk add-id failed! Please check!")
@@ -204,8 +206,10 @@ class GenerateKgtk:
         output_kgtk_main_content = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         t2wml_output_filepath = output_kgtk_main_content.name
         try:
+            s = time()
             kg = KnowledgeGraph.generate_from_files(data_filepath, sheet_name, yaml_filepath, wikifier_filepath)
             kg.save_kgtk(t2wml_output_filepath)
+            print(f'time take to get t2wml output: {time() - s} seconds')
         except:
             traceback.print_exc()
             raise ValueError("Generating kgtk knowledge graph file failed!")
@@ -224,7 +228,9 @@ class GenerateKgtk:
         shell_code = """
             kgtk implode "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
             """.format(t2wml_output_filepath, kgtk_imploded_file_name)
+        s = time()
         return_res = execute_shell_code(shell_code)
+        print(f'time take to run kgtk implode: {time() - s} seconds')
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk implode failed! Please check!")
@@ -248,7 +254,9 @@ class GenerateKgtk:
         / explode --allow-lax-qnodes True --overwrite True \
         > {}
         """.format(kgtk_imploded_file_name, metadata_file_name, exploded_file_name)
+        s = time()
         return_res = execute_shell_code(shell_code)
+        print(f'time take to run kgtk cat and explode: {time() - s} seconds')
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk explode failed! Please check!")
@@ -259,7 +267,9 @@ class GenerateKgtk:
         shell_code = """
         kgtk validate --allow-lax-qnodes True {}
         """.format(exploded_file_name)
+        s = time()
         res = execute_shell_code(shell_code)
+        print(f'time take to run kgtk validate: {time() - s} seconds')
         if res != "":
             print(res)
             raise ValueError("The output kgtk file is invalid!")
