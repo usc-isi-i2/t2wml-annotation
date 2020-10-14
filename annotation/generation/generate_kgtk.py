@@ -240,7 +240,8 @@ class GenerateKgtk:
         metadata_df = pd.DataFrame()
         for name, each_df in self.output_df_dict.items():
             if each_df is not None and name.endswith(".tsv"):
-                metadata_df = pd.concat([metadata_df, each_df])
+                if name.strip() != 'datamart_schema_properties.tsv':
+                    metadata_df = pd.concat([metadata_df, each_df])
         metadata_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         exploded_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         metadata_file_name = metadata_file.name
