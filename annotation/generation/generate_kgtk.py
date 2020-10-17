@@ -261,18 +261,18 @@ class GenerateKgtk:
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk explode failed! Please check!")
-        _ = metadata_file.seek(0)
-        _ = exploded_file.seek(0)
+        # _ = metadata_file.seek(0)
+        # _ = exploded_file.seek(0)
 
         # validate the exploded file
-        shell_code = """
-        kgtk validate --allow-lax-qnodes True {}
-        """.format(exploded_file_name)
-        s = time()
-        res = execute_shell_code(shell_code)
-        print(f'time take to run kgtk validate: {time() - s} seconds')
-        if res != "":
-            print(res)
-            raise ValueError("The output kgtk file is invalid!")
+        # shell_code = """
+        # kgtk validate --allow-lax-qnodes True {}
+        # """.format(exploded_file_name)
+        # s = time()
+        # res = execute_shell_code(shell_code)
+        # print(f'time take to run kgtk validate: {time() - s} seconds')
+        # if res != "":
+        #     print(res)
+        #     raise ValueError("The output kgtk file is invalid!")
 
         return exploded_file, metadata_file
