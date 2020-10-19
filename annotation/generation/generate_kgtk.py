@@ -146,7 +146,7 @@ class GenerateKgtk:
         final_output_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         final_output_path = final_output_file.name
         shell_code = """
-        kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
+        kgtk add_id --overwrite-id False --id-style node1-label-node2-num -i {} > {}
         """.format(exploded_file.name, final_output_path)
         s = time()
         return_res = execute_shell_code(shell_code)
@@ -226,7 +226,7 @@ class GenerateKgtk:
         kgtk_imploded_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         kgtk_imploded_file_name = kgtk_imploded_file.name
         shell_code = """
-            kgtk implode "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
+            kgtk implode -i "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
             """.format(t2wml_output_filepath, kgtk_imploded_file_name)
         s = time()
         return_res = execute_shell_code(shell_code)
@@ -251,7 +251,7 @@ class GenerateKgtk:
 
         # combine and explode the results
         shell_code = """
-        kgtk cat {} {} \
+        kgtk cat -i {} {} \
         / explode --allow-lax-qnodes True --overwrite True \
         > {}
         """.format(kgtk_imploded_file_name, metadata_file_name, exploded_file_name)
