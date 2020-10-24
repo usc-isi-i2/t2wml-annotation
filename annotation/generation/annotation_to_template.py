@@ -36,7 +36,7 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
     header_row, data_row = utility.find_data_start_row(input_df)
 
-    annotation_rows = list(range(1, 6)) + [header_row]
+    annotation_rows = list(range(1, 7)) + [header_row]
     content_rows = list(range(data_row, len(input_df)))
 
     annotation_part = input_df.iloc[annotation_rows].fillna("")
@@ -154,14 +154,16 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
             label = "{}".format(attribute) if not each_col_info['name'] else each_col_info['name']
             description = "{} column in {}".format(role_lower, dataset_id) if not each_col_info['description'] \
                 else each_col_info['description']
+            tag = each_col_info['tag'] if each_col_info['tag'] else ""
 
             # qualifier and variables have been deduplicated already in validation. Now if anything is repeating,
             # it is meant to be same.
             if attribute not in seen_attributes:
                 attributes_df_list.append({"Attribute": attribute, "Property": "", "Role": role_lower,
                                            "Relationship": relationship, "type": data_type,
-                                           "label": label, "description": description})
+                                           "label": label, "description": description, "tag": tag})
                 seen_attributes[attribute] = 1
+
 
     if len(attributes_df_list) == 0:
         attributes_df = pd.DataFrame(columns=['Attribute', 'Property', 'label', 'description'])

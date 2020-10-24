@@ -258,6 +258,9 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
         -------------------------------------------------
         10   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-101  QVARIABLE       P2006020003     PQUALIFIER-OECD-101
         11   QVARIABLE-OECD-P2006020002-PQUALIFIER-OECD-102  QVARIABLE       P2006020003     PQUALIFIER-OECD-102
+        -------------------------------------------------
+        12   ...  QVARIABLE-002       P2010050001     FactorClass:EconomicAgricuturalCapability
+        13   ...  QVARIABLE-002       P2010050001     Relevance:1
     """
     node_number = 1
     output_df_list = []
@@ -332,6 +335,13 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
                   q_node_id  # 10
                   ] + target_properties
         node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_q_node] + [q_node_id] * len(target_properties)
+
+        # Add tag edges
+        if 'tag' in input_df.columns:
+            tag_values = each_row['tag'].split(',')
+            node1s += [q_node_id] * len(tag_values)
+            labels += ['P2010050001'] * len(tag_values)
+            node2s += tag_values
 
         # add those nodes
         for i, each_label in enumerate(labels):
