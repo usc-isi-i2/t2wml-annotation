@@ -11,10 +11,12 @@ import pandas as pd
 from pandas.api.types import is_numeric_dtype, is_object_dtype
 
 from yaml import load, dump
+
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
     from yaml import Loader, Dumper
+
 
 class Category(Enum):
     DATASET = 'dataset'
@@ -26,6 +28,7 @@ class Category(Enum):
     HEADER = 'header'
     DATA = 'data'
 
+
 class Role(Enum):
     MAIN_SUBJECT = "main subject"
     TIME = "time"
@@ -33,6 +36,7 @@ class Role(Enum):
     VARIABLE = "variable"
     QUALIFIER = "qualifier"
     UNIT = "unit"
+
 
 class Type(Enum):
     STRING = "string"
@@ -50,6 +54,7 @@ class Type(Enum):
     LONGITUDE = "longitude"
     POINT = "point"
     ENTITY = "entity"
+
 
 property_node = {
     Type.COUNTRY: 'P17',
@@ -105,16 +110,18 @@ MONTH_ABBREVIATED = set([
     "dec"
 ])
 
+
 def guess_year_format(values: pd.Series):
     values = values[values.notna()]
     if is_numeric_dtype(values):
         two_digit_count = values.apply(lambda x: x < 100).sum()
     else:
-        two_digit_count = np.asarray([len(str(x)) <=2 for x in values]).sum()
+        two_digit_count = np.asarray([len(str(x)) <= 2 for x in values]).sum()
     if two_digit_count > len(values) - two_digit_count:
         return '%y'
     else:
         return '%Y'
+
 
 def guess_month_format(values: pd.Series):
     values = values[values.notna()]
@@ -148,7 +155,7 @@ def to_letter_column(number):
         length += 1
         number -= size
         size *= 26
-    result = ['A']*length
+    result = ['A'] * length
     index = length - 1
     while number > 0:
         rem = number % 26
@@ -156,6 +163,7 @@ def to_letter_column(number):
         result[index] = string.ascii_uppercase[rem]
         index -= 1
     return ''.join(result)
+
 
 def to_number_column(col: string):
     result = 0
@@ -170,19 +178,22 @@ def to_number_column(col: string):
     result = result + base
     return result
 
+
 def get_index(series: pd.Series, value, *, pos=0) -> int:
     return int(series[series == value].index[pos])
 
-def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None, startswith = False) -> pd.Int64Index:
+
+def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None, startswith=False) -> pd.Int64Index:
     if startswith:
         indices = series[series.apply(lambda x: isinstance(x, str) and x.startswith(value))].index
     else:
         indices = series[series == value].index
 
     if within is not None:
-        indices =  within.intersection(indices)
+        indices = within.intersection(indices)
 
     return indices
+
 
 class ToT2WML:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, dataset_qnode: str):
@@ -194,8 +205,14 @@ class ToT2WML:
         self.role_index = get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
         self.type_index = get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
         self.unit_index = get_index(self.sheet.iloc[:, 0], Category.UNIT.value)
-        self.header_index = get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
-        self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
+        try:
+            self.header_index = get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
+        except:
+            self.header_index = 6
+        try:
+            self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
+        except:
+            self.data_index = self.header_index + 1
 
         # role
         self.time_indcies = get_indices(self.sheet.iloc[self.role_index, :], Role.TIME.value)
@@ -222,7 +239,6 @@ class ToT2WML:
             if self.main_subject_index == 0:
                 print('WARNING: No columns with "main subject" role annotation, and no "location" roles.')
 
-
     def _get_region(self) -> dict:
         try:
             top = self.data_index
@@ -232,7 +248,7 @@ class ToT2WML:
             region = {
                 'left': to_letter_column(left),
                 'right': to_letter_column(right),
-                'top': top+1,
+                'top': top + 1,
                 'bottom': bottom
             }
         except IndexError:
@@ -240,7 +256,7 @@ class ToT2WML:
             region = {
                 'left': 'A  # FIX ME',
                 'right': 'A  # FIX ME',
-                'top': top+1,
+                'top': top + 1,
                 'bottom': bottom
             }
         return region
@@ -385,7 +401,7 @@ class ToT2WML:
 
         # Check if type is plain 'date'
         date_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.DATE,
-                                  within=self.time_indcies)
+                                   within=self.time_indcies)
         if date_indices.shape[0] > 0:
             time_index = date_indices.shape[0]
             result = {
@@ -411,7 +427,6 @@ class ToT2WML:
             }
             return result
 
-
         # over multiple columns
         return self._get_time_multiple_formats()
         # return self._get_time_single_format()
@@ -421,7 +436,7 @@ class ToT2WML:
         result = {
             'property': 'P2006020004',
             'value': self.dataset_qnode
-            }
+        }
         return result
 
     def _get_admins(self) -> list:
@@ -504,7 +519,7 @@ class ToT2WML:
             if ';' in unit_spec:
                 variable_names = unit_spec.split(';')[1].split(',')
                 for name in variable_names:
-                    indices = get_indices(self.sheet.iloc[self.header_index,1:], name)
+                    indices = get_indices(self.sheet.iloc[self.header_index, 1:], name)
                     if len(indices) == 0:
                         print(f'Invalid unit specification: "{unit_spec}"  No variable named "{name}"')
                     else:
@@ -518,7 +533,6 @@ class ToT2WML:
                     result[var] = [col_index]
         return result
 
-
     def get_dict(self) -> dict:
         self.failures = []
         region = self._get_region()
@@ -530,8 +544,9 @@ class ToT2WML:
         if self.main_subject_index == 0:
             no_main_subject_warning == '  # FIX ME'
             self.failures.append('No main subject column')
-        template['item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]{no_main_subject_warning}'
-        template['property'] = f'=item[$col, {self.header_index+1}, "property"]'
+        template[
+            'item'] = f'=item[{to_letter_column(self.main_subject_index)}, $row, "main subject"]{no_main_subject_warning}'
+        template['property'] = f'=item[$col, {self.header_index + 1}, "property"]'
         template['value'] = '=value[$col, $row]'
 
         if self.units_indices.shape[0] > 0:
@@ -545,7 +560,7 @@ class ToT2WML:
                     value = f'=item[{to_letter_column(col)}, $row, "unit"]'
                 template['unit'] = value
             else:
-                template['unit'] = f'=item[$col, {self.unit_index+1}, "unit"]'
+                template['unit'] = f'=item[$col, {self.unit_index + 1}, "unit"]'
 
         qualifier = []
         qualifier.append(self._get_time())
@@ -568,6 +583,7 @@ class ToT2WML:
         t2wml_yaml = self.get_dict()
         output = dump(t2wml_yaml, Dumper=Dumper)
         return output
+
 
 if __name__ == '__main__':
     # input_file = '/home/kyao/Shared/Datamart/data/D3M/GDL-AreaData370-Ethiopia-description.xlsx'
