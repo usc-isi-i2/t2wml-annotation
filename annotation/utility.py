@@ -1,6 +1,18 @@
 import os
 import pandas as pd
-from requests import get, post, put, delete
+from requests import post
+from enum import Enum
+
+
+class Category(Enum):
+    DATASET = 'dataset'
+    ROLE = 'role'
+    TYPE = 'type'
+    DESCRIPTION = 'description'
+    NAME = 'name'
+    UNIT = 'unit'
+    HEADER = 'header'
+    DATA = 'data'
 
 
 class Utility(object):
@@ -9,19 +21,10 @@ class Utility(object):
 
     @staticmethod
     def find_data_start_row(df: pd.DataFrame) -> (int, int):
-        # finds and returns header and data row index
-        header_row = 6
-        data_row = 7
+        header_index = Utility.get_index(df.iloc[:, 0], Category.HEADER.value)
+        data_index = Utility.get_index(df.iloc[:, 0], Category.DATA.value)
 
-        if "header" in df.index:
-            header_row = df.index.tolist().index("header")
-            if "data" not in df.index:
-                data_row = header_row + 1
-
-        if "data" in df.index:
-            data_row = df.index.tolist().index("data")
-
-        return header_row, data_row
+        return header_index, data_index
 
     @staticmethod
     def upload_data(file_path, url, method=post):
@@ -31,3 +34,7 @@ class Utility(object):
         }
         response = method(url, files=files)
         return response
+
+    @staticmethod
+    def get_index(series: pd.Series, value, *, pos=0) -> int:
+        return int(series[series == value].index[pos])
