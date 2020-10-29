@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from xlsxwriter import utility
 from annotation.utility import Utility
+from annotation.utility import Category
 
 ROLE_ROW = 2
 TYPE_ROW = 3
@@ -246,6 +247,21 @@ class ValidateAnnotation(object):
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 7, utility.xl_col_to_name(0),
                                'Seventh row in column 1 should be "tag"'))
+
+        try:
+            header_index = Utility.get_index(df.iloc[:, 0], Category.HEADER.value)
+        except:
+            valid_first_column = False
+            self.error_report.append(
+                self.error_row('Incorrect annotation: First Column', -1, utility.xl_col_to_name(0),
+                               'Missing annotation "header" in column A'))
+        try:
+            data_index = Utility.get_index(df.iloc[:, 0], Category.DATA.value)
+        except:
+            valid_first_column = False
+            self.error_report.append(
+                self.error_row('Incorrect annotation: First Column', -1, utility.xl_col_to_name(0),
+                               'Missing annotation "data" in column A'))
 
         return valid_first_column
 
