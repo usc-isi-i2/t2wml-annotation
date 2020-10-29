@@ -1,32 +1,16 @@
-import collections
 import string
-import time
-import datetime
-
-from enum import Enum
-from pprint import pprint
-
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_numeric_dtype, is_object_dtype
-
-from yaml import load, dump
+from yaml import dump
+from enum import Enum
+from pandas.api.types import is_numeric_dtype
+from annotation.utility import Category
+from annotation.utility import Utility
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
     from yaml import Loader, Dumper
-
-
-class Category(Enum):
-    DATASET = 'dataset'
-    ROLE = 'role'
-    TYPE = 'type'
-    DESCRIPTION = 'description'
-    NAME = 'name'
-    UNIT = 'unit'
-    HEADER = 'header'
-    DATA = 'data'
 
 
 class Role(Enum):
@@ -179,10 +163,6 @@ def to_number_column(col: string):
     return result
 
 
-def get_index(series: pd.Series, value, *, pos=0) -> int:
-    return int(series[series == value].index[pos])
-
-
 def get_indices(series: pd.Series, value, *, within: pd.Int64Index = None, startswith=False) -> pd.Int64Index:
     if startswith:
         indices = series[series.apply(lambda x: isinstance(x, str) and x.startswith(value))].index
@@ -202,17 +182,11 @@ class ToT2WML:
 
         # category rows
         # self.dataset_index = get_index(self.sheet.iloc[:, 0], Category.DATASET.value)  Not needed
-        self.role_index = get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
-        self.type_index = get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
-        self.unit_index = get_index(self.sheet.iloc[:, 0], Category.UNIT.value)
-        try:
-            self.header_index = get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
-        except:
-            self.header_index = 6
-        try:
-            self.data_index = get_index(self.sheet.iloc[:, 0], Category.DATA.value)
-        except:
-            self.data_index = self.header_index + 1
+        self.role_index = Utility.get_index(self.sheet.iloc[:, 0], Category.ROLE.value)
+        self.type_index = Utility.get_index(self.sheet.iloc[:, 0], Category.TYPE.value)
+        self.unit_index = Utility.get_index(self.sheet.iloc[:, 0], Category.UNIT.value)
+        self.header_index = Utility.get_index(self.sheet.iloc[:, 0], Category.HEADER.value)
+        self.data_index = Utility.get_index(self.sheet.iloc[:, 0], Category.DATA.value)
 
         # role
         self.time_indcies = get_indices(self.sheet.iloc[self.role_index, :], Role.TIME.value)
@@ -226,7 +200,7 @@ class ToT2WML:
 
         ## main subject role
         try:
-            self.main_subject_index = get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
+            self.main_subject_index = Utility.get_index(self.sheet.iloc[self.role_index, :], Role.MAIN_SUBJECT.value)
         except:
             # use a location column for main subject
             self.main_subject_index = 0
@@ -243,8 +217,8 @@ class ToT2WML:
         try:
             top = self.data_index
             bottom = self.sheet.shape[0]
-            left = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value)
-            right = get_index(self.sheet.iloc[1, :], Role.VARIABLE.value, pos=-1)
+            left = Utility.get_index(self.sheet.iloc[1, :], Role.VARIABLE.value)
+            right = Utility.get_index(self.sheet.iloc[1, :], Role.VARIABLE.value, pos=-1)
             region = {
                 'left': to_letter_column(left),
                 'right': to_letter_column(right),
@@ -445,7 +419,7 @@ class ToT2WML:
         items = []
         for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
             if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
-                col_index = get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+                col_index = Utility.get_index(self.sheet.iloc[self.type_index, :], col_type.value)
                 context = location_context[col_type]
                 if self.main_subject_index == col_index:
                     context = "main subject"
