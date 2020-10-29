@@ -12,6 +12,7 @@ from annotation.generation.generate_t2wml_files import execute_shell_code
 from annotation.generation.wikify_datamart_units_and_attributes import generate
 from annotation.generation.annotation_to_template import generate_template_from_df, save_template_file
 from time import time
+import shortuuid
 
 # currently this script only support t2wml == 2.0a19
 
@@ -192,7 +193,8 @@ class GenerateKgtk:
 
         # generate temp input dataset file
         temp_data_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".csv")
-        data_filepath = "{}.csv".format(self.project_name)
+        # data_filepath = "{}.csv".format(self.project_name)
+        data_filepath = "{}.csv".format(f'{self.project_name}-{shortuuid.uuid()}')
 
         if os.path.islink(data_filepath) or os.path.exists(data_filepath):
             os.remove(data_filepath)
