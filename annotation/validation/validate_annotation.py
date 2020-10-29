@@ -124,15 +124,6 @@ class ValidateAnnotation(object):
                                ','.join(main_subject_cols),
                                'Annotation spreadsheet should have at least one column annotated as "main subject".'))
 
-        # if len(location_cols) == 0 and len(main_subject_cols) == 0:
-        #     valid_roles = False
-        #     self.error_report.append(
-        #         self.error_row('Annotation invalid',
-        #                        ROLE_ROW,
-        #                        -1,
-        #                        'Either "location" or "main subject" should be present as annotation for a column. '
-        #                        'None of the columns are annotated as "location" or "variable"'))
-
         return valid_roles, qualifier_cols, variable_col_ids
 
     def validate_roles_types(self, df):
@@ -249,6 +240,12 @@ class ValidateAnnotation(object):
             self.error_report.append(
                 self.error_row('Incorrect annotation: First Column', 6, utility.xl_col_to_name(0),
                                'Sixth row in column 1 should be "unit"'))
+
+        if df.iloc[6, 0].strip().lower() != 'tag':
+            valid_first_column = False
+            self.error_report.append(
+                self.error_row('Incorrect annotation: First Column', 7, utility.xl_col_to_name(0),
+                               'Seventh row in column 1 should be "tag"'))
 
         return valid_first_column
 
