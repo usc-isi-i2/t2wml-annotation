@@ -91,15 +91,11 @@ The variable metadata can be searched using tags.
 
 #### header
 The `header` annotation marks the row that contains the headers of the spreadsheet; this annotation is 
-useful for spreadsheets where the header is not the first row of the spreadsheet. This annotation is optional;
- when not present, row 7 is assumed to contain the headers.
+useful for spreadsheets where the header is not the first row of the spreadsheet.
  
 #### data
 The `data` annotation marks the first row of the spreadsheet that contains the data; this annotation is 
-useful for spreadsheets where the data does not immediately follow the headers. This annotation is optional;
-
-   - If both `header` and `data` annotations are not present, row 8 is assumed to be the start of the data.
-   - If `header` annotation is present and `data` annotation is missing, { `header + 1` } is assumed as start of data.
+useful for spreadsheets where the data does not immediately follow the headers.
    
 ## Annotations: Fine Details
 
