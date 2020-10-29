@@ -8,15 +8,15 @@ metadata to support conversion to KGTK format compatible with Datamart canonical
 A spreadsheet annotation consists of:
 
 - A new column added as first column in the spreadsheet
-- 6 new rows added at the top of the spreadsheet 
+- 7 new rows added at the top of the spreadsheet 
 
-For example: Column A is inserted with top 6 rows being: `dataset`, `role`, `type`, `description`, `name`, and `unit`.
+For example: Column A is inserted with top 7 rows being: `dataset`, `role`, `type`, `description`, `name`, `unit` and `tag`.
  ![Datamart Spreadsheet Example](image_01.png "Datamart Spreadsheet Example")
 
-The first column must have the labels shown in cells A1:A6. If this is not the case, then annotation
+The first column must have the labels shown in cells A1:A7. If this is not the case, then annotation
 validation will fail while uploading the annotated spreadsheet to Datamart.
 
-### Annotation Description: cells A1:A6
+### Annotation Description: cells A1:A7
 
 #### dataset
 
@@ -76,6 +76,16 @@ and descriptions are optional.
 The unit row allows users to specify units for columns with `variable` role annotations. 
 When provided, the unit is a string that designates the units to be used for all values of the `variable`. 
 Units are optional as some spreadsheets have units columns to designate units for each row.
+
+#### tag
+The tag row allows users to specify tags in the form of key-value pairs for columns with `variable` role annotations.
+The format of the tag string is as follows,
+```
+KEY1:VALUE1|KEY2:VALUE2|...
+```
+
+This string will be split and key-values pairs will be added in the variable metadata and will be returned in variable metadata API.
+The variable metadata can be searched using tags.
 
 ### Additional Annotations
 
