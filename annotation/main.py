@@ -17,8 +17,6 @@ class T2WMLAnnotation(object):
         t2wml_yaml_dict = to_t2wml.get_dict()
         t2wml_yaml = to_t2wml.get_yaml()
 
-        df = df.set_index(0)
-
         gk = GenerateKgtk(df, t2wml_yaml_dict, dataset_qnode=dataset_qnode, debug=True, debug_dir='/tmp')
 
         combined_item_def_df = pd.concat(
