@@ -93,7 +93,7 @@ class GenerateKgtk:
 
         if not os.path.exists(property_file):
             raise ValueError("Datamart schema properties tsv file not exist at {}!".format(property_file))
-        self.kgtk_properties_df = pd.concat([pd.read_csv(property_file, sep='\t'),
+        self.kgtk_properties_df = pd.concat([pd.read_csv(property_file, sep='\t', quoting=csv.QUOTE_NONE),
                                              self.output_df_dict["kgtk_properties.tsv"]])
 
         # update 2020.7.22: only combine datamart scheme constant properties when required
@@ -157,7 +157,7 @@ class GenerateKgtk:
             raise ValueError("Running kgtk add-id failed! Please check!")
         _ = final_output_file.seek(0)
 
-        final_output_df = pd.read_csv(final_output_file, sep="\t", doublequote=False)
+        final_output_df = pd.read_csv(final_output_file, sep="\t", quoting=csv.QUOTE_NONE)
 
         if self._debug:
             shutil.copy(final_output_file.name, os.path.join(self.debug_dir, 'kgtk-edges.tsv'))
@@ -218,7 +218,7 @@ class GenerateKgtk:
         finally:
             os.remove(data_filepath)
 
-        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t", doublequote=False)
+        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t", quoting=csv.QUOTE_NONE)
         if len(t2wml_kgtk_df) == 0:
             raise ValueError("An empty kgtk file was generated from t2wml! Please check!")
 
