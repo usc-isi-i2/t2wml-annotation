@@ -33,15 +33,18 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     if dataset_id is None:
         dataset_id = input_df.iloc[0, 0]
 
+    # TODO fix this set index reset index business
+    input_df = input_df.reset_index()
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
     header_row, data_row = utility.find_data_start_row(input_df)
 
-    if 'tag' in input_df.iloc[:7,0]:
+    if 'tag' in input_df.iloc[:7, 0]:
         annotation_rows = list(range(1, 7)) + [header_row]
     else:
         annotation_rows = list(range(1, 6)) + [header_row]
     content_rows = list(range(data_row, len(input_df)))
 
+    input_df = input_df.set_index(0)
     annotation_part = input_df.iloc[annotation_rows].fillna("")
     content_part = input_df.iloc[content_rows]
 
@@ -166,7 +169,6 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
                                            "Relationship": relationship, "type": data_type,
                                            "label": label, "description": description, "tag": tag})
                 seen_attributes[attribute] = 1
-
 
     if len(attributes_df_list) == 0:
         attributes_df = pd.DataFrame(columns=['Attribute', 'Property', 'label', 'description'])
