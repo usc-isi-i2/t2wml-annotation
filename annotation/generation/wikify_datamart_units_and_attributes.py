@@ -337,7 +337,7 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
         node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_q_node] + [q_node_id] * len(target_properties)
 
         # Add tag edges
-        if 'tag' in input_df.columns:
+        if 'tag' in input_df.columns and each_row['tag']:
             tag_values = [to_kgtk_format_string(x) for x in each_row['tag'].split(',')]
             node1s += [q_node_id] * len(tag_values)
             labels += ['P2010050001'] * len(tag_values)
