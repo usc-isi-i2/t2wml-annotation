@@ -200,7 +200,7 @@ class GenerateKgtk:
             os.remove(data_filepath)
         os.symlink(temp_data_file.name, data_filepath)
 
-        self.annotated_spreadsheet.to_csv(data_filepath, header=None)
+        self.annotated_spreadsheet.to_csv(data_filepath, header=None, index=False)
         _ = temp_data_file.seek(0)
 
         # generate knowledge graph
