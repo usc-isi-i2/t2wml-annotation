@@ -567,7 +567,7 @@ def _check_double_quotes(input_df: pd.DataFrame, label_types=None, check_content
 
     if check_content_startswith:
         output_df["node2"] = output_df['node2'].apply(
-            lambda x: to_kgtk_format_string(x) if not x.startswith("Q") and not x.startswith("P") else x)
+            lambda x: to_kgtk_format_string(x) if not x.startswith("Q") and not x.startswith("P") and not x.startswith("^") else x)
     return output_df
 
 
@@ -607,6 +607,11 @@ def _generate_edge_id(node1: str, label: str, node2: str):
 def to_kgtk_format_string(s):
     if len(s) == 0:
         return '""'
+    if s[0] == '"' and s[-1] == '"':
+        if '"' in s[1:-1]:
+            s = s[1:-1]
+        else:
+            return s
     if '"' in s:
         return '"' + s.replace('"', '\\"') + '"'
     else:
