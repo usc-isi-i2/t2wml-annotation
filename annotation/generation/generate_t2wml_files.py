@@ -88,7 +88,7 @@ def populate_node2_columns(folder_path: str):
             # print("processing", full_path)
             output_path = os.path.join(folder_path, "imploded", each_file)
             shell_code = """
-            kgtk implode "{}" --remove-prefixed-columns True --without si_units language_suffix > "{}"
+            kgtk implode -i "{}" --remove-prefixed-columns True --without si_units language_suffix -o "{}"
             """.format(full_path, output_path)
             execute_shell_code(shell_code)
     if not output_path:
