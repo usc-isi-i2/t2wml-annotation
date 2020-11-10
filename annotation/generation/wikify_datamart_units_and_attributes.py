@@ -594,7 +594,11 @@ def _generate_q_nodes(role: str, dataset_q_node: str, node_number: int):
     return q_node_id
 
 
+# Remove " \ ' characters from id
+_translation = str.maketrans('', '', '''"'\\''')
 def _generate_edge_id(node1: str, label: str, node2: str):
+    node1 = node1.translate(_translation)
+    node2 = node2.translate(_translation)
     if label in {"P31", "P1687", "P2006020004"}:
         id_ = "{}-{}-1".format(node1, label)
     elif label in {"label", "P1476", "description", "P1813"}:
