@@ -108,7 +108,7 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
 
     # update 2020.7.22: accept user specified dataset id if given
     if dataset_qnode is None:
-        dataset_qnode = loaded_file["dataset_file"]["dataset"].iloc[0]
+        dataset_qnode = 'Q' + loaded_file["dataset_file"]["dataset"].iloc[0]
 
     if dataset_id is None:
         dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
