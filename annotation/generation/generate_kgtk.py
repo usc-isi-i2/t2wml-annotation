@@ -33,6 +33,11 @@ class GenerateKgtk:
         property_file: str
             File contain general property definitions, such as the property file datamart-schema repo
         """
+
+        # Make sure column "A" in spreadsheet is column 0 of dataframe:
+        if not annotated_spreadsheet.iloc[0,0] == 'dataset':
+            raise Exception('Column 0 of dataframe is not annotations.')
+
         self.t2wml_script = t2wml_script
         self.annotated_spreadsheet = annotated_spreadsheet
         self.property_file = property_file
@@ -49,10 +54,16 @@ class GenerateKgtk:
 
         self.wikifier_file = wikifier_file
         self.constant_wikikifer_df = pd.read_csv(wikifier_file)
-        self.project_name = self.annotated_spreadsheet.iloc[0, 0]
+
+        self.dataset_id = self.annotated_spreadsheet.iloc[0, 1]
+
+        # If missing, annotation does not contain dataset metadata. Just use a default id.
+        # The 'dataset.tsv' metadata is not used.
+        if not self.dataset_id:
+            self.dataset_id = dataset_qnode[1:]
 
         # generate the template files
-        template_df_dict = generate_template_from_df(annotated_spreadsheet, dataset_qnode)
+        template_df_dict = generate_template_from_df(annotated_spreadsheet, dataset_qnode, self.dataset_id)
 
         # update 2020.7.27, enable debug to save the template and template-output files
         if self._debug:
@@ -76,7 +87,7 @@ class GenerateKgtk:
                                        to_disk=False,
                                        datamart_properties_file=property_file,
                                        dataset_qnode=dataset_qnode,
-                                       dataset_id=self.project_name,
+                                       dataset_id=self.dataset_id,
                                        debug=self._debug,
                                        )
 
@@ -115,7 +126,7 @@ class GenerateKgtk:
         exploded_file, metadata_file = self._make_preparations()
         # add id
         _ = exploded_file.seek(0)
-        final_output_path = "{}/{}-datamart-kgtk-exploded-uniq-ids.tsv".format(directory, self.project_name)
+        final_output_path = "{}/{}-datamart-kgtk-exploded-uniq-ids.tsv".format(directory, self.dataset_id)
         shell_code = """
         kgtk add_id --overwrite-id False --id-style node1-label-node2-num {} > {}
         """.format(exploded_file.name, final_output_path)
@@ -128,7 +139,7 @@ class GenerateKgtk:
         shell_code = """
         kgtk explode {} --allow-lax-qnodes True --overwrite True \
         > {}/{}-datamart-kgtk-exploded_metadata.tsv
-        """.format(metadata_file.name, directory, self.project_name)
+        """.format(metadata_file.name, directory, self.dataset_id)
         return_res = execute_shell_code(shell_code)
         if return_res != "":
             print(return_res)
@@ -193,8 +204,8 @@ class GenerateKgtk:
 
         # generate temp input dataset file
         temp_data_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".csv")
-        # data_filepath = "{}.csv".format(self.project_name)
-        data_filepath = "{}.csv".format(f'{self.project_name}-{shortuuid.uuid()}')
+        # data_filepath = "{}.csv".format(self.dataset_id)
+        data_filepath = "{}.csv".format(f'{self.dataset_id}-{shortuuid.uuid()}')
 
         if os.path.islink(data_filepath) or os.path.exists(data_filepath):
             os.remove(data_filepath)

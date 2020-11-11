@@ -109,9 +109,18 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     # update 2020.7.22: accept user specified dataset id if given
     if dataset_qnode is None:
         dataset_qnode = loaded_file["dataset_file"]["dataset"].iloc[0]
+        if len(dataset_qnode) == 0 or not dataset_qnode[0] == 'Q':
+            raise Exception('First column of "Dataset" tab has be Qnodes')
 
     if dataset_id is None:
-        dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
+        # dataset_id = loaded_file["dataset_file"]["dataset"].iloc[0]
+        result = loaded_file['dataset_file']['node2'][loaded_file["dataset_file"]['label'] == 'P1813']
+        if len(result) == 0:
+            raise Exception('Missing dataset identifier. Missing "P1813" edge in "Dataset" tab')
+        else:
+            dataset_id = result.iloc[0]
+            if dataset_id[0] == '"' and dataset_id[-1] == '"':
+                dataset_id = dataset_id[1:-1]
 
     # generate files
     memo = defaultdict(dict)
@@ -331,7 +340,7 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
                   "Q50701", "P585", "P248",  # 4(Q50701 = variable), 5(P585 = Point in time), 6(P249 = stated in)
                   p_node_id,  # 7
                   dataset_q_node,  # 8
-                  get_short_name(short_name_memo, each_row[node_label_column_name]),  # 9
+                  to_kgtk_format_string(get_short_name(short_name_memo, each_row[node_label_column_name])),  # 9
                   q_node_id  # 10
                   ] + target_properties
         node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_q_node] + [q_node_id] * len(target_properties)
@@ -440,7 +449,10 @@ def _generate_dataset_file(input_df: pd.DataFrame):
     for _, each_row in output_df.iterrows():
         ids.append("{}-{}".format(each_row["dataset"], each_row["label"]))
     output_df['id'] = ids
-    output_df["dataset"] = output_df['dataset'].apply(lambda x: "Q" + x)
+
+    # Assume the the first column are already Q nodes
+    # output_df["dataset"] = output_df['dataset'].apply(lambda x: "Q" + x)
+
     output_df = output_df.rename(columns={"dataset": "node1"})
     # check double quotes
     output_df = _check_double_quotes(output_df, check_content_startswith=True)
@@ -497,7 +509,6 @@ def run_wikifier(input_folder_path: str, wikifier_columns_df: pd.DataFrame, temp
                 end_row = int(end_row)
 
             if target_column_number >= each_df.shape[1] or end_row > each_df.shape[0]:
-                import pdb
                 print("Required to wikify on column No.{} and end row at {} but the input dataframe shape is only {}". \
                       format(target_column_number, end_row, each_df.shape))
                 continue

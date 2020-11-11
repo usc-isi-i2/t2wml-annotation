@@ -24,14 +24,17 @@ ADDITIONAL_QUALIFIER_MAP = {
 }
 
 
-def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) -> dict:
+def generate_template_from_df(input_df: pd.DataFrame, dataset_qnode: str, dataset_id: str) -> dict:
     """
-    function used for datamart annotation batch mode, return a dict of dataFrame instead of output a xlsx file
-    """
-    utility = Utility()
+    Function used for datamart annotation batch mode, return a dict of dataFrame instead of output a xlsx file.
 
-    if dataset_id is None:
-        dataset_id = input_df.iloc[0, 0]
+    """
+
+    # Assumes the input_df.index contains column "A" of the annotation.
+    if not input_df.index[0] == 'dataset':
+        raise Exception('Index of the input dataframe must be column "A" of the annotaion')
+
+    utility = Utility()
 
     # updated 2020.7.22: it is possible that header is not at row 7, so we need to search header row if exist
     header_row, data_row = utility.find_data_start_row(input_df)
@@ -47,10 +50,10 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     content_part = input_df.iloc[content_rows]
 
     # start generate dataframe for templates
-    dataset_df = _generate_dataset_tab(dataset_id)
-    attribute_df = _generate_attributes_tab(dataset_id, annotation_part)
-    unit_df = _generate_unit_tab(dataset_id, content_part, annotation_part)
-    extra_df, wikifier_df1 = _process_main_subject(dataset_id, content_part, annotation_part, data_row)
+    dataset_df = _generate_dataset_tab(input_df, dataset_qnode, dataset_id)
+    attribute_df = _generate_attributes_tab(dataset_qnode, annotation_part)
+    unit_df = _generate_unit_tab(dataset_qnode, content_part, annotation_part)
+    extra_df, wikifier_df1 = _process_main_subject(dataset_qnode, content_part, annotation_part, data_row)
     wikifier_df2 = _generate_wikifier_part(content_part, annotation_part, data_row)
     wikifier_df = pd.concat([wikifier_df1, wikifier_df2])
 
@@ -66,16 +69,16 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_id: str = None) ->
     return output_df_dict
 
 
-def generate_template(input_path: str, output_path: str, dataset_id: str = None) -> None:
+def generate_template(input_path: str, output_path: str, dataset_qnode: str = None) -> None:
     """
     generate the template xlsx file from the input xlsx file
-    :param dataset_id:
+    :param dataset_qnode:
     :param input_path:
     :param output_path:
     :return:
     """
     input_df = pd.read_excel(input_path, index_col=0, header=None)
-    output_df_dict = generate_template_from_df(input_df, dataset_id=dataset_id)
+    output_df_dict = generate_template_from_df(input_df, dataset_qnode=dataset_qnode)
     output_folder = output_path[:output_path.rfind("/")]
     os.makedirs(output_folder, exist_ok=True)
     save_template_file(output_df_dict, output_path)
@@ -90,9 +93,9 @@ def save_template_file(output_df_dict: dict, output_path: str) -> None:
         output_df_dict["Wikifier_t2wml"].to_excel(writer, sheet_name="Wikifier_t2wml", index=False)
 
 
-def _generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
+def _generate_dataset_tab(input_df: pd.DataFrame, dataset_qnode: str, dataset_id: str) -> pd.DataFrame:
     """
-    A sample dataset file looks like: here {dataset_id} = "aid-security"
+    A sample dataset file looks like: here {dataset_qnode} = "aid-security"
     node1	        label	    node2	                id
     Qaid-security	P31	        Q1172284	            aid-security-P31
     Qaid-security	label	    aid-security dataset	aid-security-label
@@ -101,22 +104,26 @@ def _generate_dataset_tab(dataset_id: str) -> pd.DataFrame:
     Qaid-security	P2699	    aid-security	        aid-security-P2699
     Qaid-security	P1813	    aid-security	        aid-security-P1813
 
-    :param dataset_id: input dataset id
+    :param dataset_qnode: input dataset id
     :return:
     """
-    dataset_id_df_list = []
+    dataset_qnode_df_list = []
+
+    name = input_df.iloc[0, 1] if input_df.iloc[0, 1] else '{} dataset'.format(dataset_id)
+    description = input_df.iloc[0, 2] if input_df.iloc[0, 2] else '{} dataset'.format(dataset_id)
+    url = input_df.iloc[0, 3] if input_df.iloc[0, 3] else 'http://not/defined/{}'.format(dataset_id)
 
     dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
-    dataset_node2s = ["Q1172284", "{} dataset".format(dataset_id), "{} dataset".format(dataset_id),
-                      "{} dataset".format(dataset_id), dataset_id, dataset_id]
+    dataset_node2s = ["Q1172284", '"{}"'.format(name), '"{}"'.format(name),
+                      '"{}"'.format(description), dataset_qnode, '"{}"'.format(url)]
     for label, node2 in zip(dataset_labels, dataset_node2s):
-        dataset_id_df_list.append({"dataset": dataset_id, "label": label, "node2": node2})
+        dataset_qnode_df_list.append({"dataset": dataset_qnode, "label": label, "node2": node2})
 
-    dataset_df = pd.DataFrame(dataset_id_df_list)
+    dataset_df = pd.DataFrame(dataset_qnode_df_list)
     return dataset_df
 
 
-def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
+def _generate_attributes_tab(dataset_qnode: str, annotation_part: pd.DataFrame) -> pd.DataFrame:
     """
         codes used to generate the template attribute tab
         1. add for columns with role = variable or role = qualifier.
@@ -156,7 +163,7 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
                 raise ValueError("Column type {} for column {} is not valid!".format(role_type, i))
             data_type = TYPE_MAP_DICT[each_col_info["type"]]
             label = "{}".format(attribute) if not each_col_info['name'] else each_col_info['name']
-            description = "{} column in {}".format(role_lower, dataset_id) if not each_col_info['description'] \
+            description = "{} column in {}".format(role_lower, dataset_qnode) if not each_col_info['description'] \
                 else each_col_info['description']
             tag = each_col_info['tag'] if 'tag' in each_col_info else ""
 
@@ -176,7 +183,7 @@ def _generate_attributes_tab(dataset_id: str, annotation_part: pd.DataFrame) -> 
     return attributes_df
 
 
-def _generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame) -> pd.DataFrame:
+def _generate_unit_tab(dataset_qnode: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame) -> pd.DataFrame:
     """
         codes used to generate the template unit tab
         1. list all the distinct units defined in the units row
@@ -226,7 +233,7 @@ def _generate_unit_tab(dataset_id: str, content_part: pd.DataFrame, annotation_p
     return unit_df
 
 
-def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame, data_row):
+def _process_main_subject(dataset_qnode: str, content_part: pd.DataFrame, annotation_part: pd.DataFrame, data_row):
     col_offset = 1
     wikifier_df_list = []
     extra_df_list = []
@@ -244,7 +251,7 @@ def _process_main_subject(dataset_id: str, content_part: pd.DataFrame, annotatio
             if type_ == "string":
                 for row, each in enumerate(content_part.iloc[:, i]):
                     label = str(each).strip()
-                    node = "Q{}_{}_{}".format(dataset_id, each_col_info["header"], label) \
+                    node = "{}_{}_{}".format(dataset_qnode, each_col_info["header"], label) \
                         .replace(" ", "_").replace("-", "_")
 
                     # wikifier part should always be updated, as column/row is specified for each cell
