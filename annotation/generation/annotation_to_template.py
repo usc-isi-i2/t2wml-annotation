@@ -30,9 +30,9 @@ def generate_template_from_df(input_df: pd.DataFrame, dataset_qnode: str, datase
 
     """
 
-    # Assumes the input_df.index contains column "A" of the annotation.
-    if not input_df.index[0] == 'dataset':
-        raise Exception('Index of the input dataframe must be column "A" of the annotaion')
+    # Assumes cell [0,0] is the start of the annotation
+    if not input_df.iloc[0,0] == 'dataset':
+        raise Exception('The first column of the dataframe must bet the annotations (not the index of the dataframe)')
 
     utility = Utility()
 
