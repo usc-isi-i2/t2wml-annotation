@@ -130,3 +130,6 @@ dmypy.json
 
 # Mac file
 .DS_Store
+
+# emacs
+*~
