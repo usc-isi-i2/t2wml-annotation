@@ -130,24 +130,23 @@ def _generate_attributes_tab(dataset_qnode: str, annotation_part: pd.DataFrame) 
     """
     attributes_df_list = []
     seen_attributes = {}
+
+    # update 2020.11.11, always check if P131 is needed
+    all_column_types = set(annotation_part.T['type'].unique())
+    for types, edge_info in ADDITIONAL_QUALIFIER_MAP.items():
+        if len(set(types).intersection(all_column_types)) > 0:
+            attributes_df_list.append({"Attribute": edge_info["Attribute"],
+                                       "Property": edge_info["Property"], "Role": "qualifier",
+                                       "Relationship": "", "type": "WikibaseItem",
+                                       "label": edge_info["Attribute"],
+                                       "description": edge_info["Attribute"]})
+
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
         role_info = each_col_info["role"].split(";")
         role_lower = role_info[0].lower()
 
-        # update 2020.7.29, add an extra qualifier for string main subject condition
-        if role_lower == "main subject" and each_col_info["type"].lower() == "string":
-            all_column_types = set(annotation_part.T['type'].unique())
-            for types, edge_info in ADDITIONAL_QUALIFIER_MAP.items():
-                if len(set(types).intersection(all_column_types)) > 0:
-                    attributes_df_list.append({"Attribute": edge_info["Attribute"],
-                                               "Property": edge_info["Property"], "Role": "qualifier",
-                                               "Relationship": "", "type": "WikibaseItem",
-                                               "label": edge_info["Attribute"],
-                                               "description": edge_info["Attribute"]})
-            continue
-
-        elif role_lower in {"variable", "qualifier"}:
+        if role_lower in {"variable", "qualifier"}:
             # if ";" exists, we need to use those details on variables
             if len(role_info) > 1:
                 relationship = role_info[1]
