@@ -115,7 +115,7 @@ def _generate_dataset_tab(input_df: pd.DataFrame, dataset_qnode: str, dataset_id
 
     dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
     dataset_node2s = ["Q1172284", '"{}"'.format(name), '"{}"'.format(name),
-                      '"{}"'.format(description), dataset_qnode, '"{}"'.format(url)]
+                      '"{}"'.format(description), '"{}"'.format(url), dataset_qnode]
     for label, node2 in zip(dataset_labels, dataset_node2s):
         dataset_qnode_df_list.append({"dataset": dataset_qnode, "label": label, "node2": node2})
 
