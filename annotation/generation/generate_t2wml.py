@@ -348,12 +348,13 @@ class ToT2WML:
             if time_format:
                 format_list.append(time_format)
             precision_list.append(precision)
+
         result = {
             'property': 'P585',
             'value': value,  # '=conat(value[C:E, $row], "-")',
             'calendar': 'Q1985727',
             'format': format_list if format_list else '%Y  # FIX ME',
-            'precision': precision_list[0],  # Until precision list is supported, just return first item
+            'precision': precision_list[0] if precision_list else 'day',  # Until precision list is supported, just return first item
             'time_zone': 0,
         }
         return result
@@ -374,7 +375,7 @@ class ToT2WML:
             return result
 
         # Check if type is plain 'date'
-        date_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.DATE,
+        date_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.DATE.value,
                                    within=self.time_indcies)
         if date_indices.shape[0] > 0:
             time_index = date_indices.shape[0]
