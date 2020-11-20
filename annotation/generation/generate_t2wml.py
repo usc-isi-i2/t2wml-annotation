@@ -378,7 +378,7 @@ class ToT2WML:
         date_indices = get_indices(self.sheet.iloc[self.type_index, :], Type.DATE.value,
                                    within=self.time_indcies)
         if date_indices.shape[0] > 0:
-            time_index = date_indices.shape[0]
+            time_index = date_indices[0]
             result = {
                 'property': 'P585',
                 'value': f'=value[{to_letter_column(time_index)}, $row]',
