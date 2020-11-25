@@ -109,9 +109,9 @@ def _generate_dataset_tab(input_df: pd.DataFrame, dataset_qnode: str, dataset_id
     """
     dataset_qnode_df_list = []
 
-    name = input_df.iloc[0, 1] if input_df.shape[0] > 1 and input_df.iloc[0, 1] else '{} dataset'.format(dataset_id)
-    description = input_df.iloc[0, 2] if input_df.shape[0] > 2 and input_df.iloc[0, 2] else '{} dataset'.format(dataset_id)
-    url = input_df.iloc[0, 3] if input_df.shape[0] > 3 and input_df.iloc[0, 3] else 'http://not/defined/{}'.format(dataset_id)
+    name = input_df.iloc[0, 1] if input_df.shape[1] > 1 and input_df.iloc[0, 1] else '{} dataset'.format(dataset_id)
+    description = input_df.iloc[0, 2] if input_df.shape[1] > 2 and input_df.iloc[0, 2] else '{} dataset'.format(dataset_id)
+    url = input_df.iloc[0, 3] if input_df.shape[1] > 3 and input_df.iloc[0, 3] else 'http://not/defined/{}'.format(dataset_id)
 
     dataset_labels = ["P31", "label", "P1476", "description", "P2699", "P1813"]
     dataset_node2s = ["Q1172284", '"{}"'.format(name), '"{}"'.format(name),
