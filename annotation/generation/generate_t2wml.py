@@ -484,9 +484,23 @@ class ToT2WML:
         return qualifier
 
     def _process_unit_columns(self) -> dict:
+        '''Process columns with unit roles.
+
+        Unit specification:
+        "unit|length,width" -> this unit column applies to variable columns "length" and "width"
+        "unit" -> this unit column allies to all variable columns
+
+        Returns a dict, where a key is variable column index and the corresponding value is list of unit column indices.
+        If key is None, the list of unit column indices applies to all variable columns.
+
+        '''
+
         result = dict()
+
+        # If not unit columns, just return
         if self.units_indices.shape[0] == 0:
             return result
+
         for i in range(self.units_indices.shape[0]):
             col_index = self.units_indices[i]
             unit_spec = self.sheet.iloc[self.role_index, col_index]
@@ -525,17 +539,23 @@ class ToT2WML:
         template['value'] = '=value[$col, $row]'
 
         if self.units_indices.shape[0] > 0:
+            # NOTE: Currently we do not support multiple yaml files.
+            # If None key exists the we just use that unit list.
+            # Otherwise, we just combine all the unit list.
             if None in variable_unit_map:
                 unit_cols = variable_unit_map[None]
-                if len(unit_cols) > 1:
-                    cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in unit_cols])
-                    value = f'=get_item(concat({cells} , ", "), "unit")'
-                else:
-                    col = unit_cols[0]
-                    value = f'=item[{to_letter_column(col)}, $row, "unit"]'
-                template['unit'] = value
             else:
-                template['unit'] = f'=item[$col, {self.unit_index + 1}, "unit"]'
+                unit_cols = sorted(list(set(unit for units in  variable_unit_map.values() for unit in units)))
+
+            if len(unit_cols) > 1:
+                cells = ', '.join([f'value[{to_letter_column(col)}, $row]' for col in unit_cols])
+                value = f'=get_item(concat({cells} , ", "), "unit")'
+            else:
+                col = unit_cols[0]
+                value = f'=item[{to_letter_column(col)}, $row, "unit"]'
+            template['unit'] = value
+        else:
+            template['unit'] = f'=item[$col, {self.unit_index + 1}, "unit"]'
 
         qualifier = []
         qualifier.append(self._get_time())
