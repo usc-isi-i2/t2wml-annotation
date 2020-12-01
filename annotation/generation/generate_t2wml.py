@@ -392,13 +392,28 @@ class ToT2WML:
         # Check if type is a format string
         cell_value = self.sheet.iloc[self.type_index, self.time_indcies[0]]
         if cell_value.startswith('%'):
+            if '|' in cell_value:
+                # After '|' is regular exrpress to capture date.
+                # For example, '%Y|=regex($$, "(\d{4})")' extract the first four digit and process it as year
+
+                # Replace unicode left and right quoation marks
+                cell_value = cell_value.replace(u'\u201c', '"').replace(u'\u201d', '"')
+                cell_value = cell_value.replace(u'\u2018', "'").replace(u'\u2019', "'")
+                try:
+                    date_format, value = cell_value.split('|')
+                    value = value.replace('$$', f'value[{to_letter_column(self.time_indcies[0])}, $row]')
+                except:
+                    raise Exception(f"Invalid time specification: {cell_value}")
+            else:
+                date_format = cell_value
+                value = f'=value[{to_letter_column(self.time_indcies[0])}, $row]'
             result = {
                 'property': 'P585',
-                'value': f'=value[{to_letter_column(self.time_indcies[0])}, $row]',
+                'value': value,
                 'calendar': 'Q1985727',
                 # 'precision': 'day',
                 'time_zone': 0,
-                'format': cell_value
+                'format': date_format
             }
             return result
 
