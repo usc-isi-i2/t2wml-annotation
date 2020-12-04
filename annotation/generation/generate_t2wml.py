@@ -570,7 +570,7 @@ class ToT2WML:
                 value = f'=item[{to_letter_column(col)}, $row, "unit"]'
             template['unit'] = value
         else:
-            template['unit'] = f'=item[$col, {self.unit_index + 1}, "unit"]'
+            template['unit'] = f'=value[$col, {self.unit_index + 1}] -> item[$col, {self.unit_index + 1}, "unit"]'
 
         qualifier = []
         qualifier.append(self._get_time())
@@ -600,6 +600,7 @@ if __name__ == '__main__':
     # input_file = '/home/kyao/dev/t2wml-projects/projects/aid/csv/aid worker security_incidents2020-06-22.xlsx'
     # input_file = '/home/ktyao/dev/dsbox/t2wml-projects/aid_worker/aid worker security_incidents2020-06-22-annotated.xlsx'
     input_file = '/home/ktyao/dev/dsbox/datamart-api/test/test_data/07_worker_incidents.xlsx'
+
     sheet = pd.read_excel(input_file, header=None)
     sheet.iloc[1, :] = sheet.iloc[1, :].fillna(method='ffill')
     to_t2wml = ToT2WML(sheet, 'Qawsd')
