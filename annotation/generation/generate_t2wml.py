@@ -490,6 +490,11 @@ class ToT2WML:
                     'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
                     'value': f'=value[{to_letter_column(col_index)}, $row]'
                 }
+            elif col_type == Type.ENTITY.value:
+                entry = {
+                    'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
+                    'value': f'=item[{to_letter_column(col_index)}, $row]'
+                }
             else:
                 entry = {
                     'property': f'=item[{to_letter_column(col_index)}, {self.header_index + 1}, "property"]',
