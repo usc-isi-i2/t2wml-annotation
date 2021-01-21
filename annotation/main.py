@@ -3,7 +3,7 @@ import tempfile, yaml
 from annotation.generation.generate_t2wml import ToT2WML
 from annotation.generation.generate_kgtk import GenerateKgtk
 from annotation.validation.validate_annotation import ValidateAnnotation
-from t2wml.parsing.yaml_parsing import validate_yaml
+from t2wml.input_processing.yaml_parsing import validate_yaml
 
 class T2WMLAnnotation(object):
     def __init__(self):
