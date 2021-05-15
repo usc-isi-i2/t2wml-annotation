@@ -447,12 +447,13 @@ class ToT2WML:
                 }
                 qualifiers.append(entry)
                 items.append(item)
-        if items:
-            qualifier = {
-                'property': 'P131',
-                'value': '=' + ' or '.join(items)
-            }
-            qualifiers.append(qualifier)
+        # 2021-05-25: Adding P131 is cause Postgres to generate O(row^2) query plans.
+        # if items:
+        #     qualifier = {
+        #         'property': 'P131',
+        #         'value': '=' + ' or '.join(items)
+        #     }
+        #     qualifiers.append(qualifier)
         return qualifiers
 
     def _get_coordinate(self) -> list:
