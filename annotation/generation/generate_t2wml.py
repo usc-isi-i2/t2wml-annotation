@@ -445,15 +445,17 @@ class ToT2WML:
                     'property': f'{property_node[col_type]}',
                     'value': value
                 }
-                qualifiers.append(entry)
-                items.append(item)
-        # 2021-05-25: Adding P131 is cause Postgres to generate O(row^2) query plans.
-        # if items:
-        #     qualifier = {
-        #         'property': 'P131',
-        #         'value': '=' + ' or '.join(items)
-        #     }
-        #     qualifiers.append(qualifier)
+
+                # 2021-05-16: Adding location edges causes Postgres to generate O(row^2) query plans.
+                if not context == 'main subject':
+                    qualifiers.append(entry)
+                    items.append(item)
+        if items:
+            qualifier = {
+                'property': 'P131',
+                'value': '=' + ' or '.join(items)
+            }
+            qualifiers.append(qualifier)
         return qualifiers
 
     def _get_coordinate(self) -> list:
