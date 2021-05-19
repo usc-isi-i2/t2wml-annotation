@@ -19,7 +19,7 @@ ADDITIONAL_QUALIFIER_MAP = {
     #               "Property": "P2006190002"},
     # ("admin3",): {"Attribute": "located in the third-level administrative country subdivision",
     #               "Property": "P2006190003"},
-    ("country", "admin1", "admin2", "admin1"): {"Attribute": "located in the administrative territorial entity",
+    ("country", "admin1", "admin2", "admin3"): {"Attribute": "located in the administrative territorial entity",
                                                 "Property": "P131"},
 }
 
@@ -131,15 +131,16 @@ def _generate_attributes_tab(dataset_qnode: str, annotation_part: pd.DataFrame) 
     attributes_df_list = []
     seen_attributes = {}
 
-    # update 2020.11.11, always check if P131 is needed
-    all_column_types = set(annotation_part.T['type'].unique())
-    for types, edge_info in ADDITIONAL_QUALIFIER_MAP.items():
-        if len(set(types).intersection(all_column_types)) > 0:
-            attributes_df_list.append({"Attribute": edge_info["Attribute"],
-                                       "Property": edge_info["Property"], "Role": "qualifier",
-                                       "Relationship": "", "type": "WikibaseItem",
-                                       "label": edge_info["Attribute"],
-                                       "description": edge_info["Attribute"]})
+    # for causx country as main subject
+    # # update 2020.11.11, always check if P131 is needed
+    # all_column_types = set(annotation_part.T['type'].unique())
+    # for types, edge_info in ADDITIONAL_QUALIFIER_MAP.items():
+    #     if len(set(types).intersection(all_column_types)) > 0:
+    #         attributes_df_list.append({"Attribute": edge_info["Attribute"],
+    #                                    "Property": edge_info["Property"], "Role": "qualifier",
+    #                                    "Relationship": "", "type": "WikibaseItem",
+    #                                    "label": edge_info["Attribute"],
+    #                                    "description": edge_info["Attribute"]})
 
     for i in range(annotation_part.shape[1]):
         each_col_info = annotation_part.iloc[:, i]
