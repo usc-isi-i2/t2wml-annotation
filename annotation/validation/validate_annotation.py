@@ -58,8 +58,12 @@ class ValidateAnnotation(object):
 
         valid_role_and_type = self.validate_roles_types(df)
 
-        rename_columns = self.validate_qualifier_headers(df, qualifier_cols)
-        rename_columns.extend(self.validate_variable_headers(df, variable_col_ids))
+        try:
+            rename_columns = self.validate_qualifier_headers(df, qualifier_cols)
+            rename_columns.extend(self.validate_variable_headers(df, variable_col_ids))
+        except IndexError:
+            # Missing "data" in column one causes exception
+            rename_columns = []
 
         if not valid_role_and_type or not valid_column_one or not valid_roles:
             return json.dumps(self.error_report, indent=4), False, rename_columns
