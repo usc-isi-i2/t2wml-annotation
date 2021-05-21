@@ -14,8 +14,7 @@ from annotation.generation.annotation_to_template import generate_template_from_
 from time import time
 import shortuuid
 
-# currently this script only support t2wml == 2.0a19
-
+from .kgtk_replacement import implode, explode, add_ids, add_ids2
 
 class GenerateKgtk:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict, dataset_qnode: str = None,
@@ -68,9 +67,9 @@ class GenerateKgtk:
         # update 2020.7.27, enable debug to save the template and template-output files
         if self._debug:
             if debug_dir is None:
-                self.debug_dir = os.path.join(os.getenv("HOME"), "datamart-annotation-debug-output")
+                self.debug_dir = os.path.join(os.getenv("HOME"), "datamart-annotation-debug-output", self.dataset_id)
             else:
-                self.debug_dir = debug_dir
+                self.debug_dir = os.path.join(debug_dir, self.dataset_id)
             os.makedirs(self.debug_dir, exist_ok=True)
             if not os.access(self.debug_dir, os.W_OK):
                 raise ValueError("No write permission to debug folder `{}`".format(self.debug_dir))
@@ -151,7 +150,7 @@ class GenerateKgtk:
         """
         Returns dataframe of the output from kgtk
         """
-        exploded_file, metadata_file = self._make_preparations()
+        exploded_file, metadata_file, exploded_df, metadata_df = self._make_preparations()
 
         # add id
         _ = exploded_file.seek(0)
@@ -168,7 +167,9 @@ class GenerateKgtk:
             raise ValueError("Running kgtk add-id failed! Please check!")
         _ = final_output_file.seek(0)
 
-        final_output_df = pd.read_csv(final_output_file, sep="\t", quoting=csv.QUOTE_NONE)
+        final_output_old_df = pd.read_csv(final_output_file, sep="\t", quoting=csv.QUOTE_NONE)
+        final_output_df = add_ids2(exploded_df)
+        assert((final_output_old_df['id'] == final_output_df['id']).all())
 
         if self._debug:
             shutil.copy(final_output_file.name, os.path.join(self.debug_dir, 'kgtk-edges.tsv'))
@@ -229,7 +230,7 @@ class GenerateKgtk:
         finally:
             os.remove(data_filepath)
 
-        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t", quoting=csv.QUOTE_NONE)
+        t2wml_kgtk_df = pd.read_csv(t2wml_output_filepath, sep="\t", quoting=csv.QUOTE_NONE, dtype=str)
         if len(t2wml_kgtk_df) == 0:
             raise ValueError("An empty kgtk file was generated from t2wml! Please check!")
 
@@ -247,6 +248,11 @@ class GenerateKgtk:
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk implode failed! Please check!")
+
+        kgtk_imploded = implode(t2wml_kgtk_df)
+        kgtk_imploded_old = pd.read_csv(kgtk_imploded_file_name, sep="\t", quoting=csv.QUOTE_NONE, dtype=str)
+        assert((kgtk_imploded == kgtk_imploded_old).all().all())
+
         _ = kgtk_imploded_file.seek(0)
 
         # concat metadata file
@@ -255,6 +261,7 @@ class GenerateKgtk:
             if each_df is not None and name.endswith(".tsv"):
                 if name.strip() != 'datamart_schema_properties.tsv':
                     metadata_df = pd.concat([metadata_df, each_df])
+        metadata_df.reset_index(drop=True, inplace=True)
         metadata_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         exploded_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         metadata_file_name = metadata_file.name
@@ -274,6 +281,8 @@ class GenerateKgtk:
         if return_res != "":
             print(return_res)
             raise ValueError("Running kgtk explode failed! Please check!")
+
+        exploded_df = explode(pd.concat([kgtk_imploded, metadata_df], ignore_index=True))
         # _ = metadata_file.seek(0)
         # _ = exploded_file.seek(0)
 
@@ -288,4 +297,4 @@ class GenerateKgtk:
         #     print(res)
         #     raise ValueError("The output kgtk file is invalid!")
 
-        return exploded_file, metadata_file
+        return exploded_file, metadata_file, exploded_df, metadata_df

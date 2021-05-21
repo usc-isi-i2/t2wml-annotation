@@ -1,5 +1,6 @@
 xlsxwriter
 pyyaml
-kgtk@git+https://github.com/usc-isi-i2/kgtk.git@94b94adc2118584f2621e212de075c71124c261a
-tl@git+https://github.com/usc-isi-i2/table-linker.git@36b58f87cdf3cad190e25d8d87e89c11ed6c1079
+# kgtk@git+https://github.com/usc-isi-i2/kgtk.git@94b94adc2118584f2621e212de075c71124c261a
+# tl@git+https://github.com/usc-isi-i2/table-linker.git@36b58f87cdf3cad190e25d8d87e89c11ed6c1079
 pandas
+shortuuid==1.0.1
