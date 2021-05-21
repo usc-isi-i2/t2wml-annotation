@@ -77,20 +77,21 @@ def execute_shell_code(shell_command: str, debug=True):
     return stdout
 
 
-def populate_node2_columns(folder_path: str):
-    t2wml_output_path = os.path.join(folder_path, "t2wml-output")
-    output_path = None
-    if not os.path.exists(os.path.join(folder_path, "imploded")):
-        os.mkdir(os.path.join(folder_path, "imploded"))
-    for each_file in os.listdir(t2wml_output_path):
-        full_path = os.path.join(t2wml_output_path, each_file)
-        if os.path.isfile(full_path) and each_file.endswith(".tsv"):
-            # print("processing", full_path)
-            output_path = os.path.join(folder_path, "imploded", each_file)
-            shell_code = """
-            kgtk implode -i "{}" --remove-prefixed-columns True --without si_units language_suffix -o "{}"
-            """.format(full_path, output_path)
-            execute_shell_code(shell_code)
-    if not output_path:
-        raise ValueError("No tsv file found to populate!")
-    return output_path
+# Not used?
+# def populate_node2_columns(folder_path: str):
+#     t2wml_output_path = os.path.join(folder_path, "t2wml-output")
+#     output_path = None
+#     if not os.path.exists(os.path.join(folder_path, "imploded")):
+#         os.mkdir(os.path.join(folder_path, "imploded"))
+#     for each_file in os.listdir(t2wml_output_path):
+#         full_path = os.path.join(t2wml_output_path, each_file)
+#         if os.path.isfile(full_path) and each_file.endswith(".tsv"):
+#             # print("processing", full_path)
+#             output_path = os.path.join(folder_path, "imploded", each_file)
+#             shell_code = """
+#             kgtk implode -i "{}" --remove-prefixed-columns True --without si_units language_suffix -o "{}"
+#             """.format(full_path, output_path)
+#             execute_shell_code(shell_code)
+#     if not output_path:
+#         raise ValueError("No tsv file found to populate!")
+#     return output_path

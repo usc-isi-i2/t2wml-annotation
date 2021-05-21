@@ -16,6 +16,8 @@ import shortuuid
 
 from .kgtk_replacement import implode, explode, add_ids, add_ids2
 
+HAS_KGTK=False
+
 class GenerateKgtk:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict, dataset_qnode: str = None,
                  wikifier_file: str = None, property_file: str = None, add_datamart_constant_properties: bool = False,
@@ -156,20 +158,22 @@ class GenerateKgtk:
         _ = exploded_file.seek(0)
         final_output_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         final_output_path = final_output_file.name
-        shell_code = """
-        kgtk add_id --overwrite-id False --id-style node1-label-node2-num -i {} > {}
-        """.format(exploded_file.name, final_output_path)
-        s = time()
-        return_res = execute_shell_code(shell_code)
-        print(f'time take to run kgtk add id: {time() - s} seconds')
-        if return_res != "":
-            print(return_res)
-            raise ValueError("Running kgtk add-id failed! Please check!")
-        _ = final_output_file.seek(0)
 
-        final_output_old_df = pd.read_csv(final_output_file, sep="\t", quoting=csv.QUOTE_NONE)
         final_output_df = add_ids2(exploded_df)
-        assert((final_output_old_df['id'] == final_output_df['id']).all())
+        if HAS_KGTK:
+            shell_code = """
+            kgtk add_id --overwrite-id False --id-style node1-label-node2-num -i {} > {}
+            """.format(exploded_file.name, final_output_path)
+            s = time()
+            return_res = execute_shell_code(shell_code)
+            print(f'time take to run kgtk add id: {time() - s} seconds')
+            if return_res != "":
+                print(return_res)
+                raise ValueError("Running kgtk add-id failed! Please check!")
+            _ = final_output_file.seek(0)
+            final_output_old_df = pd.read_csv(final_output_file, sep="\t", quoting=csv.QUOTE_NONE)
+            assert((final_output_old_df['id'] == final_output_df['id']).all())
+            _ = final_output_file.seek(0)
 
         if self._debug:
             shutil.copy(final_output_file.name, os.path.join(self.debug_dir, 'kgtk-edges.tsv'))
@@ -239,19 +243,24 @@ class GenerateKgtk:
         # generate imploded file
         kgtk_imploded_file = tempfile.NamedTemporaryFile(mode='r+', suffix=".tsv")
         kgtk_imploded_file_name = kgtk_imploded_file.name
-        shell_code = """
-            kgtk implode -i "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
-            """.format(t2wml_output_filepath, kgtk_imploded_file_name)
-        s = time()
-        return_res = execute_shell_code(shell_code)
-        print(f'time take to run kgtk implode: {time() - s} seconds')
-        if return_res != "":
-            print(return_res)
-            raise ValueError("Running kgtk implode failed! Please check!")
 
         kgtk_imploded = implode(t2wml_kgtk_df)
-        kgtk_imploded_old = pd.read_csv(kgtk_imploded_file_name, sep="\t", quoting=csv.QUOTE_NONE, dtype=str)
-        assert((kgtk_imploded == kgtk_imploded_old).all().all())
+        if HAS_KGTK:
+            shell_code = """
+                kgtk implode -i "{}" --allow-lax-qnodes --remove-prefixed-columns True --without si_units language_suffix > "{}"
+                """.format(t2wml_output_filepath, kgtk_imploded_file_name)
+            s = time()
+            return_res = execute_shell_code(shell_code)
+            print(f'time take to run kgtk implode: {time() - s} seconds')
+            if return_res != "":
+                print(return_res)
+                raise ValueError("Running kgtk implode failed! Please check!")
+
+            kgtk_imploded_old = pd.read_csv(kgtk_imploded_file_name, sep="\t", quoting=csv.QUOTE_NONE, dtype=str)
+            assert((kgtk_imploded == kgtk_imploded_old).all().all())
+        else:
+            kgtk_imploded.to_csv(kgtk_imploded_file_name, sep="\t", index=False, quoting=csv.QUOTE_NONE)
+
 
         _ = kgtk_imploded_file.seek(0)
 
@@ -269,20 +278,23 @@ class GenerateKgtk:
         metadata_df.to_csv(metadata_file_name, sep="\t", index=False, quoting=csv.QUOTE_NONE)
         _ = metadata_file.seek(0)
 
-        # combine and explode the results
-        shell_code = """
-        kgtk cat -i {} {} \
-        / explode --allow-lax-qnodes True --overwrite True \
-        > {}
-        """.format(kgtk_imploded_file_name, metadata_file_name, exploded_file_name)
-        s = time()
-        return_res = execute_shell_code(shell_code)
-        print(f'time take to run kgtk cat and explode: {time() - s} seconds')
-        if return_res != "":
-            print(return_res)
-            raise ValueError("Running kgtk explode failed! Please check!")
-
         exploded_df = explode(pd.concat([kgtk_imploded, metadata_df], ignore_index=True))
+        if HAS_KGTK:
+            # combine and explode the results
+            shell_code = """
+            kgtk cat -i {} {} \
+            / explode --allow-lax-qnodes True --overwrite True \
+            > {}
+            """.format(kgtk_imploded_file_name, metadata_file_name, exploded_file_name)
+            s = time()
+            return_res = execute_shell_code(shell_code)
+            print(f'time take to run kgtk cat and explode: {time() - s} seconds')
+            if return_res != "":
+                print(return_res)
+                raise ValueError("Running kgtk explode failed! Please check!")
+        else:
+            exploded_df.to_csv(exploded_file_name, sep="\t", index=False, quoting=csv.QUOTE_NONE)
+
         # _ = metadata_file.seek(0)
         # _ = exploded_file.seek(0)
 
