@@ -458,6 +458,48 @@ class ToT2WML:
             qualifiers.append(qualifier)
         return qualifiers
 
+
+    # Version that adds P131 edge
+    # def _get_admins(self) -> list:
+    #     # country and admins
+    #     qualifiers = []
+    #     items = []
+    #     is_main_subject_location = False
+    #     for col_type in [Type.ADMIN3, Type.ADMIN2, Type.ADMIN1, Type.COUNTRY]:
+    #         if get_indices(self.sheet.iloc[self.type_index, :], col_type.value).shape[0]:
+    #             col_index = Utility.get_index(self.sheet.iloc[self.type_index, :], col_type.value)
+    #             context = location_context[col_type]
+    #             if self.main_subject_index == col_index:
+    #                 context = "main subject"
+    #             item = f'item[{to_letter_column(col_index)}, $row, "{context}"]'
+    #             value = f'={item}'
+    #             entry = {
+    #                 'property': f'{property_node[col_type]}',
+    #                 'value': value
+    #             }
+
+    #             # 2021-05-16: Adding location edges causes Postgres to generate O(row^2) query plans.
+    #             if context == 'main subject':
+    #                 is_main_subject_location = True
+    #             else:
+    #                 qualifiers.append(entry)
+    #                 items.append(item)
+    #     if is_main_subject_location:
+    #         col_index = self.main_subject_index
+    #         context = "main subject"
+    #         qualifier = {
+    #             'property': 'P131',
+    #             'value': f'=item[{to_letter_column(col_index)}, $row, "{context}"]'
+    #         }
+    #         qualifiers.append(qualifier)
+    #     elif items:
+    #         qualifier = {
+    #             'property': 'P131',
+    #             'value': '=' + ' or '.join(items)
+    #         }
+    #         qualifiers.append(qualifier)
+    #     return qualifiers
+
     def _get_coordinate(self) -> list:
         # add coordinate
         longitude_index = get_indices(self.sheet.iloc[self.type_index, :], Type.LONGITUDE.value)
