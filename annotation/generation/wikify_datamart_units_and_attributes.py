@@ -81,7 +81,7 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
 
 def generate(loaded_file: dict, output_path: str = ".", column_name_config=None, to_disk=True,
              datamart_properties_file: str = None, dataset_qnode: str = None, dataset_id: str = None,
-             debug: bool = False,
+             always_add_tag_edge=False, debug: bool = False,
              ) -> typing.Optional[dict]:
     """
     The main entry function for generating datamart files from template input,
@@ -133,7 +133,8 @@ def generate(loaded_file: dict, output_path: str = ".", column_name_config=None,
     kgtk_variables_df = _generate_KGTK_variables_file(loaded_file["attributes_file"],
                                                       dataset_qnode, dataset_id, memo,
                                                       column_name_config["attributes_file_node_column_name"],
-                                                      column_name_config["attributes_file_node_label_column_name"])
+                                                      column_name_config["attributes_file_node_label_column_name"],
+                                                      always_add_tag_edge=always_add_tag_edge)
 
     kgtk_units_df = _generate_KGTK_units_file(loaded_file["units_file"], dataset_qnode, memo,
                                               column_name_config["unit_file_node_column_name"],
@@ -250,7 +251,8 @@ def _generate_KGTK_properties_file(input_df: pd.DataFrame, qualifier_df: pd.Data
 
 
 def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, dataset_id: str, memo: dict,
-                                  node_column_name="Property", node_label_column_name="Attribute"):
+                                  node_column_name="Property", node_label_column_name="Attribute",
+                                  always_add_tag_edge=False):
     """
         sample format for each variable, totally 10 + n (n is the count of related qualifiers) rows
             "id"                                 "node1"        "label"          "node2"
@@ -346,11 +348,19 @@ def _generate_KGTK_variables_file(input_df: pd.DataFrame, dataset_q_node: str, d
         node1s = [q_node_id] * (len(fixed_labels) - 1) + [dataset_q_node] + [q_node_id] * len(target_properties)
 
         # Add tag edges
+        added_tags = False
         if 'tag' in input_df.columns and each_row['tag']:
             tag_values = [to_kgtk_format_string(x) for x in each_row['tag'].split('|')]
             node1s += [q_node_id] * len(tag_values)
             labels += ['P2010050001'] * len(tag_values)
             node2s += tag_values
+            added_tags = len(tag_values) > 0
+
+        # This needed for SQL Server indexed views fuzzy query. To avoid left join always have at least one tag edge
+        if always_add_tag_edge and not added_tags:
+            node1s += [q_node_id]
+            labels += ['P2010050001']
+            node2s += [to_kgtk_format_string('')]
 
         # add those nodes
         for i, each_label in enumerate(labels):

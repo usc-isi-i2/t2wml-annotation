@@ -21,7 +21,7 @@ HAS_KGTK=False
 class GenerateKgtk:
     def __init__(self, annotated_spreadsheet: pd.DataFrame, t2wml_script: dict, dataset_qnode: str = None,
                  wikifier_file: str = None, property_file: str = None, add_datamart_constant_properties: bool = False,
-                 debug: bool = False, debug_dir: str = None):
+                 always_add_tag_edge=False, debug: bool = False, debug_dir: str = None):
         """
         Parameters
         ----------
@@ -90,6 +90,7 @@ class GenerateKgtk:
                                        dataset_qnode=dataset_qnode,
                                        dataset_id=self.dataset_id,
                                        debug=self._debug,
+                                       always_add_tag_edge=always_add_tag_edge,
                                        )
 
         # update 2020.7.22: not add dataset edges

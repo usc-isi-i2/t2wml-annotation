@@ -9,7 +9,15 @@ class T2WMLAnnotation(object):
     def __init__(self):
         self.va = ValidateAnnotation()
 
-    def process(self, dataset_qnode, df, rename_columns, extra_files=False, t2wml_yaml: str=None):
+    def process(self, dataset_qnode, df, rename_columns, extra_files=False, t2wml_yaml: str=None, *,
+                always_add_tag_edge=False):
+        """
+        Parameters
+        ----------
+        always_add_tag_edge: bool
+            Aways add a tag edge. If no tags are defined, add an empty string tag. This needed for Causx SQL Server index view.
+        """
+
         for rn in rename_columns:
             df.iloc[rn[0], rn[1]] = rn[2]
 
@@ -24,7 +32,9 @@ class T2WMLAnnotation(object):
                 temp_yaml_file.seek(0)
                 t2wml_yaml_dict = validate_yaml(temp_yaml_file.name)
 
-        gk = GenerateKgtk(df, t2wml_yaml_dict, dataset_qnode=dataset_qnode, debug=True, debug_dir='/tmp')
+        gk = GenerateKgtk(
+            df, t2wml_yaml_dict, dataset_qnode=dataset_qnode, always_add_tag_edge=always_add_tag_edge,
+            debug=True, debug_dir='/tmp')
 
         combined_item_def_df = pd.concat(
             [gk.output_df_dict[filename] for filename in gk.output_df_dict.keys() if filename.endswith('.tsv')])
