@@ -24,7 +24,7 @@ def build_wikidata_id(row, node1_column_idx, node2_column_idx, label_column_idx,
             hashlib.sha256(node2_value.encode('utf-8')).hexdigest()[:value_hash_width]
 
 def add_ids2(df, overwrite_id=False):
-    ''''This version assume the "id" column exists. By default it does not overide existind ids'''
+    ''''This version assume the "id" column exists. By default it does not overide existing ids'''
     def build_wikidata_id2(row, value_hash_width=6, id_separator="-"):
         node2_value = row['node2']
         if value_hash_width > 0 and node2_value.startswith(('L', 'P', 'Q')):
@@ -261,7 +261,13 @@ DEFAULT_DATA_TYPE_FIELDS = {
         DataType.SYMBOL.lower(): [ DATA_TYPE_FIELD_NAME, VALID_FIELD_NAME, SYMBOL_FIELD_NAME ],
     }
 
-def explode(df, verbose=1, ctxPipeline=None):
+def explode(df, verbose=0, ctxPipeline=None):
+    OUTPUT_COLUMNS = [
+        'node1', 'label', 'node2', 'id', 'node2;kgtk:data_type', 'node2;kgtk:valid', 'node2;kgtk:list_len',
+        'node2;kgtk:number', 'node2;kgtk:low_tolerance', 'node2;kgtk:high_tolerance', 'node2;kgtk:si_units',
+        'node2;kgtk:units_node', 'node2;kgtk:text', 'node2;kgtk:language', 'node2;kgtk:language_suffix',
+        'node2;kgtk:latitude', 'node2;kgtk:longitude', 'node2;kgtk:date_and_time', 'node2;kgtk:precision',
+        'node2;kgtk:truth', 'node2;kgtk:symbol']
     column_name= "node2"
     column_names =  list(df.columns.values) # df.columns.copy() #
     prefix = "node2;" + KGTK_NAMESPACE
@@ -306,6 +312,8 @@ def explode(df, verbose=1, ctxPipeline=None):
             else:
                 row[idx] = "" # In case we are overwriting an existing column.
         # print(row)
+
+    df = df[OUTPUT_COLUMNS]
 
     if ctxPipeline:
         ctxPipeline.create_output(df)
