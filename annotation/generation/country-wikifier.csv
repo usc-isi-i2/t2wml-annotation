@@ -278,7 +278,6 @@ column,row,value,context,item
 ,,United States,,Q30
 ,,United States of America,,Q30
 ,,UNITED STATES OF AMERICA,,Q30
-,,USA,,Q30
 ,,Uzbekistan,,Q265
 ,,St. Vincent and the Grenadines,,Q757
 ,,Saint Vincent and the Grenadines,,Q757
@@ -297,7 +296,6 @@ column,row,value,context,item
 ,,SOUTH AFRICA,,Q258
 ,,Zambia,,Q953
 ,,Zimbabwe,,Q954
-,,USA,,Q30
 ,,Trinidad & Tobago,,Q754
 ,,Brunei,,Q921
 ,,Viet Nam,,Q881
@@ -588,7 +586,6 @@ column,row,value,context,item
 ,,BAH,,Q398
 ,,ISR,,Q801
 ,,THA,,Q869
-,,UAE,,Q878
 ,,ANG,,Q916
 ,,SUD,,Q1049
 ,,TUR,,Q43
