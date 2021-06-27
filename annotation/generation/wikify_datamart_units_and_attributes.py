@@ -62,6 +62,9 @@ def load_xlsx(input_file: str, sheet_name_config: dict = None):
         if v not in sheet_names:
             raise ValueError("Sheet name {} used for {} does not found!".format(v, k))
         loaded_file[k] = pd.read_excel(input_file, v)
+        # Unamed columns appearing because of LibreOffice?
+        unamed_columns = [col for col in loaded_file[k].columns if 'Unnamed: ' in col]
+        loaded_file[k] = loaded_file[k].drop(unamed_columns, axis=1)
 
     optional_sheet_name_config = {
         "wikifier": "Wikifier",
