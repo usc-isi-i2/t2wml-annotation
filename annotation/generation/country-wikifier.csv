@@ -74,7 +74,7 @@ column,row,value,context,item
 ,,Denmark,,Q35
 ,,Dominican Republic,,Q786
 ,,Algeria,,Q262
-,,Europe & Central Asia,,Q232
+,,Europe & Central Asia,,Q27275
 ,,Ecuador,,Q736
 ,,"Egypt, Arab Rep.",,Q79
 ,,Egypt,,Q79
@@ -174,6 +174,7 @@ column,row,value,context,item
 ,,Marshall Islands,,Q709
 ,,North Macedonia,,Q221
 ,,Macedonia,,Q221
+,,"Macedonia,FYR",,Q221
 ,,Mali,,Q912
 ,,Malta,,Q233
 ,,Myanmar,,Q836
@@ -217,6 +218,7 @@ column,row,value,context,item
 ,,Portugal,,Q45
 ,,Paraguay,,Q733
 ,,West Bank and Gaza,,Q407199
+,,Palestinian territories,,Q407199
 ,,French Polynesia,,Q30971
 ,,Qatar,,Q846
 ,,Romania,,Q218
@@ -285,6 +287,7 @@ column,row,value,context,item
 ,,Venezuela,,Q717
 ,,British Virgin Islands,,Q25305
 ,,Virgin Islands (U.S.),,Q11703
+,,United States Virgin Islands,,Q11703
 ,,Vietnam,,Q881
 ,,Vanuatu,,Q686
 ,,World,,Q16502
